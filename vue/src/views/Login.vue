@@ -1,6 +1,6 @@
 <template>
-  <div id="login">
-    <form @submit.prevent="login">
+  <div id="login">    
+    <form id=loginForm @submit.prevent="login" class=login-form>
       <h1 >Please Sign In</h1>
       <div role="alert" v-if="invalidCredentials">
         Invalid username and password!
@@ -68,4 +68,7 @@ export default {
 label {
   margin-right: 0.5rem;
 }
+
+
+
 </style>

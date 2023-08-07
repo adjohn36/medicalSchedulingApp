@@ -17,6 +17,15 @@
         <label for="confirmPassword">Confirm Password</label>
         <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
       </div>
+      <div>       
+        <input type="checkbox" id="checkbox" v-model="checked" />
+        <label for="checkbox" >Are you a doctor {{ checked }}</label>
+        
+      </div>
+       <div class="form-input-group" v-bind:style="{}">
+        <label for="adminEmail">Administrative Email</label>
+        <input type="email" id="adminEmail"  />
+      </div>
       <button type="submit">Create Account</button>
       <p><router-link :to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
     </form>
@@ -80,4 +89,5 @@ export default {
 label {
   margin-right: 0.5rem;
 }
+
 </style>
