@@ -7,7 +7,7 @@ import Register from '../views/Register.vue'
 import store from '../store/index'
 import Profile from '../views/Profile.vue'
 import ViewOfficeInfo from '../views/ViewOfficeInfo.vue'
-
+import UpdateOfficeInfo from '../views/UpdateOfficeInfo.vue'
 Vue.use(Router)
 
 /**
@@ -67,6 +67,15 @@ const router = new Router({
       path: "/viewOfficeInfo",
       name: "office-info",
       component: ViewOfficeInfo,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    
+    {
+      path: "/updateOfficeInfo",
+      name: "update-office-info",
+      component: UpdateOfficeInfo,
       meta: {
         requiresAuth: false
       }
