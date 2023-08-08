@@ -19,7 +19,26 @@ if(currentToken != null) {
 export default new Vuex.Store({
   state: {
     token: currentToken || '',
-    user: currentUser || {}
+    user: currentUser || {},
+
+    DoctorFacility: [
+      {
+        id: 1,
+        doctorName: "Dr.Patel",        
+        Address: "#1001 South Federal rd."
+      },
+      {
+        id: 2,
+        doctorName: "Dr.Valencia",        
+        Address: "#1002 Beck woods dr."
+      },
+      {
+        id: 3,
+        doctorName: "Dr.Mike",        
+        Address: "#1004 Beck woods dr."
+      }
+    
+    ]
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
