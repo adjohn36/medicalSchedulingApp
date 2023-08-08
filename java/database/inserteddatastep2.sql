@@ -7,3 +7,30 @@ VALUES ('735 Ogletown Stanton Rd, #3302', 'Newark', 'DE', '19713', '302-623-1234
 ('920 Dupont Parkway', 'Townsend', 'DE', '19734', '302-449-1234', '8:00AM', '5:00PM', 'Monday - Friday', 'Pediatric Doctors of Delaware')
 RETURNING office_id;
 
+SELECT * FROM office;
+--INSERT INTO users (username, )
+
+INSERT INTO patient (user_id, patient_full_name, patient_street_address, patient_city, patient_state, patient_zip_code, patient_phone_number,
+					patient_email, patient_dob)
+VALUES ('1', 'Stephanie Adams', '271 Adams St', 'Hockessin', 'DE', '19707', '302-123-4567', 'stephanieadamsisfantastic@yahoo.com', '01/01/2000')
+RETURNING patient_id;
+
+INSERT INTO schedule (day_of_the_week, time_slot)
+VALUES ('Monday', '10:00AM')
+RETURNING schedule_id;
+
+INSERT INTO doctor (doctor_npi, user_id, doctor_fullname, office_id, doctor_phone_number, doctor_email)
+VALUES ('1', '2', 'Afreen Kazi', '1', '302-098-7654', 'drafreenkazi@gmail.com');
+
+SELECT * FROM doctor;
+
+SELECT * FROM appointment WHERE schedule_id = '1';
+
+SELECT * FROM schedule;
+
+SELECT * FROM doctor_schedule;
+
+INSERT INTO doctor_schedule (doctor_id, schedule_id)
+VALUES ('1', '1')
+
+SELECT day_of_the_week, time_slot FROM schedule;
