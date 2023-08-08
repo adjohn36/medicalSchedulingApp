@@ -1,18 +1,19 @@
 CREATE TABLE doctor (
 doctor_npi VARCHAR (50) NOT NULL UNIQUE,
+doctor_id SERIAL NOT NULL,
 user_id INT NOT NULL,
 doctor_fullname VARCHAR (100) NOT NULL,
-office_id VARCHAR (25) NOT NULL,
+office_id INT NOT NULL,
 doctor_phone_number VARCHAR (20),
 doctor_email VARCHAR (50),
-CONSTRAINT pk_doctor PRIMARY KEY (doctor_npi),
 CONSTRAINT fk_doctor_user FOREIGN KEY (user_id) REFERENCES users (user_id)
+CONSTRAINT pk_doctor PRIMARY KEY (doctor_id)
 );
--- alter table with foreign key for office id
+
 
 CREATE TABLE office (
 office_id SERIAL NOT NULL,
-doctor_id VARCHAR,
+doctor_id INT,
 office_street_address VARCHAR (100) NOT NULL,
 office_city VARCHAR (50) NOT NULL,
 office_state VARCHAR (50) NOT NULL,
@@ -22,17 +23,21 @@ office_open_time TIME NOT NULL,
 office_close_time TIME NOT NULL,
 office_open_days VARCHAR (15) NOT NULL,
 CONSTRAINT pk_office PRIMARY KEY (office_id),
-CONSTRAINT fk_office_doctor FOREIGN KEY (doctor_id) REFERENCES doctor (doctor_npi)
+CONSTRAINT fk_office_doctor FOREIGN KEY (doctor_id) REFERENCES doctor (doctor_id)
 );
+--ALTER TABLE office ALTER COLUMN doctor_id TYPE INT USING doctor_id::integer;
+
 
 CREATE TABLE availability(
 availability_id SERIAL NOT NULL,
-doctor_id VARCHAR NOT NULL,
+doctor_id INT NOT NULL,
 time_slot TIMESTAMP NOT NULL,
+	
 CONSTRAINT pk_availability_id PRIMARY KEY (availability_id),
-	CONSTRAINT fk_doctor FOREIGN KEY (doctor_id) REFERENCES doctor (doctor_npi)
+CONSTRAINT fk_doctor FOREIGN KEY (doctor_id) REFERENCES doctor (doctor_id)
 );
--- confirm that timestamp is correct data type
+--ALTER TABLE availability ALTER COLUMN doctor_id TYPE INT USING doctor_id::integer;
+
 
 CREATE TABLE patient(
 patient_id SERIAL,
@@ -58,7 +63,35 @@ CREATE TABLE appointment(
 	CONSTRAINT fk_availability FOREIGN KEY (availability_id) REFERENCES availability (availability_id)
 );
 
+ALTER TABLE availability ADD slot_available BOOLEAN;
 
+ALTER TABLE doctor ADD CONSTRAINT fk_office FOREIGN KEY (office_id) REFERENCES office (office_id);
 
+CREATE TABLE review(
+	review_id SERIAL,
+	reviewer INT,
+	review_rating INT,
+	review_content VARCHAR (10000),
+	review_date DATE,
+	CONSTRAINT pk_review PRIMARY KEY (review_id),
+	CONSTRAINT fk_reviewer FOREIGN KEY (reviewer) REFERENCES users (user_id)
+);
 
+CREATE TABLE review_response(
+	response_id SERIAL,
+	review_id INT,
+	responder INT,
+	response_content VARCHAR (10000),
+	CONSTRAINT pk_response PRIMARY KEY (response_id),
+	CONSTRAINT fk_review FOREIGN KEY (review_id) REFERENCES review (review_id),
+	CONSTRAINT fk_responder FOREIGN KEY (responder) REFERENCES users (user_id)
+);
+
+CREATE TABLE doctor_patient(
+doctor_id INT,
+patient_id INT,
+CONSTRAINT fk_doctor FOREIGN KEY (doctor_id) REFERENCES doctor (doctor_id),
+CONSTRAINT fk_patient FOREIGN KEY (patient_id) REFERENCES patient (patient_id),
+CONSTRAINT pk_doctor_patient PRIMARY KEY (doctor_id, patient_id)
+);
 
