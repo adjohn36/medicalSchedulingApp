@@ -64,7 +64,7 @@ const router = new Router({
       }
     },
     {
-      path: "/viewOfficeInfo",
+      path: "/view-office-info",
       name: "office-info",
       component: ViewOfficeInfo,
       meta: {
@@ -73,7 +73,7 @@ const router = new Router({
     },
     
     {
-      path: "/updateOfficeInfo",
+      path: "/update-office-info",
       name: "update-office-info",
       component: UpdateOfficeInfo,
       meta: {

@@ -1,21 +1,19 @@
 <template>
   <div>
-       <h1>Office Information</h1>
-      <thead><tr>
-      <th>
-          Doctors Name
-      </th>
-        <th>
-          Location
-      </th>
-      </tr>
-      </thead>
-      <tbody>
+       <h1>Doctor Information</h1>   
+        <div v-for="doctor in doctorFacilityInfo" v-bind:key="doctor.id" class="doctor-info">
+          <div id="doc-info">{{doctor.doctorName}}</div>
+          <div id="address">{{doctor.Address}}</div>
+        </div>
+
+      <!-- <tbody>
         <tr v-for="doctor in doctorFacilityInfo" v-bind:key="doctor.id" >
             <td>{{doctor.doctorName}}</td>
-            <td>{{doctor.Address}}</td>
+            <td>{{doctor.City}}</td>
+            <td>{{doctor.State}}</td>
+            <td>{{doctor.ZipCode}}</td>
         </tr> 
-      </tbody>
+      </tbody> -->
   </div>
 </template>
 
@@ -35,5 +33,18 @@ export default {
 </script>
 
 <style>
+.doctor-info{
+  border-bottom: 1px solid #e3e3e3;
+  border-top: 1px solid #e3e3e3;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
 
+}
+#doc-info{
+  justify-content: left;
+}
+#address{
+  justify-content: right;
+}
 </style>
