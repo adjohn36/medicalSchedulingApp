@@ -6,27 +6,48 @@
         {{ updateOfficeErrorMsg }}
       </div> -->
     <div class="form-input-group">
-        <label for="firstName">First Name</label>
-        <input type="text" id="firstName" />
+        <label for="officeStreet">Street</label>
+        <input type="text" id="officeStreet" v-model="doctorFacilityInfo.officeStreet"/>
       </div>
-    <div class="form-input-group">
-        <label for="lastName">Last Name</label>
-        <input type="text" id="lastName" />
+
+      <div class="form-input-group">
+        <label for="officeCity">City</label>
+        <input type="text" id="officeCity" v-model="doctorFacilityInfo.officeCity"/>
       </div>
+
+      <div class="form-input-group">
+        <label for="officeState">State</label>
+        <input type="text" id="officeState" v-model="doctorFacilityInfo.officeState"/>
+      </div>
+
+    
+
        <div class="form-input-group">
-           <label for="location">Location</label>
-           <input type="text" id="location"/>
-       </div>
+        <label for="officeStateZipCode">Zip</label>
+        <input type="text" id="officeStateZipCode" v-model="doctorFacilityInfo.officeStateZipCode" />
+      </div>
+
        <div class="form-input-group">
            <label for="phoneNumber">Phone Number</label>
-           <input type="text" id="phoneNumber"/>
+           <input type="text" id="phoneNumber" v-model="doctorFacilityInfo.phoneNumber"/>
        </div>
 
       <div class="form-input-group">
-           <label for="officeHours">Office Hours</label>
-           <input type="text" id="officeHours"/>
+           <label for="officeOpenTime">Start Time</label>
+           <input type="text" id="officeOpenTime" v-model="doctorFacilityInfo.officeOpenTime"/>
+       </div>
+
+       <div class="form-input-group">
+           <label for="officeCloseTime">Close Time</label>
+           <input type="text" id="officeCloseTime" v-model="doctorFacilityInfo.officeCloseTime"/>
        </div>
     
+      
+       <div class="form-input-group">
+           <label for="officeOpenDays">Working Days</label>
+           <input type="text" id="officeOpenDays" v-model="doctorFacilityInfo.officeOpenDays"/>
+       </div>
+
       <button type="submit">Update Information</button>
      
     </form>
@@ -41,10 +62,13 @@ export default {
   data() {
     return {
       doctorFacilityInfo: {
-        firstName: '',
-        lastName: '',
-        location: '',
-        phoneNumber: '',
+          officeStreet: '',
+          officeCity: '',
+          officeState: '',
+          officeStateZipCode: '',
+          phoneNumber:'',
+          officeOpenTime:'',
+          officeCloseTime:''
       }
     }
   }
