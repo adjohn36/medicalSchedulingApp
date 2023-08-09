@@ -8,7 +8,7 @@ VALUES ('735 Ogletown Stanton Rd, #3302', 'Newark', 'DE', '19713', '302-623-1234
 RETURNING office_id;
 
 
---INSERT INTO users (username, )
+
 
 INSERT INTO patient (user_id, patient_first_name, patient_last_name, patient_street_address, patient_city, patient_state, patient_zip_code, patient_phone_number,
 					patient_email, patient_dob)
@@ -54,7 +54,8 @@ VALUES ('1', '1'), ('2', '3'), ('5', '9');
 INSERT INTO appointment (patient_id, doctor_schedule_id, date_selected)
 VALUES ('6', '3', '08/14/2023');
 
---INSERT INTO doctor_schedule (office_id, doctor_id)
+INSERT INTO doctor_office (office_id, doctor_id)
+VALUES ('6', '1');
 
 SELECT day_of_the_week, time_slot FROM schedule;
 
@@ -86,4 +87,5 @@ SELECT patient_first_name, patient_last_name FROM patient WHERE patient_id = (SE
 SELECT doctor_first_name, doctor_last_name FROM doctor WHERE doctor_id = (SELECT doctor_id FROM doctor_schedule WHERE doctor_schedule_id = 
 (SELECT doctor_schedule_id FROM appointment WHERE appointment_id = '2'));
 
-
+--Get doctor by office
+--SELECT doctor_first_name, doctor_last_name FROM doctor WHERE doctor_id = 
