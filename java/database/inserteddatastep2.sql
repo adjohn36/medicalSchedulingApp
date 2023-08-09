@@ -7,30 +7,83 @@ VALUES ('735 Ogletown Stanton Rd, #3302', 'Newark', 'DE', '19713', '302-623-1234
 ('920 Dupont Parkway', 'Townsend', 'DE', '19734', '302-449-1234', '8:00AM', '5:00PM', 'Monday - Friday', 'Pediatric Doctors of Delaware')
 RETURNING office_id;
 
-SELECT * FROM office;
+
 --INSERT INTO users (username, )
 
-INSERT INTO patient (user_id, patient_full_name, patient_street_address, patient_city, patient_state, patient_zip_code, patient_phone_number,
+INSERT INTO patient (user_id, patient_first_name, patient_last_name, patient_street_address, patient_city, patient_state, patient_zip_code, patient_phone_number,
 					patient_email, patient_dob)
-VALUES ('1', 'Stephanie Adams', '271 Adams St', 'Hockessin', 'DE', '19707', '302-123-4567', 'stephanieadamsisfantastic@yahoo.com', '01/01/2000')
-RETURNING patient_id;
+VALUES --('3', 'Stephanie', 'Adams', '271 Adams St', 'Hockessin', 'DE', '19707', '302-123-4567', 'stephanieadamsisfantastic@yahoo.com', '01/01/2000'),
+--('4', 'Adam', 'Johnson', '313 Johnson St', 'Townsend', 'DE', '19734', '302-098-7654', 'adamjohnsonisgreat@gmail.com', '10/19/1985'),
+('5', 'Bruce', 'Wayne', '1007 Mountain Dr', 'Gotham', 'DE', '19700', '302-122-8626', 'iamdefinitelynotbatman@gmail.com', '04/07/1915'),
+('6', 'Clark', 'Kent', '344 Clinton St Apt 3D', 'Metropolis', 'DE', '19800', '307-873-7626', 'iamdefinitelynotsuperman@gmail.com', '04/18/1977'),
+('7', 'Peter', 'Parker', '20 Ingram St', 'Queens', 'DE', '19900', '377-433-7626', 'iamdefinitelynotspiderman@gmail.com', '08/10/1946');
+
+
+
 
 INSERT INTO schedule (day_of_the_week, time_slot)
-VALUES ('Monday', '10:00AM')
-RETURNING schedule_id;
+VALUES ('Monday', '8:00AM'), ('Monday', '8:30AM'), ('Monday', '9:00AM'), ('Monday', '9:30AM'), ('Monday', '10:00AM'), ('Monday', '10:30AM'),
+('Monday', '11:00AM'), ('Monday', '11:30AM'), ('Monday', '12:00PM'), ('Monday', '12:30PM'), ('Monday', '1:00PM'), ('Monday', '1:30PM'), ('Monday', '2:00PM'),
+('Monday', '2:30PM'), ('Monday', '3:00PM'), ('Monday', '3:30PM'), ('Monday', '4:00PM'), ('Monday', '4:30PM'), ('Tuesday', '8:00AM'), ('Tuesday', '8:30AM'),
+('Tuesday', '9:00AM'), ('Tuesday', '9:30AM'), ('Tuesday', '10:00AM'), ('Tuesday', '10:30AM'), ('Tuesday', '11:00AM'), ('Tuesday', '11:30AM'), ('Tuesday', '12:00PM'),
+('Tuesday', '12:30PM'), ('Tuesday', '1:00PM'), ('Tuesday', '1:30PM'), ('Tuesday', '2:00PM'), ('Tuesday', '2:30PM'), ('Tuesday', '3:00PM'), ('Tuesday', '3:30PM'), 
+('Tuesday', '4:00PM'), ('Tuesday', '4:30PM'), ('Wednesday', '8:00AM'), ('Wednesday', '8:30AM'), ('Wednesday', '9:00AM'), ('Wednesday', '9:30AM'), ('Wednesday', '10:00AM'),
+('Wednesday', '10:30AM'), ('Wednesday', '11:00AM'), ('Wednesday','11:30AM'), ('Wednesday','12:00PM'), ('Wednesday','12:30PM'), ('Wednesday','1:00PM'), ('Wednesday','1:30PM'),
+('Wednesday','2:00PM'), ('Wednesday','2:30PM'), ('Wednesday','3:00PM'), ('Wednesday','3:30PM'), ('Wednesday','4:00PM'), ('Wednesday','4:30PM'),
+('Thursday', '8:00AM'), ('Thursday', '8:30AM'), ('Thursday', '9:00AM'), ('Thursday', '9:30AM'), ('Thursday', '10:00AM'), ('Thursday','10:30AM'), 
+('Thursday', '11:00AM'), ('Thursday', '11:30AM'), ('Thursday', '12:00PM'), ('Thursday', '12:30PM'), ('Thursday', '1:00PM'), ('Thursday','1:30PM'),
+('Thursday','2:00PM'), ('Thursday','2:30PM'), ('Thursday','3:00PM'), ('Thursday','3:30PM'), ('Thursday','4:00PM'), ('Thursday','4:30PM'), ('Friday','8:00AM'),
+('Friday','8:30AM'), ('Friday','9:00AM'), ('Friday','9:30AM'), ('Friday','10:00AM'), ('Friday','10:30AM'), ('Friday','11:00AM'), ('Friday','11:30AM'),
+('Friday','12:00PM'), ('Friday','12:30PM'), ('Friday','1:00PM'), ('Friday','1:30PM'), ('Friday','2:00PM'), ('Friday','2:30PM'), ('Friday','3:00PM'),
+('Friday','3:30PM'), ('Friday','4:00PM'), ('Friday','4:30PM');
 
-INSERT INTO doctor (doctor_npi, user_id, doctor_fullname, office_id, doctor_phone_number, doctor_email)
-VALUES ('1', '2', 'Afreen Kazi', '1', '302-098-7654', 'drafreenkazi@gmail.com');
+INSERT INTO doctor (doctor_npi, user_id, doctor_first_name, doctor_last_name, doctor_email)
+VALUES ('1', '8', 'Afreen', 'Kazi', 'drafreenkazi@gmail.com'),
+('2', '9', 'Alfred', 'Pennyworth', 'brucewayneisnotbatman@yahoo.com'),
+('3', '10', 'Lois', 'Lane', 'clarkkentisnotsuperman@gmail.com'),
+('4', '11', 'Mary Jane', 'Watson', 'peterparkerisnotspiderman@yahoo.com'),
+('5', '12', 'Myron', 'Law', 'thelawdoctor@gmail.com');
+
+INSERT INTO appointment (patient_id, doctor_schedule_id, date_selected)
+VALUES ('3', '11', '08/14/2023'),
+('4', '12', '08/14/2023');
+
+INSERT INTO doctor_schedule (doctor_id, schedule_id)
+VALUES ('1', '1'), ('2', '3'), ('5', '9');
+
+INSERT INTO appointment (patient_id, doctor_schedule_id, date_selected)
+VALUES ('6', '3', '08/14/2023');
+
+--INSERT INTO doctor_schedule (office_id, doctor_id)
+
+SELECT day_of_the_week, time_slot FROM schedule;
 
 SELECT * FROM doctor;
 
-SELECT * FROM appointment WHERE schedule_id = '1';
+SELECT * FROM appointment;
 
 SELECT * FROM schedule;
 
 SELECT * FROM doctor_schedule;
 
-INSERT INTO doctor_schedule (doctor_id, schedule_id)
-VALUES ('1', '1')
+SELECT * FROM doctor_office;
 
-SELECT day_of_the_week, time_slot FROM schedule;
+SELECT * FROM users;
+
+SELECT * FROM schedule;
+
+SELECT * FROM patient;
+
+SELECT * FROM office;
+
+SELECT username FROM users WHERE user_id = (SELECT user_id FROM patient WHERE patient_first_name = 'Stephanie');
+
+
+--Example to use for doctor agenda
+SELECT patient_first_name, patient_last_name FROM patient WHERE patient_id = (SELECT patient_id FROM appointment WHERE doctor_schedule_id = '3');
+
+--Example to find doctor from appointment
+SELECT doctor_first_name, doctor_last_name FROM doctor WHERE doctor_id = (SELECT doctor_id FROM doctor_schedule WHERE doctor_schedule_id = 
+(SELECT doctor_schedule_id FROM appointment WHERE appointment_id = '2'));
+
+
