@@ -1,5 +1,6 @@
 <template>
-  <div id="login">    
+  <div id="login">  
+    <img id="mainLogo" src="../img/SmartBookingLogo.png" alt="SmartBookingLogo" />  
     <form id=loginForm @submit.prevent="login" class=login-form>
       <h1 >Please Sign In</h1>
       <div role="alert" v-if="invalidCredentials">
@@ -68,7 +69,11 @@ export default {
 label {
   margin-right: 0.5rem;
 }
-
+#mainLogo{
+  height: 220px;
+  width: 220px;
+  padding-right: 20px;
+}
 
 
 </style>

@@ -1,35 +1,44 @@
 <template>
   <div id="app">
-    <div class="nav-content">
-      <img id="mainLogo" src="./img/SmartBookingLogo.png" alt="SmartBookingLogo" />
+    <header class="header-content">
+      <!-- <img id="mainLogo" src="./img/SmartBookingLogo.png" alt="SmartBookingLogo" /> -->
       <div id="nav" >     
-        <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;
+        <!-- <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp; -->
         <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
       </div>
-    </div>
-    <router-view id="view"/>
+    </header>
+    <main class="main-view">
+      <router-view />
+    </main>
+    <footer>
+    </footer> 
   </div>
 </template>
 
 <style scoped>
-  #app {    
+  #app {     
     height: 100vh;
-    background-color: rgb(76, 187, 150);   
+    width: 100vw;
+    background-color: rgb(177, 212, 248);   
   }
 #mainLogo{
-  height: 100px;
-  width: 100px;
+  height: 220px;
+  width: 220px;
   padding-right: 20px;
 }
-.nav-content {
-display: flex;
+.header-content {
+/* display: flex;
 flex-direction: row;
-justify-content: start;
-padding: 10px 30px;
-align-items: center;
+width: 100%; */
+/* border-bottom: 1px solid #e3e3e3; */
 }
-
-#view{
-  padding-left: 50px; 
+#nav{  
+  /* flex-grow: 1; */
+  text-align: right;
+  padding: 10px 10px;
+}
+.main-view{
+  /* padding-left: 50px;  */
+  text-align: center;
 }
 </style>
