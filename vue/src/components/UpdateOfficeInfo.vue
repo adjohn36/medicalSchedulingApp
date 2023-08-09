@@ -5,6 +5,13 @@
      <!-- <div role="alert" v-if="updateOfficeErrors">
         {{ updateOfficeErrorMsg }}
       </div> -->
+
+    <div class="form-input-group">
+           <label for="facilityName">Facility Name</label>
+           <input type="text" id="facilityName" v-model="doctorFacilityInfo.facilityName"/>
+       </div>
+
+
     <div class="form-input-group">
         <label for="officeStreet">Street</label>
         <input type="text" id="officeStreet" v-model="doctorFacilityInfo.officeStreet"/>
@@ -43,10 +50,7 @@
        </div>
     
       
-       <div class="form-input-group">
-           <label for="officeOpenDays">Working Days</label>
-           <input type="text" id="officeOpenDays" v-model="doctorFacilityInfo.officeOpenDays"/>
-       </div>
+       
 
       <button type="submit">Update Information</button>
      
@@ -62,6 +66,7 @@ export default {
   data() {
     return {
       doctorFacilityInfo: {
+          facilityName:'',
           officeStreet: '',
           officeCity: '',
           officeState: '',
@@ -69,6 +74,7 @@ export default {
           phoneNumber:'',
           officeOpenTime:'',
           officeCloseTime:''
+          
       }
     }
   }
