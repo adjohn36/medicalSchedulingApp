@@ -7,6 +7,16 @@ VALUES ('735 Ogletown Stanton Rd, #3302', 'Newark', 'DE', '19713', '302-623-1234
 ('920 Dupont Parkway', 'Townsend', 'DE', '19734', '302-449-1234', '8:00AM', '5:00PM', 'Monday - Friday', 'Pediatric Doctors of Delaware')
 RETURNING office_id;
 
+INSERT INTO users (username,password_hash,role) VALUES ('stephadams','$2a$10$4wgAD/zExbi9B4piSFctCeSMJne0B7UIQzn6.wwWCy596yPZS7hpu','ROLE_USER'),
+('ajohn36','$2a$10$sf41DnrOQos5rNgJWVnIluxdbGHachSlwAVIvhJFsiT9JrUAnkw26','ROLE_USER'),
+('notbatman','$2a$10$pVrOoQ22IrbQs7sFMwoFkeGHVzIc.GaoH95r.aV5pISoIcnyPAha6','ROLE_USER'),
+('notsuperman','$2a$10$YmRoRsn9TmMA4lQA6r5zr.a7XRMvLM2nliwixLWBmbtA29P9MtFyK','ROLE_USER'),
+('notspiderman','$2a$10$yjIVQDtkKUStY5N6f0S/m.SUUhzbFqS2gVJDGgtTUt9/8yGiSncnS','ROLE_USER'),
+('afreenk','$2a$10$xbZPJXgurArkbfIwuo64TeY3X3uCIK.Iu8jRLj.6GJJUe0jTfODU2','ROLE_USER'),
+('batmanbutler','$2a$10$BllZwqw7yPUoKgJ1q87CWOaOklQwbTLo2i4L5XOQqYLI5CKNYx5Mu','ROLE_USER'),
+('metropolis#1reporter','$2a$10$Htp4WNVd9.LNCCbvrtNF7eSlWsDDUzh0aMPJN5RNNkYMagvkC5A86','ROLE_USER'),
+('iluvspiderman','$2a$10$LgyH/W9E4ID7WiL8af8WPeKafK8HOVQoZHegmo51Rw7ScCrgRK4f6','ROLE_USER'),
+('neomorpheus','$2a$10$L2r072IuiV.AjuYm5Ne3Ne/g6WSpbQ.A3y.z06fHxcI83xHQjfyfG','ROLE_USER');
 
 
 
@@ -44,18 +54,17 @@ VALUES ('1', '8', 'Afreen', 'Kazi', 'drafreenkazi@gmail.com'),
 ('4', '11', 'Mary Jane', 'Watson', 'peterparkerisnotspiderman@yahoo.com'),
 ('5', '12', 'Myron', 'Law', 'thelawdoctor@gmail.com');
 
-INSERT INTO appointment (patient_id, doctor_schedule_id, date_selected)
-VALUES ('3', '11', '08/14/2023'),
-('4', '12', '08/14/2023');
 
 INSERT INTO doctor_schedule (doctor_id, schedule_id)
 VALUES ('1', '1'), ('2', '3'), ('5', '9');
 
+
 INSERT INTO appointment (patient_id, doctor_schedule_id, date_selected)
-VALUES ('6', '3', '08/14/2023');
+VALUES ('1', '3', '08/14/2023');
+
 
 INSERT INTO doctor_office (office_id, doctor_id)
-VALUES ('6', '1');
+VALUES ('1', '1');
 
 SELECT day_of_the_week, time_slot FROM schedule;
 
@@ -85,7 +94,7 @@ SELECT patient_first_name, patient_last_name FROM patient WHERE patient_id = (SE
 
 --Example to find doctor from appointment
 SELECT doctor_first_name, doctor_last_name FROM doctor WHERE doctor_id = (SELECT doctor_id FROM doctor_schedule WHERE doctor_schedule_id = 
-(SELECT doctor_schedule_id FROM appointment WHERE appointment_id = '2'));
+(SELECT doctor_schedule_id FROM appointment WHERE appointment_id = '1'));
 
 --Get doctor by office
 --SELECT doctor_first_name, doctor_last_name FROM doctor WHERE doctor_id = 
