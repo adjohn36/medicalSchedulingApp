@@ -1,7 +1,9 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.AppointmentDao;
+import com.techelevator.dao.PatientDao;
 import com.techelevator.model.Appointment;
+import com.techelevator.model.Patient;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +18,11 @@ import java.util.List;
 public class AgendaController {
 
     private final AppointmentDao appointmentDao;
+    private final PatientDao patientDao;
 
-    public AgendaController(AppointmentDao appointmentDao) {
+    public AgendaController(AppointmentDao appointmentDao, PatientDao patientDao) {
         this.appointmentDao = appointmentDao;
+        this.patientDao = patientDao;
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -31,9 +35,31 @@ public class AgendaController {
             appointmentList = appointmentDao.getAppointmentLists();
 
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "List of appointments failed.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "appointmentlist failed.");
         }
         return appointmentList;
+    }
+    @RequestMapping(path = "/patientlist", method = RequestMethod.GET)
+    public List<Patient> listpatients() {
+        List<Patient> patientList = new ArrayList<>();
+        try {
+            patientList = patientDao.getPatientLists();
+
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "patientList failed.");
+        }
+        return patientList;
+    }
+
+    @RequestMapping(path = "/patientlistbyid/{id}", method = RequestMethod.GET)
+    public List<Patient> listpatientsById(@PathVariable int id) {
+        List<Patient> patientList = new ArrayList<>();
+        try {
+            patientList = patientDao.getPatientListByPatientId(id);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "patientlistbyid failed.");
+        }
+        return patientList;
     }
 
 }
