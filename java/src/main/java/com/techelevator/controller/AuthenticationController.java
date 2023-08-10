@@ -2,6 +2,7 @@ package com.techelevator.controller;
 
 import javax.validation.Valid;
 
+import com.techelevator.dao.DoctorDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.*;
 import org.springframework.http.HttpHeaders;
@@ -27,10 +28,13 @@ public class AuthenticationController {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private UserDao userDao;
 
+    private DoctorDao doctorDao;
+
     public AuthenticationController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserDao userDao) {
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.userDao = userDao;
+        this.doctorDao = doctorDao;
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
@@ -45,9 +49,14 @@ public class AuthenticationController {
         boolean isDoctor = false;
         boolean isValidDoctor = false;
         User user;
+        Doctor doctor;
         try {
             user = userDao.getUserByUsername(loginDto.getUsername());
-
+            doctor = doctorDao.getDoctorByUserId(user.getId());
+            if (user.getId() == doctor.getUserId()){
+                isDoctor = true;
+                isValidDoctor = doctor.isActive();
+            }
             // TODO: get idDoctor and IsValidDoctor from DB by passing the userid
             // TODO: make a call to JdbcDoctorDao methods(this needs to be created)
 
