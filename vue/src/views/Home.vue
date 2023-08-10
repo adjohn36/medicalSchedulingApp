@@ -69,7 +69,7 @@ export default {
     if(this.isDoctor){
       this.$router.push({name:'upcoming-appointment'});
     } else{
-        this.$router.push({name:'office-info'});
+        this.$router.push({name:'view-available-doctors'});
     }
   },
   methods: {

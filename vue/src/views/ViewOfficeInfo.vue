@@ -1,16 +1,18 @@
 <template>
   <div>
-     <office-info />
+    <view-office-info v-bind:facilityId="parseLong($route.params.id)" />
+    
   </div>
 </template>
 
 <script>
-import OfficeInfo from '../components/OfficeInfo.vue'
+
+import ViewOfficeInfo from '../components/OfficeInfo.vue'
 
 export default {
     name:'view-office-info',
-    components:{
-        OfficeInfo
+    components:{        
+        ViewOfficeInfo
     } 
 }
 </script>

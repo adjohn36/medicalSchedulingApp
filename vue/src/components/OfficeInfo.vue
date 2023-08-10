@@ -1,55 +1,36 @@
 <template>
   <div>
-     <div id="nav-for-patient" >
-        <router-link >Book Appointment</router-link>&nbsp;|&nbsp;
-        <router-link >Manage Appointments</router-link>&nbsp;|&nbsp;
-        <router-link v-bind:to="{ name: 'profile' }">Manage Profile</router-link>&nbsp;|&nbsp;
-     </div>
-     <h1>Doctor Information</h1>   
-        <div v-for="doctor in doctorFacilityInfo" v-bind:key="doctor.id" class="doctor-info">
-          <div id="doc-info">{{doctor.doctorName}}</div>
-          <div id="address">{{doctor.Address}}</div>
-        </div>     
+        <h2>Office Details</h2>
+        <label id='facility-name'>{{facilityInfo.FacilityName}}</label>
+        <label id='doctor-name'>{{facilityInfo.doctorName}}</label>
+        <label id='address'>{{facilityInfo.Address}}</label>
+        <label id='opening-hours'>{{facilityInfo.OpenTime}}</label>
+        <label id='opening-days'>{{facilityInfo.OpenDays}}</label>
   </div>
 </template>
 
 <script>
 export default {
     name:'office-info', 
+    props:[
+       'facilityId'
+    ]
+       
+    ,
     data(){
-        return{
-            doctorFacilityInfo:[]
-        }        
+      return{
+        facilityInfo:[]
+      }
     },
-    created(){
-       this.doctorFacilityInfo =  
-            this.$store.state.DoctorFacility;        
+     created(){
+       this.facilityInfo =  
+            this.$store.state.DoctorFacility.filter(facility => facility.id === this.facilityId);        
     }
+
+    
 }
 </script>
 
 <style scoped>
-.doctor-info{
-  border: 1px solid #e3e3e3;  
-  height: 100px;
-  display: flex;
-  flex-direction: row;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-#doc-info{ 
-  text-align: left;
-  flex-grow: 1;
-  margin-left: 20px;
-  margin-top: 10px;
-}
-#address{
-  text-align: right;
-  flex-grow: 1;
-  margin-right: 20px;
-  margin-top: 10px;
-}
-h1{
-  text-align: center;
-}
+
 </style>
