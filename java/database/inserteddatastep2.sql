@@ -12,8 +12,8 @@ RETURNING office_id;
 
 INSERT INTO patient (user_id, patient_first_name, patient_last_name, patient_street_address, patient_city, patient_state, patient_zip_code, patient_phone_number,
 					patient_email, patient_dob)
-VALUES --('3', 'Stephanie', 'Adams', '271 Adams St', 'Hockessin', 'DE', '19707', '302-123-4567', 'stephanieadamsisfantastic@yahoo.com', '01/01/2000'),
---('4', 'Adam', 'Johnson', '313 Johnson St', 'Townsend', 'DE', '19734', '302-098-7654', 'adamjohnsonisgreat@gmail.com', '10/19/1985'),
+VALUES ('3', 'Stephanie', 'Adams', '271 Adams St', 'Hockessin', 'DE', '19707', '302-123-4567', 'stephanieadamsisfantastic@yahoo.com', '01/01/2000'),
+('4', 'Adam', 'Johnson', '313 Johnson St', 'Townsend', 'DE', '19734', '302-098-7654', 'adamjohnsonisgreat@gmail.com', '10/19/1985'),
 ('5', 'Bruce', 'Wayne', '1007 Mountain Dr', 'Gotham', 'DE', '19700', '302-122-8626', 'iamdefinitelynotbatman@gmail.com', '04/07/1915'),
 ('6', 'Clark', 'Kent', '344 Clinton St Apt 3D', 'Metropolis', 'DE', '19800', '307-873-7626', 'iamdefinitelynotsuperman@gmail.com', '04/18/1977'),
 ('7', 'Peter', 'Parker', '20 Ingram St', 'Queens', 'DE', '19900', '377-433-7626', 'iamdefinitelynotspiderman@gmail.com', '08/10/1946');

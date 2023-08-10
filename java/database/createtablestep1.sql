@@ -3,9 +3,10 @@ CREATE TABLE doctor (
 doctor_id SERIAL NOT NULL,
 doctor_npi VARCHAR (50) NOT NULL UNIQUE,
 user_id INT NOT NULL,
-doctor_first_name VARCHAR (100) NOT NULL,
-doctor_last_name VARCHAR (100) NOT NULL,
+doctor_first_name VARCHAR (100),
+doctor_last_name VARCHAR (100),
 doctor_email VARCHAR (50),
+active BOOLEAN,
 CONSTRAINT fk_doctor_user FOREIGN KEY (user_id) REFERENCES users (user_id),
 CONSTRAINT pk_doctor PRIMARY KEY (doctor_id)
 );
@@ -47,9 +48,12 @@ patient_zip_code VARCHAR (20),
 patient_phone_number VARCHAR (20),
 patient_email VARCHAR (50),
 patient_dob DATE,
+active BOOLEAN,
 CONSTRAINT pk_patient PRIMARY KEY (patient_id),
 CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
+--ALTER TABLE patient ADD COLUMN active BOOLEAN;
+--ALTER TABLE patient ALTER COLUMN  DROP NOT NULL;
 
 DROP TABLE IF EXISTS schedule;
 CREATE TABLE schedule(
