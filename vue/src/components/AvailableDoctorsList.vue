@@ -6,20 +6,26 @@
         <router-link v-bind:to="{ name: 'profile' }">Manage Profile</router-link>&nbsp;|&nbsp;
      </div>
      <h1>Doctor Information</h1>   
-        <div v-for="facility in doctorFacilityInfo" v-bind:key="facility.id" class="doctor-info">
-          <!-- <div id="doc-info">{{facility.doctorName}}</div> -->
-          <router-link id="doc-facility-info" v-bind:to="{name: 'office-info',params: {id:facility.id}}" 
-             >{{facility.doctorName}}
-             <!-- <office-info v-bind:facilityInfo="facility" /> -->
-             </router-link>
-          <div id="address">{{facility.Address}}</div>
-        </div>  
+        <div v-for="facility in doctorFacilityInfo" v-bind:key="facility.id" class="doctor-info">          
+          <router-link id="doc-facility-info" v-bind:to="{path:'/view-office-info/id', params: {id:facility.id}}">
+          {{facility.doctorName}}</router-link>
+          <office-info v-bind:facilityId="facility" />
+          <div class="address">{{facility.Address}}</div>
+          <br>
+          <p>
+          <span>{{facility.City}},</span>&nbsp;
+          <span >{{facility.State}}</span>&nbsp;
+          <span >{{facility.ZipCode}}</span>
+          </p>
+        </div>    
   </div>
 </template>
 
 <script>
 
-export default {  
+
+export default {
+   
     name: 'doctor-info',
     data(){
         return{
@@ -48,7 +54,7 @@ export default {
   margin-left: 20px;
   margin-top: 10px;
 }
-#address{
+.address{
   text-align: right;
   flex-grow: 1;
   margin-right: 20px;
@@ -56,5 +62,8 @@ export default {
 }
 h1{
   text-align: center;
+}
+p {
+  display: block;
 }
 </style>
