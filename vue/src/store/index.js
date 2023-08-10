@@ -11,6 +11,8 @@ Vue.use(Vuex)
  */
 const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(localStorage.getItem('user'));
+// const currentIsDoctor = localStorage.getItem('isDoctor')
+// const currentIsValidDoctor = localStorage.getItem('isValidDoctor')
 
 if(currentToken != null) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
@@ -20,7 +22,8 @@ export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {},
-
+    isDoctor: '',
+    isValidDoctor: '',
     DoctorFacility: [
       {
         id: 1,
@@ -74,11 +77,23 @@ export default new Vuex.Store({
       state.user = user;
       localStorage.setItem('user',JSON.stringify(user));
     },
+    SET_IS_DOCTOR(state, isDoctor) {
+      state.isDoctor = isDoctor;
+      localStorage.setItem('isDoctor',isDoctor);
+    },
+    SET_IS_VALID_DOCTOR(state, isValidDoctor) {
+      state.isValidDoctor = isValidDoctor;
+      localStorage.setItem('isValidDoctor',isValidDoctor);
+    },
     LOGOUT(state) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
+      localStorage.removeItem('isDoctor');
+      localStorage.removeItem('isValidDoctor');
       state.token = '';
       state.user = {};
+      state.isDoctor = '',
+      state.isValidDoctor = '',
       axios.defaults.headers.common = {};
     }
   }

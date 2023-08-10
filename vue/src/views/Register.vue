@@ -1,6 +1,7 @@
 <template>
   <div id="register" class="text-center">
-    <form @submit.prevent="register">
+    <img id="mainLogo" src="../img/SmartBookingLogo.png" alt="SmartBookingLogo" /> 
+    <form id="register-form" @submit.prevent="register">
       <h1>Create Account</h1>
       <div role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
@@ -17,15 +18,14 @@
         <label for="confirmPassword">Confirm Password</label>
         <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
       </div>
-      <!-- <div>       
-        <input type="checkbox" id="checkbox" v-model="checked" />
-        <label for="checkbox" >Are you a doctor {{ checked }}</label>
-        
+      <div class="form-input-group">      
+        <label for="isDoctor" >A doctor ? {{ checked }}</label> 
+        <input type="checkbox" id="isDoctor" v-model="user.isDoctor" />                
       </div>
-       <div class="form-input-group" v-bind:style="{}">
-        <label for="adminEmail">Administrative Email</label>
-        <input type="email" id="adminEmail"  />
-      </div> -->
+       <div class="form-input-group" v-show="user.isDoctor" v-bind:style="{}">
+        <label for="npiNumber" >NPI</label>
+        <input type="text" id="npiNumber" v-model="user.npiNumber" v-bind:required="user.isDoctor" maxlength="10" pattern="^[0-9]*$" />
+      </div>
       <button type="submit">Create Account</button>
       <p><router-link :to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
     </form>
@@ -44,17 +44,22 @@ export default {
         password: '',
         confirmPassword: '',
         role: 'user',
+        isDoctor: false,
+        npiNumber:''
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
+      
     };
   },
+  
   methods: {
     register() {
       if (this.user.password != this.user.confirmPassword) {
         this.registrationErrors = true;
         this.registrationErrorMsg = 'Password & Confirm Password do not match.';
-      } else {
+      }  
+      else {
         authService
           .register(this.user)
           .then((response) => {
@@ -89,5 +94,17 @@ export default {
 label {
   margin-right: 0.5rem;
 }
-
+#mainLogo{
+  height: 270px;
+  width: 270px;
+  padding-right: 20px;  
+}
+#register{  
+  display: flex;
+  flex-direction: row;
+}
+#register-form{  
+  margin-top: 100px;
+  margin-left: 100px;
+}
 </style>

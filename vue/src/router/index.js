@@ -8,6 +8,7 @@ import store from '../store/index'
 import Profile from '../views/Profile.vue'
 import ViewOfficeInfo from '../views/ViewOfficeInfo.vue'
 import UpdateOfficeInfo from '../views/UpdateOfficeInfo.vue'
+import UpcomingAppointment from '../views/ViewUpcomingAppointment.vue'
 Vue.use(Router)
 
 /**
@@ -76,6 +77,14 @@ const router = new Router({
       path: "/update-office-info",
       name: "update-office-info",
       component: UpdateOfficeInfo,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/view-upcoming-appointment",
+      name: "upcoming-appointment",
+      component: UpcomingAppointment,
       meta: {
         requiresAuth: false
       }

@@ -17,6 +17,8 @@ public class RegisterUserDto {
     private String confirmPassword;
     @NotEmpty(message = "Please select a role for this user.")
     private String role;
+    private boolean isDoctor;
+    private long npiNumber;
 
     public String getUsername() {
         return username;
@@ -48,5 +50,21 @@ public class RegisterUserDto {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public boolean isDoctor() {
+        return isDoctor;
+    }
+
+    public void setDoctor(boolean doctor) {
+        isDoctor = doctor;
+    }
+
+    public long getNpiNumber() {
+        return npiNumber;
+    }
+
+    public void setNpiNumber(long npiNumber) {
+        this.npiNumber = npiNumber;
     }
 }

@@ -3,19 +3,19 @@
   <header>
      <img id="mainLogo" src="../img/SmartBookingLogo.png" alt="SmartBookingLogo" />      
   </header>
-  <div>
-     <h3>Links for Doctor</h3>
-        <router-link >View Upcoming Appointments</router-link>&nbsp;|&nbsp;
-        <router-link >Schedule Availability</router-link>&nbsp;|&nbsp;
-        <router-link v-bind:to="{ name: 'update-office-info' }" >Update Office Info</router-link>&nbsp;|&nbsp;
-        <router-link v-bind:to="{ name: 'profile' }">Manage Profile</router-link>&nbsp;|&nbsp;
-         <h3>Links for Patient</h3>
-        <router-link >Book Appointment</router-link>&nbsp;|&nbsp;
-        <router-link v-bind:to="{ name: 'office-info' }">View Available Doctors</router-link>&nbsp;|&nbsp;
-        <router-link >Manage Appointments</router-link>&nbsp;|&nbsp;
-        <router-link v-bind:to="{ name: 'profile' }">Manage Profile</router-link>&nbsp;|&nbsp;
+  <div>    
+     <!-- <div v-show="isDoctor">
+        <h3>Links for Doctor</h3>
+        <router-link >View Upcoming Appointments</router-link>&nbsp;|&nbsp;        
+    </div>
+         
+    <div v-show="!isDoctor">
+        <h3>Links for Patient</h3>        
+        <router-link v-bind:to="{ name: 'office-info' }">View Available Doctors</router-link>&nbsp;|&nbsp;       
+    </div> -->
   </div>
    <main>
+     <router-view />
    </main>
    <footer>
     <!-- 
@@ -57,10 +57,20 @@ export default {
       section1Data: [],
       section2Data: [],
       section3Data: [],
+
+      isDoctor: '',
+      isValidDoctor: '',
     };
   },
   created() {
     this.fetchApiData();
+    this.isDoctor = this.$store.state.isDoctor;
+    this.isValidDoctor = this.$store.state.isValidDoctor;
+    if(this.isDoctor){
+      this.$router.push({name:'upcoming-appointment'});
+    } else{
+        this.$router.push({name:'office-info'});
+    }
   },
   methods: {
     fetchApiData() {

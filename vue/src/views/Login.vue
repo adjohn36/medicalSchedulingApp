@@ -47,6 +47,8 @@ export default {
           if (response.status == 200) {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
+            this.$store.commit("SET_IS_DOCTOR", response.data.isDoctor);
+            this.$store.commit("SET_IS_VALID_DOCTOR", response.data.isValidDoctor);
             this.$router.push("/");
           }
         })
@@ -70,10 +72,16 @@ label {
   margin-right: 0.5rem;
 }
 #mainLogo{
-  height: 220px;
-  width: 220px;
-  padding-right: 20px;
+  height: 270px;
+  width: 270px;
+  padding-right: 20px;  
 }
-
-
+#login{  
+  display: flex;
+  flex-direction: row;
+}
+#loginForm{  
+  margin-top: 100px;
+  margin-left: 100px;
+}
 </style>

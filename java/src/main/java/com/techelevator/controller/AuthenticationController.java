@@ -42,17 +42,22 @@ public class AuthenticationController {
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenProvider.createToken(authentication, false);
-
+        boolean isDoctor = false;
+        boolean isValidDoctor = false;
         User user;
         try {
             user = userDao.getUserByUsername(loginDto.getUsername());
+
+            // TODO: get idDoctor and IsValidDoctor from DB by passing the userid
+            // TODO: make a call to JdbcDoctorDao methods(this needs to be created)
+
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Username or password is incorrect.");
         }
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
-        return new ResponseEntity<>(new LoginResponseDto(jwt, user), httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(new LoginResponseDto(jwt, user, isDoctor,isValidDoctor), httpHeaders, HttpStatus.OK);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
