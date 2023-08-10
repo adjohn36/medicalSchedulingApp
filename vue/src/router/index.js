@@ -9,6 +9,8 @@ import Profile from '../views/Profile.vue'
 import ViewOfficeInfo from '../views/ViewOfficeInfo.vue'
 import UpdateOfficeInfo from '../views/UpdateOfficeInfo.vue'
 import UpcomingAppointment from '../views/ViewUpcomingAppointment.vue'
+import ViewAvailableDoctor from '../views/ViewAvailableDoctors.vue'
+
 Vue.use(Router)
 
 /**
@@ -65,7 +67,7 @@ const router = new Router({
       }
     },
     {
-      path: "/view-office-info",
+      path: "/view-office-info/id",
       name: "office-info",
       component: ViewOfficeInfo,
       meta: {
@@ -88,7 +90,15 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
-    }
+    },
+    {
+      path: "/view-doctor",
+      name: "view-available-doctors",
+      component: ViewAvailableDoctor,
+      meta: {
+        requiresAuth: false
+      }
+    },
   ]
 })
 
