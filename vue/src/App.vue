@@ -10,8 +10,7 @@
     <main class="main-view">
       <router-view />
     </main>
-    <footer>
-    </footer> 
+    
   </div>
 </template>
 
@@ -26,19 +25,8 @@
   width: 220px;
   padding-right: 20px;
 }
-.header-content {
-/* display: flex;
-flex-direction: row;
-width: 100%; */
-/* border-bottom: 1px solid #e3e3e3; */
-}
-#nav{  
-  /* flex-grow: 1; */
+#nav{    
   text-align: right;
-  padding: 10px 10px;
-}
-.main-view{
-  /* padding-left: 50px;  */
-  text-align: center;
+  padding: 20px 30px;
 }
 </style>

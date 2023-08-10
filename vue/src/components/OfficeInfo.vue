@@ -1,19 +1,15 @@
 <template>
   <div>
-       <h1>Doctor Information</h1>   
+     <div id="nav-for-patient" >
+        <router-link >Book Appointment</router-link>&nbsp;|&nbsp;
+        <router-link >Manage Appointments</router-link>&nbsp;|&nbsp;
+        <router-link v-bind:to="{ name: 'profile' }">Manage Profile</router-link>&nbsp;|&nbsp;
+     </div>
+     <h1>Doctor Information</h1>   
         <div v-for="doctor in doctorFacilityInfo" v-bind:key="doctor.id" class="doctor-info">
           <div id="doc-info">{{doctor.doctorName}}</div>
           <div id="address">{{doctor.Address}}</div>
-        </div>
-
-      <!-- <tbody>
-        <tr v-for="doctor in doctorFacilityInfo" v-bind:key="doctor.id" >
-            <td>{{doctor.doctorName}}</td>
-            <td>{{doctor.City}}</td>
-            <td>{{doctor.State}}</td>
-            <td>{{doctor.ZipCode}}</td>
-        </tr> 
-      </tbody> -->
+        </div>     
   </div>
 </template>
 
@@ -32,19 +28,28 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .doctor-info{
-  border-bottom: 1px solid #e3e3e3;
-  border-top: 1px solid #e3e3e3;
+  border: 1px solid #e3e3e3;  
   height: 100px;
   display: flex;
   flex-direction: row;
-
+  margin-left: 10px;
+  margin-right: 10px;
 }
-#doc-info{
-  justify-content: left;
+#doc-info{ 
+  text-align: left;
+  flex-grow: 1;
+  margin-left: 20px;
+  margin-top: 10px;
 }
 #address{
-  justify-content: right;
+  text-align: right;
+  flex-grow: 1;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+h1{
+  text-align: center;
 }
 </style>
