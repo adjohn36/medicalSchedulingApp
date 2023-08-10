@@ -10,11 +10,11 @@ import java.util.List;
 
 
 @Component
-public class JbdcAppointmentDao implements AppointmentDao {
+public class JdbcAppointmentDao implements AppointmentDao {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public JbdcAppointmentDao(JdbcTemplate jdbcTemplate) {
+    public JdbcAppointmentDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
