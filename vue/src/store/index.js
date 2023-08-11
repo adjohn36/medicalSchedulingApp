@@ -27,7 +27,7 @@ export default new Vuex.Store({
     DoctorFacility: [
       {
         id: 1,
-        doctorName: "Dr.Patel",   
+        doctorName: "Dr. Patel",   
         FacilityName:"Spine Center",
         Address: "735 Ogletown Stanton Rd, #3302",
         City:"Newark",
@@ -40,7 +40,7 @@ export default new Vuex.Store({
       },
       {
         id: 2,
-        doctorName: "Dr.Valencia",   
+        doctorName: "Dr. Valencia",   
         FacilityName:"Familycare Associates LLC",
         Address: "14 Sandhill Dr, Unit 101",
         City:"Middletown",
@@ -53,7 +53,7 @@ export default new Vuex.Store({
       },
       {
         id: 3,
-        doctorName: "Dr.Rowel",   
+        doctorName: "Dr. Rowel",   
         FacilityName:"Orthopaedic Specialists,PA",
         Address: "401 Brandywine Parkway, Suites 100 & 101",
         City:"Wilmington",

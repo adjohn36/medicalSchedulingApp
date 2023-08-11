@@ -1,23 +1,46 @@
 <template>
   <div>
-      <div id="nav-for-patient" >
-        <router-link >Book Appointment</router-link>&nbsp;|&nbsp;
-        <router-link >Manage Appointments</router-link>&nbsp;|&nbsp;
-        <router-link v-bind:to="{ name: 'profile' }">Manage Profile</router-link>&nbsp;|&nbsp;
-     </div>
-     <h1>Doctor Information</h1>   
-        <div v-for="facility in doctorFacilityInfo" v-bind:key="facility.id" class="doctor-info">          
-          <router-link id="doc-facility-info" v-bind:to="{name:'office-info', params: {id:facility.id}}">
-          {{facility.doctorName}}</router-link>
-          
-          <div class="address">{{facility.Address}}</div>
-          <br>
-          <p>
-          <span>{{facility.City}},</span>&nbsp;
-          <span >{{facility.State}}</span>&nbsp;
-          <span >{{facility.ZipCode}}</span>
-          </p>
-        </div>    
+    <nav :class="{'sticky': isSticky}">
+      <div class="nav-content">
+        <div class="logo">
+          <a href="#">
+            <img src="../img/NavBarLogo.png" alt="Logo">
+          </a>
+        </div>
+        <ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Find a doctor</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Login</a></li>
+        </ul>
+      </div>
+    </nav>
+    <!-- <div id="nav-for-patient">
+      <router-link to="/book-appointment">Book Appointment</router-link>&nbsp;|&nbsp;
+      <router-link to="/manage-appointments">Manage Appointments</router-link>&nbsp;|&nbsp;
+      <router-link to="/profile">Manage Profile</router-link>&nbsp;|&nbsp;
+    </div> -->
+    <h1>Doctor Information</h1>
+    <div v-for="facility in doctorFacilityInfo" :key="facility.id" class="doctor-info">
+      <div class="doctor-details">
+        <span>{{ facility.doctorName }}</span>
+        <img src="../img/doctorImage.png" alt="Doctor Image" class="doctor-image">
+        <div class="row button">
+          <router-link :to="{ name: 'office-info', params: { id: facility.id } }">
+            <button>View Office Details</button>
+          </router-link>
+        </div>
+      </div>
+
+      <div class="address">
+        {{ facility.Address }}
+        <br>
+        <span>{{ facility.City }},</span>&nbsp;
+        <span>{{ facility.State }}</span>&nbsp;
+        <span>{{ facility.ZipCode }}</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -42,7 +65,7 @@ export default {
 <style scoped>
     .doctor-info{
   border: 1px solid #e3e3e3;  
-  height: 100px;
+  height: 200px;
   display: flex;
   flex-direction: row;
   margin-left: 10px;
@@ -62,8 +85,39 @@ export default {
 }
 h1{
   text-align: center;
+  margin-bottom: 10px;
+  padding: 50px;
 }
 p {
   display: block;
+}
+
+.button {
+  text-align: center;
+}
+
+.button button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 15px;
+  display: flex;
+  margin-left: 1px;
+  flex-direction: row;
+}
+.doctor-details {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.doctor-image {
+  width: 100px; 
+  height: auto;
+  margin-top: 10px;
+  padding: 10px;
 }
 </style>
