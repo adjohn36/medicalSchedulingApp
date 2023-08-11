@@ -1,29 +1,34 @@
 package com.techelevator.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ProfileDto {
-    private boolean isDoctor;
-    private boolean isVerifiedDoctor;
+    @JsonProperty("isDoctor")
+    private boolean doctor;
+    @JsonProperty("isVerifiedDoctor")
+    private boolean verifiedDoctor;
 
     public ProfileDto() {
     }
 
     public ProfileDto(boolean isDoctor, boolean isVerifiedDoctor) {
-        this.isDoctor = isDoctor;
-        this.isVerifiedDoctor = isVerifiedDoctor;
+        this.doctor = isDoctor;
+        this.verifiedDoctor = isVerifiedDoctor;
     }
 
     public boolean isDoctor() {
-        return isDoctor;
+        return doctor;
     }
 
     public void setDoctor(boolean doctor) {
-        isDoctor = doctor;
+        this.doctor = doctor;
     }
 
     public boolean isVerifiedDoctor() {
-        return isVerifiedDoctor;
+        return verifiedDoctor;
     }
 
     public void setVerifiedDoctor(boolean verifiedDoctor) {
-        isVerifiedDoctor = verifiedDoctor;
+        this.verifiedDoctor = verifiedDoctor;
     }
 }

@@ -10,7 +10,7 @@ export default {
     return axios.post('/register', user)
   },
   getUserProfile(){
-    return axios.post('/profile')
+    return axios.get('/profile')
   }
   
 
