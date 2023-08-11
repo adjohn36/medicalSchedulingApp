@@ -10,6 +10,7 @@ import ViewOfficeInfo from '../views/ViewOfficeInfo.vue'
 import UpdateOfficeInfo from '../views/UpdateOfficeInfo.vue'
 import UpcomingAppointment from '../views/ViewUpcomingAppointment.vue'
 import ViewAvailableDoctor from '../views/ViewAvailableDoctors.vue'
+import Processing from '../views/Processing.vue'
 
 Vue.use(Router)
 
@@ -54,6 +55,14 @@ const router = new Router({
       path: "/register",
       name: "register",
       component: Register,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/processing",
+      name: "processing",
+      component: Processing,
       meta: {
         requiresAuth: false
       }

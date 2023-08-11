@@ -11,8 +11,8 @@ Vue.use(Vuex)
  */
 const currentToken = localStorage.getItem('token')
 const currentUser = JSON.parse(localStorage.getItem('user'));
-// const currentIsDoctor = localStorage.getItem('isDoctor')
-// const currentIsValidDoctor = localStorage.getItem('isValidDoctor')
+const currentIsDoctor = localStorage.getItem('isDoctor')
+const currentIsValidDoctor = localStorage.getItem('isValidDoctor')
 
 if(currentToken != null) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
@@ -22,8 +22,8 @@ export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {},
-    isDoctor: '',
-    isValidDoctor: '',
+    isDoctor: currentIsDoctor || '',
+    isValidDoctor: currentIsValidDoctor || '',
     DoctorFacility: [
       {
         id: 1,
