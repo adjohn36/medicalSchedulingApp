@@ -6,7 +6,6 @@ import java.util.Objects;
 
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Doctor;
-import com.techelevator.dao.DoctorDao;
 import com.techelevator.model.RegisterUserDto;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -84,11 +83,6 @@ public class JdbcUserDao implements UserDao {
         try {
             int newUserId = jdbcTemplate.queryForObject(insertUserSql, int.class, user.getUsername(), password_hash, ssRole);
             if(user.isDoctor()){
-//                Doctor newDoctor = null;
-//                String insertDoctorSql = "INSERT INTO doctor (doctor_npi, user_id, doctor_first_name, doctor_last_name, doctor_email, active" +
-//                        "VALUES (?, ?, ?, ?, ?, ?) RETURNING doctor_id;";
-//                int newDoctorId = jdbcTemplate.queryForObject(insertDoctorSql, int.class, newDoctor.getDoctorNpi(), newDoctor.getUserId(), newDoctor.getDoctorFirstName(), newDoctor.getDoctorLastName(), newDoctor.getDoctorEmail(), newDoctor.isActive());
-//                newDoctor = getDoctorByDoctorId(newDoctorId);
                 // TODO: insert user into doctor table
             } else
             {
