@@ -1,6 +1,6 @@
 package com.techelevator.dao;
 
-import com.techelevator.model.Appointment;
+import com.techelevator.model.AppointmentResponseDto;
 
 
 import java.util.List;
@@ -9,15 +9,6 @@ public interface AppointmentDao {
 
 
 
-    List<Appointment> getAppointmentListsByDoctorId(int id);
-
-    List<Appointment> getAppointmentLists();
-
-    //Appointment getAppointmentById(int id);
-
-    //Appointment createAppointment(Appointment appointment);
-
-    //Appointment updateAppointment(Appointment appointment);
-
-
+    List<AppointmentResponseDto> getAppointmentListsByDoctorId(int doctorId);
+    List<AppointmentResponseDto> getNextSevenDayAppointmentListsByDoctorId(int doctorId);
 }
