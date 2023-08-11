@@ -11,6 +11,12 @@ export default {
   },
   getUserProfile(){
     return axios.get('/profile')
+  },
+  getDoctorOfficeInfo(){
+    return axios.get('/doctors/view-doctor')
+  },
+  getOfficeDetail(officeId){
+    return axios.get(`/office-info/${officeId}`)
   }
   
 

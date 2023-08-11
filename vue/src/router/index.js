@@ -32,7 +32,7 @@ const router = new Router({
       name: 'home',
       component: Home,
       meta: {
-        requiresAuth: true
+        requiresAuth: false
       }
     },
     {
@@ -64,7 +64,7 @@ const router = new Router({
       name: "processing",
       component: Processing,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {
@@ -72,7 +72,7 @@ const router = new Router({
       name: "profile",
       component: Profile,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {
@@ -80,7 +80,7 @@ const router = new Router({
       name: "office-info",
       component: ViewOfficeInfo,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     
@@ -97,7 +97,7 @@ const router = new Router({
       name: "upcoming-appointment",
       component: UpcomingAppointment,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {
@@ -105,7 +105,7 @@ const router = new Router({
       name: "view-available-doctors",
       component: ViewAvailableDoctor,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
   ]

@@ -3,6 +3,7 @@ package com.techelevator.model;
 public class DoctorOfficeList {
     private String doctorFirstName;
     private String doctorLastName;
+    private int officeId;
     private String officeName;
     private String streetAddress;
     private String city;
@@ -12,10 +13,11 @@ public class DoctorOfficeList {
 
     public DoctorOfficeList(){}
 
-    public DoctorOfficeList(String doctorFirstName, String doctorLastName, String officeName, String streetAddress,
+    public DoctorOfficeList(String doctorFirstName, String doctorLastName,int officeId, String officeName, String streetAddress,
                             String city, String state, int zipCode, String phoneNumber) {
         this.doctorFirstName = doctorFirstName;
         this.doctorLastName = doctorLastName;
+        this.officeId = officeId;
         this.officeName = officeName;
         this.streetAddress = streetAddress;
         this.city = city;
@@ -36,6 +38,15 @@ public class DoctorOfficeList {
     public void setDoctorLastName(String doctorLastName){
         this.doctorLastName = doctorLastName;
     }
+
+    public int getOfficeId() {
+        return officeId;
+    }
+
+    public void setOfficeId(int officeId) {
+        this.officeId = officeId;
+    }
+
     public String getOfficeName(){
         return officeName;
     }
