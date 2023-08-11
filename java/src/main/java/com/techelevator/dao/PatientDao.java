@@ -10,7 +10,7 @@ public interface PatientDao {
 
 
 
-        List<Patient> getPatientListByPatientId(int id);
+        List<Patient> getPatientListByPatientId(int patientId);
 
         List<Patient> getPatientLists();
 }
