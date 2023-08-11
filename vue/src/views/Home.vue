@@ -12,7 +12,7 @@
           <li><a href="#">Find a doctor</a></li>
           <li><a href="#">About Us</a></li>
           <li><a href="#">Services</a></li>
-          <li><a href="#">Login</a></li>
+          <li><a href="/login">Login</a></li>
         </ul>
       </div>
     </nav>
