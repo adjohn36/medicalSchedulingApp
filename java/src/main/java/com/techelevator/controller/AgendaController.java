@@ -2,7 +2,7 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.AppointmentDao;
 import com.techelevator.dao.PatientDao;
-import com.techelevator.model.AppointmentResponseModel;
+import com.techelevator.model.AppointmentResponseDto;
 import com.techelevator.model.Patient;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +20,8 @@ public class AgendaController {
     }
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(path = "/appointmentlistbydoctorid/{id}", method = RequestMethod.GET)
-    public List<AppointmentResponseModel> listappointments(@PathVariable int id) {
-        List<AppointmentResponseModel> appointmentList = new ArrayList<>();
+    public List<AppointmentResponseDto> listappointments(@PathVariable int id) {
+        List<AppointmentResponseDto> appointmentList = new ArrayList<>();
         try {
             appointmentList = appointmentDao.getAppointmentListsByDoctorId(id);
 

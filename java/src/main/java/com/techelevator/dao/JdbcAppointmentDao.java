@@ -1,7 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
-import com.techelevator.model.AppointmentResponseModel;
+import com.techelevator.model.AppointmentResponseDto;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,8 +20,8 @@ public class JdbcAppointmentDao implements AppointmentDao {
     }
 
     @Override
-    public List<AppointmentResponseModel> getAppointmentListsByDoctorId(int id) {
-        List<AppointmentResponseModel> appointmentLists = new ArrayList<>();
+    public List<AppointmentResponseDto> getAppointmentListsByDoctorId(int id) {
+        List<AppointmentResponseDto> appointmentLists = new ArrayList<>();
         try {
             String sql = "SELECT patient.patient_first_name, patient.patient_last_name, appointment.date_selected, schedule.time_slot " +
                     " FROM patient " +
@@ -31,7 +31,7 @@ public class JdbcAppointmentDao implements AppointmentDao {
                     " WHERE doctor_schedule.doctor_id = ?";
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
             while (results.next()) {
-                AppointmentResponseModel appointment = mapRowToAppointment(results);
+                AppointmentResponseDto appointment = mapRowToAppointment(results);
                 appointmentLists.add(appointment);
             }
         } catch (CannotGetJdbcConnectionException e) {
@@ -44,8 +44,8 @@ public class JdbcAppointmentDao implements AppointmentDao {
     }
 
     // Maps a row from Database result to Appointment Response Model object
-    private AppointmentResponseModel mapRowToAppointment(SqlRowSet rs) {
-        AppointmentResponseModel appointment = new AppointmentResponseModel();
+    private AppointmentResponseDto mapRowToAppointment(SqlRowSet rs) {
+        AppointmentResponseDto appointment = new AppointmentResponseDto();
         appointment.setPatientFirstName(rs.getString("patient_first_name"));
         appointment.setPatientLastName(rs.getString("patient_last_name"));
         appointment.setDateSelected(rs.getString("date_selected"));

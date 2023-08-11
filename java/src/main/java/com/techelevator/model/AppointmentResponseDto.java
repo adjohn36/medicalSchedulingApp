@@ -1,14 +1,14 @@
 package com.techelevator.model;
 
-public class AppointmentResponseModel {
+public class AppointmentResponseDto {
     private String patientFirstName;
     private String patientLastName;
     private String dateSelected;
     private String timeSlot;
 
-    public AppointmentResponseModel() { }
+    public AppointmentResponseDto() { }
 
-    public AppointmentResponseModel(String patientFirstName, String patientLastName, String dateSelected, String timeSlot){
+    public AppointmentResponseDto(String patientFirstName, String patientLastName, String dateSelected, String timeSlot){
            this.patientFirstName =patientFirstName;
            this.patientLastName = patientLastName;
            this.dateSelected = dateSelected;
