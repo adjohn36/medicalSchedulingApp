@@ -45,9 +45,9 @@ export default {
           if (response.status == 200) {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
-            this.$store.commit("SET_IS_DOCTOR", response.data.isDoctor);
-            this.$store.commit("SET_IS_VALID_DOCTOR", response.data.isValidDoctor);
-            this.$router.push('/view-doctor');
+            // this.$store.commit("SET_IS_DOCTOR", response.data.isDoctor);
+            // this.$store.commit("SET_IS_VALID_DOCTOR", response.data.isValidDoctor);
+            this.$router.push('/processing');
           }
         })
         .catch(error => {

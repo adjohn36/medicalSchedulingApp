@@ -28,13 +28,13 @@ public class AuthenticationController {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private UserDao userDao;
 
-    private DoctorDao doctorDao;
+//    private DoctorDao doctorDao;
 
     public AuthenticationController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserDao userDao) {
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.userDao = userDao;
-        this.doctorDao = doctorDao;
+//        this.doctorDao = doctorDao;
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
@@ -46,10 +46,12 @@ public class AuthenticationController {
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenProvider.createToken(authentication, false);
-        boolean isDoctor = false;
-        boolean isValidDoctor = false;
         User user;
-        Doctor doctor;
+
+//        boolean isDoctor = false;
+//        boolean isValidDoctor = false;
+//        Doctor doctor;
+
         try {
             user = userDao.getUserByUsername(loginDto.getUsername());
 //            doctor = doctorDao.getDoctorByUserId(user.getId());
@@ -66,7 +68,7 @@ public class AuthenticationController {
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
-        return new ResponseEntity<>(new LoginResponseDto(jwt, user, isDoctor,isValidDoctor), httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(new LoginResponseDto(jwt, user), httpHeaders, HttpStatus.OK);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
