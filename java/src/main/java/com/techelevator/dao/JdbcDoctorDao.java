@@ -19,7 +19,7 @@ public class JdbcDoctorDao implements DoctorDao {
     // if user id is present in doctors table
     public Doctor getDoctorByUserId(int userId) {
         Doctor doctor = null;
-        String sql = "SELECT * FROM doctor WHERE user_id = ";
+        String sql = "SELECT * FROM doctor WHERE user_id = ?;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
             if (results.next()) {
@@ -30,6 +30,19 @@ public class JdbcDoctorDao implements DoctorDao {
         }
         return doctor;
 
+    }
+    public Doctor getDoctorByDoctorId(int doctorId){
+        Doctor doctor = null;
+        String sql = "SELECT * FROM doctor WHERE doctor_id = ?;";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, doctorId);
+            if (results.next()) {
+                doctor = mapRowToDoctor(results);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+        return doctor;
     }
 
     private Doctor mapRowToDoctor(SqlRowSet rs) {
