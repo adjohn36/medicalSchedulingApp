@@ -17,6 +17,7 @@ public class OfficeInfoController {
 
     private final OfficeInfoDao officeInfoDao;
 
+
     public OfficeInfoController(OfficeInfoDao officeInfoDao) {
         this.officeInfoDao = officeInfoDao;
     }
