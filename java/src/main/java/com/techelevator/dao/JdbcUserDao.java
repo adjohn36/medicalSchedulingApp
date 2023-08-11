@@ -84,7 +84,7 @@ public class JdbcUserDao implements UserDao {
                 // TODO: insert user into doctor table
             } else
             {
-                // TODO: insert user into patient table
+                // TODO: insert user into patient    table
             }
             newUser = getUserById(newUserId);
         } catch (CannotGetJdbcConnectionException e) {

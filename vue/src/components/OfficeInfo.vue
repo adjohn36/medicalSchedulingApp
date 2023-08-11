@@ -4,12 +4,12 @@
         <label id='facility-name'>{{facilityInfo.FacilityName}}</label>
         <label id='doctor-name'>{{facilityInfo.doctorName}}</label>
         <label id='address'>{{facilityInfo.Address}}</label>
-        <label id='address'>{{facilityInfo.City}}</label>
-        <label id='address'>{{facilityInfo.State}}</label>
-         <label id='address'>{{facilityInfo.ZipCode}}</label>
-          <label id='address'>{{facilityInfo.PhoneNumber}}</label>
+        <label id='city'>{{facilityInfo.City}}</label>
+        <label id='state'>{{facilityInfo.State}}</label>
+         <label id='Zipcode'>{{facilityInfo.ZipCode}}</label>
+          <label id='phoneNumber'>{{facilityInfo.PhoneNumber}}</label>
         <label id='opening-hours'>{{facilityInfo.OpenTime}}</label>
-        <label id='opening-hours'>{{facilityInfo.CloseTime}}</label>
+        <label id='closing-hours'>{{facilityInfo.CloseTime}}</label>
         <label id='opening-days'>{{facilityInfo.OpenDays}}</label>
   </div>
 </template>
@@ -18,15 +18,11 @@
 
 export default {
     name:'office-info', 
-    props:{
-      facilityId:Object
-    }
-       
-    ,
+    props:['facilityId'],          
     data(){
       return{
         facilityInfo:{
-          id: 0,
+          id: this.facilityId,
         doctorName: "",   
         FacilityName:"",
         Address: "",
@@ -41,10 +37,23 @@ export default {
         }
       }
     },
-     created(){
-     this.facilityInfo =  
-            this.$store.state.DoctorFacility.filter(facility => facility.id === this.facilityId); 
-             alert(this.facilityId)  ;     
+    methods:{
+      getFacilityInfo(){
+        this.facilityInfo = this.$store.state.DoctorFacility[this.facilityId-1];
+
+        // this.facilityInfo = this.$store.state.DoctorFacility.filter((facility) => {
+        //       return (facility.id === this.facilityId)              
+        //       });        
+      }
+    },
+      created(){
+        this.getFacilityInfo();
+        
+    //  this.facilityInfo = this.$store.state.DoctorFacility.filter((facility) => {
+    //           return (facility.id === this.facilityId)
+              
+    //           });           
+    //           alert(this.facilityInfo.FacilityName)  ;     
     }    
 }
 </script>

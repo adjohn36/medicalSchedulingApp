@@ -67,7 +67,7 @@ const router = new Router({
       }
     },
     {
-      path: "/view-office-info/id",
+      path: "/view-office-info/:id",
       name: "office-info",
       component: ViewOfficeInfo,
       meta: {

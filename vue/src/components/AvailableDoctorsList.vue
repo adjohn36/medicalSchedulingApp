@@ -7,9 +7,9 @@
      </div>
      <h1>Doctor Information</h1>   
         <div v-for="facility in doctorFacilityInfo" v-bind:key="facility.id" class="doctor-info">          
-          <router-link id="doc-facility-info" v-bind:to="{path:'/view-office-info/id', params: {id:facility.id}}">
+          <router-link id="doc-facility-info" v-bind:to="{name:'office-info', params: {id:facility.id}}">
           {{facility.doctorName}}</router-link>
-          <office-info v-bind:facilityId="facility" />
+          
           <div class="address">{{facility.Address}}</div>
           <br>
           <p>

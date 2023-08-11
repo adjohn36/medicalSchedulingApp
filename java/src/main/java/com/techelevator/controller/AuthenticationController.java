@@ -52,11 +52,11 @@ public class AuthenticationController {
         Doctor doctor;
         try {
             user = userDao.getUserByUsername(loginDto.getUsername());
-            doctor = doctorDao.getDoctorByUserId(user.getId());
-            if (user.getId() == doctor.getUserId()){
-                isDoctor = true;
-                isValidDoctor = doctor.isActive();
-            }
+//            doctor = doctorDao.getDoctorByUserId(user.getId());
+//            if (user.getId() == doctor.getUserId()){
+//                isDoctor = true;
+//                isValidDoctor = doctor.isActive();
+//            }
             // TODO: get idDoctor and IsValidDoctor from DB by passing the userid
             // TODO: make a call to JdbcDoctorDao methods(this needs to be created)
 
