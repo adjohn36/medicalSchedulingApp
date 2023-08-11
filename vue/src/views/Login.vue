@@ -1,26 +1,26 @@
 <template>
-  <div id="login">  
-    <img id="mainLogo" src="../img/SmartBookingLogo.png" alt="SmartBookingLogo" />  
-    <form id=loginForm @submit.prevent="login" class=login-form>
-      <h1 >Please Sign In</h1>
-      <div role="alert" v-if="invalidCredentials">
-        Invalid username and password!
-      </div>
-      <div role="alert" v-if="this.$route.query.registration">
-        Thank you for registering, please sign in.
-      </div>
-      <div class="form-input-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" v-model="user.username" required autofocus />
-      </div>
-      <div class="form-input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model="user.password" required />
-      </div>
-      <button type="submit">Sign in</button>
-      <p>
-      <router-link :to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
-    </form>
+  <div class="container">
+    <div class="wrapper">
+      <div class="sblogo">
+          <img src="../img/NavBarLogo.png" alt="sblogo">
+        </div> 
+      <div class="title"><span>Login Form</span></div>
+      <form @submit.prevent="login">
+        
+        <div class="row">
+          <i class="fas fa-user"></i>
+          <input type="text" placeholder="Username" v-model="user.username" required>
+        </div>
+        <div class="row">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Password" v-model="user.password" required>
+        </div>
+        <div class="row button">
+          <button type="submit">Login</button>
+        </div>
+        <div class="signup-link">Don't have an account? <router-link to="/register">Signup now</router-link></div>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -29,14 +29,12 @@ import authService from "../services/AuthService";
 
 export default {
   name: "login",
-  components: {},
   data() {
     return {
       user: {
         username: "",
         password: ""
-      },
-      invalidCredentials: false
+      }
     };
   },
   methods: {
@@ -49,14 +47,14 @@ export default {
             this.$store.commit("SET_USER", response.data.user);
             this.$store.commit("SET_IS_DOCTOR", response.data.isDoctor);
             this.$store.commit("SET_IS_VALID_DOCTOR", response.data.isValidDoctor);
-            this.$router.push("/");
+            this.$router.push('/view-doctor');
           }
         })
         .catch(error => {
           const response = error.response;
 
           if (response.status === 401) {
-            this.invalidCredentials = true;
+            // Handle invalid credentials
           }
         });
     }
@@ -65,23 +63,78 @@ export default {
 </script>
 
 <style scoped>
-.form-input-group {
-  margin-bottom: 1rem;
-}
-label {
-  margin-right: 0.5rem;
-}
-#mainLogo{
-  height: 270px;
-  width: 270px;
-  padding-right: 20px;  
-}
-#login{  
+
+
+.container {
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
-#loginForm{  
-  margin-top: 100px;
-  margin-left: 100px;
+
+.wrapper {
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 400px;
+}
+
+.title {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.row i {
+  font-size: 18px;
+  margin-right: 10px;
+  color: #333;
+}
+
+.row input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.button {
+  text-align: center;
+}
+
+.button button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 15px;
+  margin-left: 10px;
+}
+
+.signup-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.signup-link a {
+  color: #007bff;
+  text-decoration: none;
+}
+.sblogo {
+  text-align: center;
+  margin-bottom: 20px
+}
+.sblogo img {
+  width: 300px;
+  height: auto;
 }
 </style>

@@ -1,115 +1,51 @@
 <template>
-  <div class="home">
-  <header>
-     <img id="mainLogo" src="../img/SmartBookingLogo.png" alt="SmartBookingLogo" />      
-  </header>
-  <div>    
-     <!-- <div v-show="isDoctor">
-        <h3>Links for Doctor</h3>
-        <router-link >View Upcoming Appointments</router-link>&nbsp;|&nbsp;        
+  <div>
+    <nav :class="{'sticky': isSticky}">
+      <div class="nav-content">
+        <div class="logo">
+          <a href="#">
+            <img src="../img/NavBarLogo.png" alt="Logo">
+          </a>
+        </div>
+        <ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Find a doctor</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Login</a></li>
+        </ul>
+      </div>
+    </nav>
+    <section class="home"></section>
+    <div class="text">
+      <!-- ... your content ... -->
     </div>
-         
-    <div v-show="!isDoctor">
-        <h3>Links for Patient</h3>        
-        <router-link v-bind:to="{ name: 'office-info' }">View Available Doctors</router-link>&nbsp;|&nbsp;       
-    </div> -->
-  </div>
-   <main>
-     <router-view />
-   </main>
-   <footer>
-    <!-- 
-     
-      <div class="column">
-        <h2>Section 1</h2>
-        <ul>
-          <li v-for="item in section1Data" :key="item.Id">{{ item.Title }}</li>
-        </ul>
-      </div>
-
-     
-      <div class="column">
-        <h2>Section 2</h2>
-        <ul>
-          <li v-for="item in section2Data" :key="item.Id">{{ item.Title }}</li>
-        </ul>
-      </div>
-
-      
-      <div class="column">
-        <h2>Section 3</h2>
-        <ul>
-          <li v-for="item in section3Data" :key="item.Id">{{ item.Title }}</li>
-        </ul>
-      </div>
-    </div> -->
-   </footer>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "home",
   data() {
     return {
-      section1Data: [],
-      section2Data: [],
-      section3Data: [],
-
-      isDoctor: '',
-      isValidDoctor: '',
+      isSticky: false
     };
   },
-  created() {
-    this.fetchApiData();
-    this.isDoctor = this.$store.state.isDoctor;
-    this.isValidDoctor = this.$store.state.isValidDoctor;
-    if(this.isDoctor){
-      this.$router.push({name:'upcoming-appointment'});
-    } else{
-        this.$router.push({name:'view-available-doctors'});
-    }
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
-    fetchApiData() {
-      axios
-        .get("https://health.gov/myhealthfinder/api/v3/itemlist.json?Type=topic") 
-        .then((response) => {
-          const { Item } = response.data.Result.Items;
-          // You can use Item array to divide the data into three sections.
-          this.section1Data = Item.slice(0, 1);
-          this.section2Data = Item.slice(10, 11);
-          this.section3Data = Item.slice(20, 21);
-        })
-        .catch((error) => {
-          console.error("Error fetching API data:", error);
-        });
-    },
-  },
+    handleScroll() {
+      this.isSticky = document.documentElement.scrollTop > 20;
+    }
+  }
 };
 </script>
 
-<style>
-#mainLogo{
-  height: 150px;
-  width: 150px;
-  padding-right: 20px;
-  
-}
-.columns {
-  display: flex;
-  justify-content: space-between;
-}
+<style scoped>
 
-.column {
-  flex: 1;
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-}
-header #mainLogo{
-  text-align: start;
-}
+
 </style>
