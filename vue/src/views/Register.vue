@@ -1,36 +1,40 @@
 <template>
-  <div id="register" class="text-center">
-    <img id="mainLogo" src="../img/SmartBookingLogo.png" alt="SmartBookingLogo" /> 
-    <form id="register-form" @submit.prevent="register">
-      <h1>Create Account</h1>
-      <div role="alert" v-if="registrationErrors">
-        {{ registrationErrorMsg }}
-      </div>
-      <div class="form-input-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" v-model="user.username" required autofocus />
-      </div>
-      <div class="form-input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model="user.password" required />
-      </div>
-      <div class="form-input-group">
-        <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
-      </div>
-      <div class="form-input-group">      
-        <label for="isDoctor" >A doctor ? {{ checked }}</label> 
-        <input type="checkbox" id="isDoctor" v-model="user.isDoctor" />                
-      </div>
-       <div class="form-input-group" v-show="user.isDoctor" v-bind:style="{}">
-        <label for="npiNumber" >NPI</label>
-        <input type="text" id="npiNumber" v-model="user.npiNumber" v-bind:required="user.isDoctor" maxlength="10" pattern="^[0-9]*$" />
-      </div>
-      <button type="submit">Create Account</button>
-      <p><router-link :to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
-    </form>
+  <div class="container">
+    <div class="wrapper">
+      <div class="sblogo">
+        <img src="../img/NavBarLogo.png" alt="sblogo">
+      </div> 
+      <div class="title"><span>Registration Form</span></div>
+      <form @submit.prevent="register">
+        <div class="row">
+          <i class="fas fa-user"></i>
+          <input type="text" placeholder="Username" v-model="user.username" required>
+        </div>
+        <div class="row">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Password" v-model="user.password" required>
+        </div>
+        <div class="row">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Confirm Password" v-model="user.confirmPassword" required>
+        </div>
+        <div class="row">
+          <input type="checkbox" id="isDoctor" v-model="user.isDoctor">
+          <label for="isDoctor">Are you a doctor?</label>
+        </div>
+        <div class="row" v-show="user.isDoctor">
+          <i class="fas fa-id-card"></i>
+          <input type="text" placeholder="NPI Number" v-model="user.npiNumber" required>
+        </div>
+        <div class="row button">
+          <button type="submit">Register</button>
+        </div>
+        <div class="signup-link">Already have an account? <router-link to="/login">Login now</router-link></div>
+      </form>
+    </div>
   </div>
 </template>
+
 
 <script>
 import authService from '../services/AuthService';
@@ -88,23 +92,74 @@ export default {
 </script>
 
 <style scoped>
-.form-input-group {
-  margin-bottom: 1rem;
-}
-label {
-  margin-right: 0.5rem;
-}
-#mainLogo{
-  height: 270px;
-  width: 270px;
-  padding-right: 20px;  
-}
-#register{  
+.container {
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
-#register-form{  
-  margin-top: 100px;
-  margin-left: 100px;
+
+.wrapper {
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 400px;
+}
+
+.title {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.row i {
+  font-size: 18px;
+  margin-right: 10px;
+  color: #333;
+}
+
+.row input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.row label {
+  margin-left: 10px;
+  color: #333;
+}
+
+.button {
+  text-align: center;
+}
+
+.button button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 15px;
+  display: flex;
+  margin-left: 10px;
+}
+
+.sblogo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sblogo img {
+  width: 300px;
+  height: auto;
 }
 </style>
