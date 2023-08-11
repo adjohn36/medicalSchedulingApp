@@ -9,5 +9,6 @@ public interface AppointmentDao {
 
 
 
-    List<AppointmentResponseDto> getAppointmentListsByDoctorId(int id);
+    List<AppointmentResponseDto> getAppointmentListsByDoctorId(int doctorId);
+    List<AppointmentResponseDto> getNextSevenDayAppointmentListsByDoctorId(int doctorId);
 }

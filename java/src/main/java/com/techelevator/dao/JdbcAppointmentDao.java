@@ -20,7 +20,7 @@ public class JdbcAppointmentDao implements AppointmentDao {
     }
 
     @Override
-    public List<AppointmentResponseDto> getAppointmentListsByDoctorId(int id) {
+    public List<AppointmentResponseDto> getAppointmentListsByDoctorId(int doctorId) {
         List<AppointmentResponseDto> appointmentLists = new ArrayList<>();
         try {
             String sql = "SELECT patient.patient_first_name, patient.patient_last_name, appointment.date_selected, schedule.time_slot " +
@@ -28,8 +28,34 @@ public class JdbcAppointmentDao implements AppointmentDao {
                     " JOIN appointment ON patient.patient_id = appointment.patient_id " +
                     " JOIN doctor_schedule ON appointment.doctor_schedule_id = doctor_schedule.doctor_schedule_id " +
                     " JOIN schedule ON doctor_schedule.schedule_id = schedule.schedule_id " +
-                    " WHERE doctor_schedule.doctor_id = ?";
-            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+                    " WHERE appointment.date_selected >= CURRENT_DATE " +
+                    " AND doctor_schedule.doctor_id = ?";
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, doctorId);
+            while (results.next()) {
+                AppointmentResponseDto appointment = mapRowToAppointment(results);
+                appointmentLists.add(appointment);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (
+                DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+        return appointmentLists;
+    }
+
+    @Override
+    public List<AppointmentResponseDto> getNextSevenDayAppointmentListsByDoctorId(int doctorId) {
+        List<AppointmentResponseDto> appointmentLists = new ArrayList<>();
+        try {
+            String sql = "SELECT patient.patient_first_name, patient.patient_last_name, appointment.date_selected, schedule.time_slot " +
+                    " FROM patient " +
+                    " JOIN appointment ON patient.patient_id = appointment.patient_id " +
+                    " JOIN doctor_schedule ON appointment.doctor_schedule_id = doctor_schedule.doctor_schedule_id " +
+                    " JOIN schedule ON doctor_schedule.schedule_id = schedule.schedule_id " +
+                    " WHERE appointment.date_selected between CURRENT_DATE AND CURRENT_DATE + 7 " +
+                    " AND doctor_schedule.doctor_id = ?";
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, doctorId);
             while (results.next()) {
                 AppointmentResponseDto appointment = mapRowToAppointment(results);
                 appointmentLists.add(appointment);

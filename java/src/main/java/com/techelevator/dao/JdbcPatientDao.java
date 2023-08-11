@@ -18,11 +18,11 @@ public class JdbcPatientDao implements PatientDao {
     }
 
     @Override
-    public List<Patient> getPatientListByPatientId(int id) {
+    public List<Patient> getPatientListByPatientId(int patientId) {
         List<Patient> PatientLists = new ArrayList<>();
         try {
             String sql = "SELECT * FROM patient WHERE patient_id = ? ;";
-            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, patientId);
             while (results.next()) {
                 Patient patient = mapRowToPatient(results);
                 PatientLists.add(patient);
