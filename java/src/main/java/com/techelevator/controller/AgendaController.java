@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 @RestController
+@CrossOrigin
 @RequestMapping("/agenda")
 public class AgendaController {
     private final AppointmentDao appointmentDao;

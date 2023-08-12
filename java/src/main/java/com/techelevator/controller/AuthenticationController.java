@@ -28,13 +28,10 @@ public class AuthenticationController {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private UserDao userDao;
 
-//    private DoctorDao doctorDao;
-
     public AuthenticationController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserDao userDao) {
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.userDao = userDao;
-//        this.doctorDao = doctorDao;
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
@@ -48,19 +45,8 @@ public class AuthenticationController {
         String jwt = tokenProvider.createToken(authentication, false);
         User user;
 
-//        boolean isDoctor = false;
-//        boolean isValidDoctor = false;
-//        Doctor doctor;
-
         try {
             user = userDao.getUserByUsername(loginDto.getUsername());
-//            doctor = doctorDao.getDoctorByUserId(user.getId());
-//            if (user.getId() == doctor.getUserId()){
-//                isDoctor = true;
-//                isValidDoctor = doctor.isActive();
-//            }
-            // TODO: get idDoctor and IsValidDoctor from DB by passing the userid
-            // TODO: make a call to JdbcDoctorDao methods(this needs to be created)
 
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Username or password is incorrect.");

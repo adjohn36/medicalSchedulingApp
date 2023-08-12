@@ -33,9 +33,10 @@ public class OfficeInfoController {
         }
         return officeInfo;
     }
+
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
-    public OfficeInfo getOfficeInfoById(@PathVariable int id){
+    public OfficeInfo getOfficeInfoById(@PathVariable int id) {
         OfficeInfo officeInfo = officeInfoDao.getOfficeById(id);
         if (officeInfo != null) {
 
@@ -46,7 +47,7 @@ public class OfficeInfoController {
     }
 
     // Error: 500 Internal Server Error - does not create office
-@ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
     public OfficeInfo createOffice(@RequestBody OfficeInfo office) {
         return officeInfoDao.createOffice(office);

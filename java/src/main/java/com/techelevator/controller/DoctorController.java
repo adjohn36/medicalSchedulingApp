@@ -34,7 +34,6 @@ public class DoctorController {
         return doctor;
     }
 
-//    @GetMapping("/officeinfo")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/view-doctor")
     public List<DoctorOfficeList> viewDoctorsAndOffices() {
