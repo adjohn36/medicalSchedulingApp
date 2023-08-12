@@ -29,7 +29,7 @@ export default {
           if (response.status == 200) {
             this.$store.commit("SET_IS_DOCTOR", response.data.isDoctor);
             this.$store.commit("SET_IS_VALID_DOCTOR", response.data.isVerifiedDoctor);
-            alert(response.data.isDoctor);
+            
             if(response.data.isDoctor){
                this.$router.push({name:'upcoming-appointment'});
             } 

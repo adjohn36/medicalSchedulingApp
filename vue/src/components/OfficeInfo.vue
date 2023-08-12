@@ -18,24 +18,22 @@
     </nav>
   <div class="office-info">
         <h2>Office Details</h2>
-        <label id='facility-name'>{{facilityInfo.FacilityName}}</label>
+        <label id='facility-name'>{{facilityInfo.officeName}}</label>        
         <br>
-        <!-- <label id='doctor-name'>{{facilityInfo.doctorName}}</label> -->
+        <label id='address'>{{facilityInfo.streetAddress}}</label>
         <br>
-        <label id='address'>{{facilityInfo.Address}}</label>
-        <br>
-        <label id='city'>{{facilityInfo.City}}, </label>
-        <label id='state'>{{facilityInfo.State}}  </label>
-         <label id='Zipcode'>{{facilityInfo.ZipCode}}</label>
+        <label id='city'>{{facilityInfo.city}}, </label>
+        <label id='state'>{{facilityInfo.state}}  </label>
+         <label id='Zipcode'>{{facilityInfo.zipCode}}</label>
          <br>
          <br>
-          <label id='phoneNumber'>{{facilityInfo.PhoneNumber}}</label>
+          <label id='phoneNumber'>{{facilityInfo.phone}}</label>
           <br>
           <br>
-          <label id='opening-days'>{{facilityInfo.OpenDays}}</label>
+          <label id='opening-days'>{{facilityInfo.openDays}}</label>
           <br>
-        <label id='opening-hours'>{{facilityInfo.OpenTime}} - </label>
-        <label id='closing-hours'>{{facilityInfo.CloseTime}}</label>
+        <label id='opening-hours'>{{facilityInfo.openTime}} - </label>
+        <label id='closing-hours'>{{facilityInfo.closeTime}}</label>
         
         
   </div>
@@ -44,44 +42,39 @@
 
 <script>
 
+import authService from '../services/AuthService';
+
 export default {
     name:'office-info', 
     props:['facilityId'],          
     data(){
       return{
         facilityInfo:{
-          id: this.facilityId,
-        doctorName: "",   
-        FacilityName:"",
-        Address: "",
-        City:"",
-        State:"",
-        ZipCode :"",
-        PhoneNumber: "",
-        OpenTime:"",
-        CloseTime:"",
-        OpenDays:""
-
+         id: 0,
+    officeName: "",
+    streetAddress: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    phone: "",
+    openTime: "",
+    closeTime: "",
+    openDays: ""
         }
       }
     },
     methods:{
       getFacilityInfo(){
-        this.facilityInfo = this.$store.state.DoctorFacility[this.facilityId-1];
-
-        // this.facilityInfo = this.$store.state.DoctorFacility.filter((facility) => {
-        //       return (facility.id === this.facilityId)              
-        //       });        
+        authService.getOfficeDetail(this.facilityId)
+        .then((response) => {                  
+          if (response.status == 200) {           
+            this.facilityInfo =  response.data;           
+          }
+        });                
       }
     },
       created(){
-        this.getFacilityInfo();
-        
-    //  this.facilityInfo = this.$store.state.DoctorFacility.filter((facility) => {
-    //           return (facility.id === this.facilityId)
-              
-    //           });           
-    //           alert(this.facilityInfo.FacilityName)  ;     
+        this.getFacilityInfo();         
     }    
 }
 </script>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/doctors")
 public class DoctorController {
 
@@ -33,7 +34,9 @@ public class DoctorController {
         return doctor;
     }
 
-    @GetMapping("/officeinfo")
+//    @GetMapping("/officeinfo")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/view-doctor")
     public List<DoctorOfficeList> viewDoctorsAndOffices() {
         List doctorOfficeInfo = doctorDao.getDoctorsAndOfficeInfo();
         if (doctorOfficeInfo != null) {

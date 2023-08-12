@@ -37,7 +37,7 @@ public class JdbcDoctorDao implements DoctorDao {
     @Override
     public List<DoctorOfficeList> getDoctorsAndOfficeInfo(){
         List<DoctorOfficeList> doctorOfficeLists = new ArrayList<>();
-        String sql = "SELECT doctor_first_name, doctor_last_name, office_name, office_street_address, office_city, office_state, office_zip_code, office_phone " +
+        String sql = "SELECT doctor_first_name, doctor_last_name, doctor_office.office_id, office_street_address, office_city, office_state, office_zip_code " +
                 "FROM doctor " + "JOIN doctor_office ON doctor.doctor_id = doctor_office.doctor_id " +
                 "JOIN office ON doctor_office.office_id = office.office_id;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
@@ -94,12 +94,12 @@ public class JdbcDoctorDao implements DoctorDao {
         DoctorOfficeList doctorOffice = new DoctorOfficeList();
         doctorOffice.setDoctorFirstName(rs.getString("doctor_first_name"));
         doctorOffice.setDoctorLastName(rs.getString("doctor_last_name"));
-        doctorOffice.setOfficeName(rs.getString("office_name"));
+        doctorOffice.setOfficeId(rs.getInt("office_id"));
         doctorOffice.setStreetAddress(rs.getString("office_street_address"));
         doctorOffice.setCity(rs.getString("office_city"));
         doctorOffice.setState(rs.getString("office_state"));
         doctorOffice.setZipCode(rs.getInt("office_zip_code"));
-        doctorOffice.setPhoneNumber(rs.getString("office_phone"));
+
         return doctorOffice;
     }
 }

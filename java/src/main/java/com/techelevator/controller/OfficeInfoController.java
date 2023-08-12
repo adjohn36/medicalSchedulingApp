@@ -12,7 +12,8 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/officeinfo")
+@CrossOrigin
+@RequestMapping("/office-info")
 public class OfficeInfoController {
 
     private final OfficeInfoDao officeInfoDao;
@@ -32,7 +33,7 @@ public class OfficeInfoController {
         }
         return officeInfo;
     }
-
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public OfficeInfo getOfficeInfoById(@PathVariable int id){
         OfficeInfo officeInfo = officeInfoDao.getOfficeById(id);

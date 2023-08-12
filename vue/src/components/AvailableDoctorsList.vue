@@ -24,21 +24,21 @@
     <h1>Doctor Information</h1>
     <div v-for="facility in doctorFacilityInfo" :key="facility.id" class="doctor-info">
       <div class="doctor-details">
-        <span>{{ facility.doctorName }}</span>
+        <span>{{ facility.doctorFirstName }} {{facility.doctorLastName}}</span>
         <img src="../img/doctorImage.png" alt="Doctor Image" class="doctor-image">
         <div class="row button">
-          <router-link :to="{ name: 'office-info', params: { id: facility.id } }">
+          <router-link :to="{ name: 'office-info', params: { id: facility.officeId } }">
             <button>View Office Details</button>
           </router-link>
         </div>
       </div>
 
       <div class="address">
-        {{ facility.Address }}
+        {{ facility.streetAddress }}
         <br>
-        <span>{{ facility.City }},</span>&nbsp;
-        <span>{{ facility.State }}</span>&nbsp;
-        <span>{{ facility.ZipCode }}</span>
+        <span>{{ facility.city }},</span>&nbsp;
+        <span>{{ facility.state }}</span>&nbsp;
+        <span>{{ facility.zipCode }}</span>
       </div>
     </div>
   </div>
@@ -46,18 +46,28 @@
 
 <script>
 
-
+import authService from '../services/AuthService';
 export default {
    
     name: 'doctor-info',
     data(){
         return{
-            doctorFacilityInfo:[]
+             doctorFacilityInfo:[]    
         }        
     },
+    methods:{
+      getDoctorOfficeInfo(){
+        authService
+        .getDoctorOfficeInfo()
+         .then((response) => {         
+          if (response.status == 200) {           
+            this.doctorFacilityInfo =  response.data;           
+          }
+        });
+      }
+    },
     created(){
-       this.doctorFacilityInfo =  
-            this.$store.state.DoctorFacility;        
+      this.getDoctorOfficeInfo();           
     }
 }
 </script>
