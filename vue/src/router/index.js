@@ -11,6 +11,7 @@ import UpdateOfficeInfo from '../views/UpdateOfficeInfo.vue'
 import UpcomingAppointment from '../views/ViewUpcomingAppointment.vue'
 import ViewAvailableDoctor from '../views/ViewAvailableDoctors.vue'
 import Processing from '../views/Processing.vue'
+import UpdateDocAvailabity from '../views/UpdateAvailability.vue'
 
 Vue.use(Router)
 
@@ -108,6 +109,14 @@ const router = new Router({
         requiresAuth: true
       }
     },
+    {
+      path: "/update-availability",
+      name: "update-availability",
+      component: UpdateDocAvailabity,
+      meta: {
+        requiresAuth: false
+      }
+    }
   ]
 })
 
