@@ -49,7 +49,7 @@ public class OfficeInfoController {
     // Error: 500 Internal Server Error - does not create office
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
-    public OfficeInfo createOffice(@RequestBody OfficeInfo office) {
+    public OfficeInfo createOffice(@Valid @RequestBody OfficeInfo office) {
         return officeInfoDao.createOffice(office);
     }
 
