@@ -15,6 +15,5 @@ public interface AppointmentDao {
     List<AppointmentResponseDto> getAppointmentListsByDoctorId(int doctorId);
     List<AppointmentResponseDto> getNextSevenDayAppointmentListsByDoctorId(int doctorId);
     List<BookAppointViewDto> getAvailableAppointmentLists();
-
     int postBookAnAppointment(Appointment anAppointment);
 }

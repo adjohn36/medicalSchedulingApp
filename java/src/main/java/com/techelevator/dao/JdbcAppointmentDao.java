@@ -97,11 +97,11 @@ public class JdbcAppointmentDao implements AppointmentDao {
         Integer appointmentId;
 
             try {
-                // create transfer
+
                 String sqlBookAnAppointment = "INSERT INTO appointment (patient_id, doctor_schedule_id, " +
                         "date_selected ) VALUES (?, ?,? ) RETURNING appointment_id";
                 appointmentId = jdbcTemplate.queryForObject(sqlBookAnAppointment, Integer.class, anAppointment.getPatientId(), anAppointment.getDoctorScheduleId(), LocalDate.parse(anAppointment.getDateSelected()));
-                //transferId = jdbcTemplate.queryForObject(sqlTransfer, Integer.class, 0, 1, accountFrom, accountTo, transfer.getTransferAmount());
+
             } catch (CannotGetJdbcConnectionException e) {
                 throw new DaoException("Unable to connect to server or database", e);
             } catch (DataIntegrityViolationException e) {
@@ -110,7 +110,7 @@ public class JdbcAppointmentDao implements AppointmentDao {
         return appointmentId;
     }
 
-    // Maps a row from Database result to Book Appointment Response Model object
+    // Maps a row from Database result to AppointViewDto Model object
     private BookAppointViewDto mapRowToBookAppointViewDto(SqlRowSet rs) {
         BookAppointViewDto appointment = new BookAppointViewDto();
         appointment.setDoctorScheduleId(rs.getInt("doctor_schedule_id"));
@@ -120,7 +120,7 @@ public class JdbcAppointmentDao implements AppointmentDao {
         appointment.setDoctorLastName(rs.getString("doctor_last_name"));
         return appointment;
     }
-    // Maps a row from Database result to Appointment Response Model object
+    // Maps a row from Database result to AppointmentResponseDto Model object
     private AppointmentResponseDto mapRowToAppointmentResponseDto(SqlRowSet rs) {
         AppointmentResponseDto appointment = new AppointmentResponseDto();
         appointment.setPatientFirstName(rs.getString("patient_first_name"));
