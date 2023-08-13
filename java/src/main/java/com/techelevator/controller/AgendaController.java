@@ -3,11 +3,15 @@ package com.techelevator.controller;
 import com.techelevator.dao.AppointmentDao;
 import com.techelevator.dao.PatientDao;
 import com.techelevator.model.AppointmentResponseDto;
+import com.techelevator.model.BookAppointViewDto;
+import com.techelevator.model.Appointment;
 import com.techelevator.model.Patient;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import com.techelevator.exception.DaoException;
+
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 @RestController
@@ -16,6 +20,7 @@ import java.util.List;
 public class AgendaController {
     private final AppointmentDao appointmentDao;
     private final PatientDao patientDao;
+
     public AgendaController(AppointmentDao appointmentDao, PatientDao patientDao) {
         this.appointmentDao = appointmentDao;
         this.patientDao = patientDao;
@@ -63,5 +68,27 @@ public class AgendaController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Patient List By Id failed.");
         }
         return patientList;
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(path = "/listbookappointments/", method = RequestMethod.GET)
+    public List<BookAppointViewDto> listbookappointments() {
+        List<BookAppointViewDto> bookAppointmentList = new ArrayList<>();
+        try {
+            bookAppointmentList = appointmentDao.getAvailableAppointmentLists();
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Appointment List By Doctor Id failed.");
+        }
+        return bookAppointmentList;
+    }
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @RequestMapping(path = "/bookanappointment/", method = RequestMethod.POST)
+    public int bookAnAppointment(@RequestBody Appointment anAppointment) {
+        int bookAnAppointmentID = 0;
+        try {
+            bookAnAppointmentID = appointmentDao.postBookAnAppointment(anAppointment);
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return bookAnAppointmentID;
     }
 }
