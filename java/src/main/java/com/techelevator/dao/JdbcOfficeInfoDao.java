@@ -48,13 +48,13 @@ public class JdbcOfficeInfoDao implements OfficeInfoDao {
     //create a new office info recorded in the database
     @Override
     public OfficeInfo createOffice(OfficeInfo office) {
-        OfficeInfo newOfficeInfo;
+        OfficeInfo newOfficeInfo = null;
         String sql = "INSERT INTO office (office_name, office_street_address, office_city, office_state," +
                 "office_zip_code, office_phone, office_open_time, office_close_time, office_open_days) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING office_id;";
 
         try {
-            int newOfficeId = jdbcTemplate.queryForObject(sql, Integer.class,
+            int newOfficeId = jdbcTemplate.queryForObject(sql, int.class,
                     office.getOfficeName(),
                     office.getStreetAddress(),
                     office.getCity(),
