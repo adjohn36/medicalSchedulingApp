@@ -16,9 +16,10 @@
 
 <style scoped>
   #app {     
-    height: 100vh;
+    height: auto;
     width: 100vw;
     background-color: rgb(177, 212, 248);   
+    background-size: contain;
   }
 #mainLogo{
   height: 220px;
