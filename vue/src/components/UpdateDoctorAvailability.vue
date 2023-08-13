@@ -78,7 +78,8 @@ export default {
           this.selectedTimeSlot.push(userTimeSlot[0].slot);              
         }       
       }    
-      
+    //   alert(this.selectedDay);
+    //   alert(this.selectedTimeSlot[0]);
       this.availability.push({day:this.selectedDay,slot:this.selectedTimeSlot})
          this.selectedSlotId = [];
      this.selectedTimeSlot = [];
