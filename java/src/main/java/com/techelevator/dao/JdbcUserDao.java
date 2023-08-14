@@ -86,7 +86,7 @@ public class JdbcUserDao implements UserDao {
             if(user.isDoctor()) {
                 // TODO: insert user into doctor table
                 Doctor newDoctor = null;
-                String insertDrSql = "INSERT INTO doctor (user_id) values (?) RETURNING doctor_id";
+                String insertDrSql = "INSERT INTO doctor (user_id, doctor_NPI) values (?) RETURNING doctor_id";
                 try {
                     int newDoctorId = jdbcTemplate.queryForObject(insertDrSql, int.class);
                    // newDoctor = getReviewById(newDoctorId);
