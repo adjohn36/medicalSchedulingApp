@@ -2,6 +2,7 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.ReviewDao;
 import com.techelevator.model.Review;
+import com.techelevator.model.ReviewResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,6 +50,17 @@ public class ReviewController {
     @PostMapping()
     public Review createReview(@Valid @RequestBody Review review, Principal principal) {
         return reviewDao.createReview(review, principal);
+    }
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PutMapping("/{id}")
+    public Review updateReview(@Valid @RequestBody Review review) {
+        return reviewDao.updateReview(review);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/response")
+    public ReviewResponse reviewResponse(@Valid @RequestBody ReviewResponse reviewResponse, Principal principal) {
+        return reviewDao.reviewResponse(reviewResponse);
     }
 
 }

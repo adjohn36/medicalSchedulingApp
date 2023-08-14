@@ -13,5 +13,6 @@ public interface ReviewDao {
     Review getReviewById(int id);
     Review createReview(Review review, Principal principal);
     Review updateReview(Review review);
-    Review reviewResponse(ReviewResponse reviewResponse);
+    ReviewResponse getReviewResponseById (int id);
+    ReviewResponse reviewResponse(ReviewResponse reviewResponse);
 }

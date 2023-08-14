@@ -72,7 +72,7 @@ public class JdbcReviewDao implements ReviewDao{
                 "review_content, review_date, reviewed_office, review_title) values (?, ?, ?, ?, ?, ?) RETURNING review_id;";
 
         try {
-            int newReviewId = jdbcTemplate.queryForObject(sql, Integer.class, review.getReviewer(), review.getReviewedOffice(), review.getReviewRating(), review.getReviewTitle(), review.getReviewContent(), review.getReviewDate());
+            int newReviewId = jdbcTemplate.queryForObject(sql, Integer.class, review.getReviewer(), review.getReviewRating(), review.getReviewContent(), review.getReviewDate(), review.getReviewedOffice(), review.getReviewTitle());
             newReview = getReviewById(newReviewId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
@@ -84,11 +84,12 @@ public class JdbcReviewDao implements ReviewDao{
 
     @Override
     public Review updateReview(Review review) {
-        Review updatedReview = null;
-        String sql = "UPDATE review SET review_rating = ?, review_content = ? WHERE review_id = ?";
+        Review updatedReview;
+        String sql = "UPDATE review SET review_id = ?, reviewer = ?, review_rating = ?, " +
+        "review_content = ?, review_date = ?, reviewed_office = ?, review_title = ? WHERE review_id = ?";
         try {
-            jdbcTemplate.update(sql, review.getReviewRating(), review.getReviewContent());
-            updatedReview = getReviewById(review.getReviewId());
+            int updatedReviewId = jdbcTemplate.queryForObject(sql, Integer.class, review.getReviewId() ,review.getReviewer(), review.getReviewRating(), review.getReviewContent(), review.getReviewDate(), review.getReviewedOffice(), review.getReviewTitle(), review.getUsername());
+            updatedReview = getReviewById(updatedReviewId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
@@ -98,13 +99,29 @@ public class JdbcReviewDao implements ReviewDao{
     }
 
     @Override
-    public Review reviewResponse(ReviewResponse reviewResponse) {
-        Review newReviewResponse = null;
+    public ReviewResponse getReviewResponseById(int id) {
+        ReviewResponse reviewResponse = null;
+        String sql = "SELECT response_id, review_id, responder, response_content " +
+                "FROM review_response WHERE response_id = ?";
+            try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+            if (results.next()) {
+                reviewResponse = mapRowToReviewResponse(results);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+        return reviewResponse;
+    }
+
+    @Override
+    public ReviewResponse reviewResponse(ReviewResponse reviewResponse) {
+        ReviewResponse newReviewResponse = null;
         String sql = "INSERT INTO review_response (review_id, responder, response_content) values (?, ?, ?) RETURNING response_id";
 
         try {
             int newReviewResponseId = jdbcTemplate.queryForObject(sql, int.class, reviewResponse.getReviewId(), reviewResponse.getResponder(), reviewResponse.getResponseContent());
-            newReviewResponse = getReviewById(newReviewResponseId);
+            newReviewResponse = getReviewResponseById(newReviewResponseId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
@@ -122,8 +139,18 @@ public class JdbcReviewDao implements ReviewDao{
         review.setReviewRating(rs.getInt("review_rating"));
         review.setReviewTitle(rs.getString("review_title"));
         review.setReviewContent(rs.getString("review_content"));
-        review.setReviewDate(rs.getDate("review_date"));
+        review.setReviewDate(rs.getDate("review_date").toLocalDate());
 
         return review;
+    }
+
+    private ReviewResponse mapRowToReviewResponse(SqlRowSet rs) {
+        ReviewResponse reviewResponse = new ReviewResponse();
+        reviewResponse.setResponseId(rs.getInt("response_id"));
+        reviewResponse.setReviewId(rs.getInt("review_id"));
+        reviewResponse.setResponder(rs.getInt("responder"));
+        reviewResponse.setResponseContent(rs.getString("response_content"));
+
+        return reviewResponse;
     }
 }
