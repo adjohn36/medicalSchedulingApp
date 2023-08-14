@@ -12,6 +12,7 @@ import UpcomingAppointment from '../views/ViewUpcomingAppointment.vue'
 import ViewAvailableDoctor from '../views/ViewAvailableDoctors.vue'
 import Processing from '../views/Processing.vue'
 import UpdateDocAvailabity from '../views/UpdateAvailability.vue'
+import BookAppointmentForm from '../views/BookAnAppointment.vue';
 
 Vue.use(Router)
 
@@ -116,7 +117,16 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
-    }
+    },
+    {
+      path: '/book-appointment',
+      name: 'book-appointment',
+      component: BookAppointmentForm,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    
   ]
 })
 

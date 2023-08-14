@@ -2,23 +2,32 @@
   <div class="container">
     <div class="wrapper">
       <div class="sblogo">
-          <img src="../img/NavBarLogo.png" alt="sblogo">
-        </div> 
-      <div class="title"><span>Login Form</span></div>
+        <img src="../img/NavBarLogo.png" alt="sblogo">
+      </div>
+      <h2>Please Login</h2>
       <form @submit.prevent="login">
-        
-        <div class="row">
-          <i class="fas fa-user"></i>
-          <input type="text" placeholder="Username" v-model="user.username" required>
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <div class="row">
+            <i class="fas fa-user"></i>
+            <input type="text" id="username" v-model="user.username" class="form-control" required>
+          </div>
         </div>
-        <div class="row">
-          <i class="fas fa-lock"></i>
-          <input type="password" placeholder="Password" v-model="user.password" required>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <div class="row">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="password" v-model="user.password" class="form-control" required>
+          </div>
         </div>
-        <div class="row button">
-          <button type="submit">Login</button>
+        <div class="form-group">
+          <div class="row button">
+            <button type="submit" class="btn btn-primary">Login</button>
+          </div>
         </div>
-        <div class="signup-link">Don't have an account? <router-link to="/register">Signup now</router-link></div>
+        <div class="form-group signup-link">
+          Don't have an account? <router-link to="/register">Signup now</router-link>
+        </div>
       </form>
     </div>
   </div>
@@ -45,8 +54,6 @@ export default {
           if (response.status == 200) {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
-            // this.$store.commit("SET_IS_DOCTOR", response.data.isDoctor);
-            // this.$store.commit("SET_IS_VALID_DOCTOR", response.data.isValidDoctor);
             this.$router.push('/processing');
           }
         })
@@ -63,24 +70,17 @@ export default {
 </script>
 
 <style scoped>
-
-
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.wrapper {
-  background-color: #ffffff;
-  border-radius: 5px;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+/* Your existing CSS styles */
+.container{
+  max-width: 400px;
+  margin: 0 auto;
   padding: 20px;
-  width: 400px;
+}
+.form-group {
+  margin-top: 15px;
 }
 
-.title {
+.h2 {
   font-size: 30px;
   text-align: center;
   margin-bottom: 20px;
@@ -107,6 +107,7 @@ export default {
 
 .button {
   text-align: center;
+  margin-top: 20px;
 }
 
 .button button {
@@ -120,19 +121,11 @@ export default {
   margin-left: 10px;
 }
 
-.signup-link {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.signup-link a {
-  color: #007bff;
-  text-decoration: none;
-}
 .sblogo {
   text-align: center;
-  margin-bottom: 20px
+  margin-bottom: 20px;
 }
+
 .sblogo img {
   width: 300px;
   height: auto;
