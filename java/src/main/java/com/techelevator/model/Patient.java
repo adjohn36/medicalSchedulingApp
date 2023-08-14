@@ -1,5 +1,7 @@
 package com.techelevator.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Patient {
 
 
@@ -9,23 +11,30 @@ public class Patient {
     private String patientLastName;
     private String patientStreetAddress;
     private String patientCity;
+    private String patientState;
     private String patientZipCode;
     private String patientPhoneNumber;
     private String patientEmail;
     private String patientDob;
+    @JsonProperty("isActive")
+    private boolean active;
     public Patient() { }
-    public Patient(int patientId, int userId, String patientFirstName, String patientLastName, String patientStreetAddress, String patientCity,
-                   String patientZipCode, String patientPhoneNumber, String patientEmail, String patientDob) {
+
+    public Patient(int patientId, int userId, String patientFirstName, String patientLastName, String patientStreetAddress,
+                   String patientCity, String patientState, String patientZipCode, String patientPhoneNumber,
+                   String patientEmail, String patientDob, boolean active) {
         this.patientId = patientId;
         this.userId = userId;
         this.patientFirstName = patientFirstName;
         this.patientLastName = patientLastName;
         this.patientStreetAddress = patientStreetAddress;
         this.patientCity = patientCity;
+        this.patientState = patientState;
         this.patientZipCode = patientZipCode;
         this.patientPhoneNumber = patientPhoneNumber;
         this.patientEmail = patientEmail;
         this.patientDob = patientDob;
+        this.active = active;
     }
 
     public int getPatientId() {
@@ -76,6 +85,14 @@ public class Patient {
         this.patientCity = patientCity;
     }
 
+    public String getPatientState() {
+        return patientState;
+    }
+
+    public void setPatientState(String patientState) {
+        this.patientState = patientState;
+    }
+
     public String getPatientZipCode() {
         return patientZipCode;
     }
@@ -106,6 +123,14 @@ public class Patient {
 
     public void setPatientDob(String patientDob) {
         this.patientDob = patientDob;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
 

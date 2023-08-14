@@ -1,8 +1,11 @@
 package com.techelevator.controller;
 
+import com.techelevator.dao.DoctorDao;
+import com.techelevator.dao.PatientDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.dao.UserProfileDao;
 import com.techelevator.exception.DaoException;
+import com.techelevator.model.Doctor;
 import com.techelevator.model.ProfileDto;
 import com.techelevator.model.RegisterUserDto;
 import com.techelevator.model.User;
@@ -19,10 +22,14 @@ public class ProfileController {
 
     private UserProfileDao userProfileDao;
     private UserDao userDao;
+    private DoctorDao doctorDao;
+    private PatientDao patientDao;
 
-    public ProfileController(UserProfileDao userProfileDao, UserDao userDao) {
+    public ProfileController(UserProfileDao userProfileDao, UserDao userDao, DoctorDao doctorDao, PatientDao patientDao) {
         this.userProfileDao = userProfileDao;
         this.userDao = userDao;
+        this.doctorDao = doctorDao;
+        this.patientDao = patientDao;
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -42,4 +49,20 @@ public class ProfileController {
         }
         return userProfile;
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(path = "/update-profile", method = RequestMethod.POST)
+    public void updateUserProfile(@Valid ProfileDto profileDto, Principal principal) {
+        try {
+            if (profileDto.isDoctor()) {
+                doctorDao.updateDoctorProfile(profileDto.getDoctorProfile());
+            } else {
+                patientDao.updatePatientProfile(profileDto.getPatientProfile());
+            }
+        } catch (DaoException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "User Not Found.");
+        }
+
+    }
+
 }

@@ -1,10 +1,8 @@
 package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
-import com.techelevator.model.Doctor;
-import com.techelevator.model.DoctorOfficeList;
-import com.techelevator.model.OfficeInfo;
-import com.techelevator.model.User;
+import com.techelevator.model.*;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -80,6 +78,30 @@ public class JdbcDoctorDao implements DoctorDao {
         return doctor;
     }
 
+    public void addDoctor(int userId, long npiNumber) {
+        String sql = "INSERT INTO doctor(doctor_npi,user_id,active) VALUES (?,?,?);";
+        try{
+            jdbcTemplate.update(sql,npiNumber, userId,false);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+    }
+
+    public void updateDoctorProfile(Doctor doctor) {
+
+        String sql = "UPDATE doctor SET doctor_npi =?, user_id=?,doctor_first_name =?, doctor_last_name =?, " +
+                "doctor_email =? where user_id ==? ;";
+        try{
+            jdbcTemplate.update(sql, doctor.getDoctorNpi(), doctor.getDoctorId(), doctor.getDoctorFirstName(),
+                    doctor.getDoctorLastName(), doctor.getDoctorEmail(), doctor.getUserId());
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+    }
     private Doctor mapRowToDoctor(SqlRowSet rs) {
         Doctor doctor = new Doctor();
         doctor.setDoctorId(rs.getInt("doctor_id"));
