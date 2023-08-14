@@ -84,32 +84,13 @@ public class JdbcUserDao implements UserDao {
         try {
             int newUserId = jdbcTemplate.queryForObject(insertUserSql, int.class, user.getUsername(), password_hash, ssRole);
             if(user.isDoctor()) {
-                // TODO: insert user into doctor table
-                Doctor newDoctor = null;
-                String insertDrSql = "INSERT INTO doctor (user_id, doctor_NPI) values (?) RETURNING doctor_id";
-                try {
-                    int newDoctorId = jdbcTemplate.queryForObject(insertDrSql, int.class);
-                   // newDoctor = getReviewById(newDoctorId);
-                } catch (CannotGetJdbcConnectionException e) {
-                    throw new DaoException("Unable to connect to server or database", e);
-                } catch (DataIntegrityViolationException e) {
-                    throw new DaoException("Data integrity violation", e);
-                }
+                // TODO: insert user into doctor table how is the NPI being passed in?
 
 
             } else
             {
                 // TODO: insert user into patient    table
-                Patient newPatient=null;
-                String insertPatientSql = "INSERT INTO patient (user_id) values (?) RETURNING patient_id";
-                try {
-                    int newPatientId = jdbcTemplate.queryForObject(insertPatientSql, int.class);
-                    //newPatient = get(newPatientId);
-                } catch (CannotGetJdbcConnectionException e) {
-                    throw new DaoException("Unable to connect to server or database", e);
-                } catch (DataIntegrityViolationException e) {
-                    throw new DaoException("Data integrity violation", e);
-                }
+
             }
             newUser = getUserById(newUserId);
         } catch (CannotGetJdbcConnectionException e) {
