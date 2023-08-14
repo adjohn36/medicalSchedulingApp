@@ -7,11 +7,10 @@
     font-family: 'Ubuntu', sans-serif;
   }
   nav{
-    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 20px;
+    padding: 10px;;
     transition: all 0.4s ease;
   }
   nav.sticky{
@@ -21,11 +20,13 @@
   }
   nav .nav-content{
     height: 100%;
-    max-width: 1200px;
+    max-width: 1800px;
     margin: auto;
     display: flex;
     align-items: center;
+    margin-top: 10px;
     justify-content: space-between;
+    padding: 15px;
   }
   .logo {
     padding: 0;
@@ -38,6 +39,7 @@
   
   .logo img {
     display: block;
+    align-items: left;
   }
   .nav-content .nav-links{
     display: flex;

@@ -19,7 +19,9 @@
     height: auto;
     width: 100vw;
     background-color: rgb(46, 51, 107);   
-    background-size: contain;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
   }
 #mainLogo{
   height: 220px;
