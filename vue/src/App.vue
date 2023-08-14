@@ -1,35 +1,42 @@
 <template>
   <div id="app">
     <header class="header-content">
-      <!-- <img id="mainLogo" src="./img/SmartBookingLogo.png" alt="SmartBookingLogo" /> -->
-      <div id="nav" >     
-        <!-- <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp; -->
-        <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
+      <div id="nav">
+        <div v-if="$store.state.token !== ''">
+          <span>Logged in as: {{ $store.state.user.username }}   </span>
+          <router-link v-bind:to="{ name: 'logout' }" class="logout-link">Logout</router-link>
+        </div>
+        <router-link v-bind:to="{ name: 'login' }" v-else>Login</router-link>
       </div>
     </header>
     <main class="main-view">
       <router-view />
     </main>
-    
   </div>
 </template>
 
 <style scoped>
-  #app {     
-    height: auto;
-    width: 100vw;
-    background-color: rgb(46, 51, 107);   
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
-  }
-#mainLogo{
-  height: 220px;
-  width: 220px;
-  padding-right: 20px;
+#app {
+  height: auto;
+  width: 100vw;
+  background-color: rgb(46, 51, 107);
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
 }
-#nav{    
+
+#nav {
   text-align: right;
   padding: 20px 30px;
+}
+
+.logout-link {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.logout-link:hover {
+  color: lightblue;
 }
 </style>

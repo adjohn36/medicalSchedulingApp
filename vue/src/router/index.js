@@ -30,9 +30,17 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       component: Home,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: '/',
+      name: 'login',
+      component: Login,
       meta: {
         requiresAuth: false
       }
@@ -91,7 +99,7 @@ const router = new Router({
       name: "update-office-info",
       component: UpdateOfficeInfo,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {
@@ -115,7 +123,7 @@ const router = new Router({
       name: "update-availability",
       component: UpdateDocAvailabity,
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       }
     },
     {

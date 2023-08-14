@@ -68,7 +68,6 @@ export default {
     },
     selectedDate() {
       // get available times for the selectedDoctor and selectedDate
-      // and update the availableTimes array
     },
   },
 };

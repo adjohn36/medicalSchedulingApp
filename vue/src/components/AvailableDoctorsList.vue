@@ -9,8 +9,8 @@
             </a>
           </div>
           <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Find a doctor</a></li>
+            <!-- <li><a href="#">Home</a></li> -->
+            <li><a href="../availabledoctorslist.vue">Find a doctor</a></li>
             <li><a href="#">About Us</a></li>
             <li><a href="#">Services</a></li>
             <li><a href="#">Login</a></li>
@@ -67,7 +67,7 @@ export default {
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: top;
   align-items: center;
   height: 150vh;
 }
@@ -77,7 +77,7 @@ export default {
   width: 100%;
   padding: 20px 0;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
+  border-radius: 5px;
 }
 
 .content {
@@ -164,7 +164,6 @@ h1 {
   width: 130px;
   height: 150px;
   margin-right: 10px;
-  align-content: center;
   }
 
 .doctor-image {

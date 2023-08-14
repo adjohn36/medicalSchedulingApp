@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <nav :class="{'sticky': isSticky}">
       <div class="nav-content">
         <div class="logo">
@@ -7,19 +7,17 @@
             <img src="../img/NavBarLogo.png" alt="Logo">
           </a>
         </div>
-        <div class="nav-links">
-          <div id="nav-for-doctor">
-            <router-link >Schedule Availability</router-link>&nbsp; &nbsp;
-            <router-link v-bind:to="{ name: 'update-office-info' }">Update Office Info</router-link>&nbsp;&nbsp;
-            <router-link v-bind:to="{ name: 'profile' }">Manage Profile</router-link>&nbsp;&nbsp;
-          </div>
-        </div>
+        <ul class="nav-links">
+          <li><router-link to="/schedule-availability">Schedule Availability</router-link></li>
+          <li><router-link to="/update-office-info">Update Office Info</router-link></li>
+          <li><router-link to="/manage-profile">Manage Profile</router-link></li>
+        </ul>
       </div>
     </nav>
-    <div class="upcoming-appointments">
+    <div class="content">
       <h2>Upcoming Appointments</h2>
       <ul class="appointment-list">
-        <li v-for="appointment in upcomingAppointments" :key="appointment.id">
+        <li v-for="appointment in upcomingAppointments" :key="appointment.id" class="appointment-item">
           <div class="appointment-details">
             <div class="patient-name">{{ appointment.patientName }}</div>
             <div class="appointment-time">{{ appointment.time }}</div>
@@ -33,7 +31,7 @@
 
 <script>
 export default {
-  name: 'upcoming-appointment',
+  name: 'UpcomingAppointments',
   data() {
     return {
       isSticky: false,
@@ -46,26 +44,46 @@ export default {
   },
   methods: {
     cancelAppointment(appointmentId) {
-      // Simulate appointment cancellation logic 
-      //make API request
+      // Simulate appointment cancellation logic
+      // Make API request
       console.log("Canceling appointment ID:", appointmentId);
     },
-  },
   created() {
     window.addEventListener("scroll", this.handleScroll);
   },
   beforeDestroy() {
-
-window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener("scroll", this.handleScroll);
   },
-    handleScroll() {
-      this.isSticky = window.scrollY > 20;
   },
 };
 </script>
 
-<style scoped>
 
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 150vh;
+}
+
+.header {
+  background-color: #A1DE81;
+  width: 100%;
+  padding: 20px 0;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.content {
+  background-color: #ffffff;
+  padding: 10px 20px;
+  width: 100%;
+  max-width: 1500px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin-top: 20px;
+}
 
 .nav-links a {
   text-decoration: none;
