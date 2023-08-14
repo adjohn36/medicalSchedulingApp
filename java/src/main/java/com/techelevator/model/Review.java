@@ -1,23 +1,31 @@
 package com.techelevator.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Review {
 
     private int reviewId;
     private int reviewer;
+    private int reviewedOffice;
+    private String officeName;
     private String username;
     private int reviewRating;
+    private String reviewTitle;
     private String reviewContent;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
     private Date reviewDate;
 
     public Review() { }
 
-    public Review(int reviewId, int reviewer, String username,int reviewRating, String reviewContent, Date reviewDate){
+    public Review(int reviewId, int reviewer, int reviewedOffice, int reviewRating, String reviewTitle, String reviewContent, Date reviewDate){
         this.reviewId = reviewId;
         this.reviewer = reviewer;
-        this.username = username;
+        this.reviewedOffice = reviewedOffice;
         this.reviewRating = reviewRating;
+        this.reviewTitle = reviewTitle;
         this.reviewContent = reviewContent;
         this.reviewDate = reviewDate;
     }
@@ -38,6 +46,22 @@ public class Review {
         this.reviewer = reviewer;
     }
 
+    public int getReviewedOffice() {
+        return reviewedOffice;
+    }
+
+    public void setReviewedOffice(int reviewedOffice) {
+        this.reviewedOffice = reviewedOffice;
+    }
+
+    public String getOfficeName() {
+        return officeName;
+    }
+
+    public void setOfficeName(String officeName) {
+        this.officeName = officeName;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -52,6 +76,14 @@ public class Review {
 
     public void setReviewRating(int reviewRating) {
         this.reviewRating = reviewRating;
+    }
+
+    public String getReviewTitle() {
+        return reviewTitle;
+    }
+
+    public void setReviewTitle(String reviewTitle) {
+        this.reviewTitle = reviewTitle;
     }
 
     public String getReviewContent() {
