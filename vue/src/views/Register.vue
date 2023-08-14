@@ -168,7 +168,7 @@ export default {
 }
 
 .sblogo img {
-  width: px;
+  width: 360px;
   height: auto;
 }
 </style>
