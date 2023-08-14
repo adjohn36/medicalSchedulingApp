@@ -7,6 +7,7 @@ import java.util.Objects;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Doctor;
 import com.techelevator.model.RegisterUserDto;
+import com.techelevator.model.Patient;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -82,11 +83,33 @@ public class JdbcUserDao implements UserDao {
         String ssRole = user.getRole().toUpperCase().startsWith("ROLE_") ? user.getRole().toUpperCase() : "ROLE_" + user.getRole().toUpperCase();
         try {
             int newUserId = jdbcTemplate.queryForObject(insertUserSql, int.class, user.getUsername(), password_hash, ssRole);
-            if(user.isDoctor()){
+            if(user.isDoctor()) {
                 // TODO: insert user into doctor table
+                Doctor newDoctor = null;
+                String insertDrSql = "INSERT INTO doctor (user_id) values (?) RETURNING doctor_id";
+                try {
+                    int newDoctorId = jdbcTemplate.queryForObject(insertDrSql, int.class);
+                   // newDoctor = getReviewById(newDoctorId);
+                } catch (CannotGetJdbcConnectionException e) {
+                    throw new DaoException("Unable to connect to server or database", e);
+                } catch (DataIntegrityViolationException e) {
+                    throw new DaoException("Data integrity violation", e);
+                }
+
+
             } else
             {
                 // TODO: insert user into patient    table
+                Patient newPatient=null;
+                String insertPatientSql = "INSERT INTO patient (user_id) values (?) RETURNING patient_id";
+                try {
+                    int newPatientId = jdbcTemplate.queryForObject(insertPatientSql, int.class);
+                    //newPatient = get(newPatientId);
+                } catch (CannotGetJdbcConnectionException e) {
+                    throw new DaoException("Unable to connect to server or database", e);
+                } catch (DataIntegrityViolationException e) {
+                    throw new DaoException("Data integrity violation", e);
+                }
             }
             newUser = getUserById(newUserId);
         } catch (CannotGetJdbcConnectionException e) {
