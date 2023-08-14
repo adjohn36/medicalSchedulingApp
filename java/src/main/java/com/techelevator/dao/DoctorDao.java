@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 import com.techelevator.model.Doctor;
 import com.techelevator.model.DoctorOfficeList;
+import com.techelevator.model.Patient;
 
 import java.util.List;
 
@@ -13,4 +14,8 @@ public interface DoctorDao {
     List<Doctor> getDoctors();
 
     List<DoctorOfficeList> getDoctorsAndOfficeInfo();
+
+    void addDoctor(int userId, long npiNumber);
+
+    void updateDoctorProfile(Doctor doctor);
 }
