@@ -27,9 +27,10 @@ public class JdbcReviewDao implements ReviewDao{
     @Override
     public List<Review> getAllReviews() {
         List<Review> listOfReviews = new ArrayList<>();
-        String sql = "SELECT review_id, reviewer, username, review_rating, review_content, review_date " +
+        String sql = "SELECT review_id, reviewer, office_name, username, review_rating, review_title, review_content, review_date " +
                 "FROM review " +
-                "JOIN users ON review.reviewer = users.user_id;";
+                "JOIN users ON review.reviewer = users.user_id " +
+                "JOIN office ON review.reviewed_office = office.office_id;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {
@@ -46,8 +47,10 @@ public class JdbcReviewDao implements ReviewDao{
     @Override
     public Review getReviewById(int id) {
         Review review = null;
-        String sql = "SELECT review_id, reviewer, username, review_rating, review_content, review_date FROM review " +
-                "JOIN users ON review.reviewer = users.user_id WHERE review_id = ?;";
+        String sql = "SELECT review_id, reviewer, office_name, username, review_rating, review_title, review_content, review_date FROM review " +
+                "JOIN users ON review.reviewer = users.user_id " +
+                "JOIN office ON review.reviewed_office = office.office_id " +
+                "WHERE review_id = ?";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
             if (results.next()) {
@@ -63,10 +66,11 @@ public class JdbcReviewDao implements ReviewDao{
     @Override
     public Review createReview(Review review, Principal principal) {
         Review newReview = null;
-        String sql = "INSERT INTO review (reviewer, review_rating, review_content, review_date) values (?, ?, ?, ?) RETURNING review_id";
+        String sql = "INSERT INTO review (reviewer, reviewed_office, review_rating, " +
+                "review_title, review_content, review_date) values ('?', '?', '?', '?', '?', '?') RETURNING review_id;";
 
         try {
-            int newReviewId = jdbcTemplate.queryForObject(sql, int.class, review.getReviewer(), review.getReviewRating(), review.getReviewContent(), review.getReviewDate());
+            int newReviewId = jdbcTemplate.queryForObject(sql, int.class, review.getReviewer(), review.getReviewedOffice(), review.getReviewRating(), review.getReviewTitle(), review.getReviewContent(), review.getReviewDate());
             newReview = getReviewById(newReviewId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
@@ -111,8 +115,10 @@ public class JdbcReviewDao implements ReviewDao{
         Review review = new Review();
         review.setReviewId(rs.getInt("review_id"));
         review.setReviewer(rs.getInt("reviewer"));
+        review.setOfficeName(rs.getString("office_name"));
         review.setUsername(rs.getString("username"));
         review.setReviewRating(rs.getInt("review_rating"));
+        review.setReviewTitle(rs.getString("review_title"));
         review.setReviewContent(rs.getString("review_content"));
         review.setReviewDate(rs.getDate("review_date"));
 
