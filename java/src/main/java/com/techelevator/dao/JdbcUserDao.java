@@ -7,6 +7,7 @@ import java.util.Objects;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Doctor;
 import com.techelevator.model.RegisterUserDto;
+import com.techelevator.model.Patient;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -82,11 +83,14 @@ public class JdbcUserDao implements UserDao {
         String ssRole = user.getRole().toUpperCase().startsWith("ROLE_") ? user.getRole().toUpperCase() : "ROLE_" + user.getRole().toUpperCase();
         try {
             int newUserId = jdbcTemplate.queryForObject(insertUserSql, int.class, user.getUsername(), password_hash, ssRole);
-            if(user.isDoctor()){
-                // TODO: insert user into doctor table
+            if(user.isDoctor()) {
+                // TODO: insert user into doctor table how is the NPI being passed in?
+
+
             } else
             {
                 // TODO: insert user into patient    table
+
             }
             newUser = getUserById(newUserId);
         } catch (CannotGetJdbcConnectionException e) {
