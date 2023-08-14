@@ -19,12 +19,12 @@
           <input type="password" placeholder="Confirm Password" v-model="user.confirmPassword" required>
         </div>
         <div class="row">
-          <input type="checkbox" id="isDoctor" v-model="user.isDoctor">
+          <input type="checkbox" id="isDoctor" v-model="doctor" v-on:change="updateIsDoctor">
           <label for="isDoctor">Are you a doctor?</label>
         </div>
         <div class="row" v-show="user.isDoctor">
           <i class="fas fa-id-card"></i>
-          <input type="text" placeholder="NPI Number" v-model="user.npiNumber" required>
+          <input type="text" placeholder="NPI Number" v-model="user.npiNumber" v-bind:required="user.isDoctor" >
         </div>
         <div class="row button">
           <button type="submit">Register</button>
@@ -43,6 +43,8 @@ export default {
   name: 'register',
   data() {
     return {
+      doctor:[],
+
       user: {
         username: '',
         password: '',
@@ -58,12 +60,19 @@ export default {
   },
   
   methods: {
+    updateIsDoctor(){
+      if(this.doctor.length != 0){
+        this.user.isDoctor = true;
+      }
+    },
+
     register() {
       if (this.user.password != this.user.confirmPassword) {
         this.registrationErrors = true;
         this.registrationErrorMsg = 'Password & Confirm Password do not match.';
       }  
       else {
+        
         authService
           .register(this.user)
           .then((response) => {
@@ -80,7 +89,7 @@ export default {
             if (response.status === 400) {
               this.registrationErrorMsg = 'Bad Request: Validation Errors';
             }
-          });
+          });          
       }
     },
     clearErrors() {

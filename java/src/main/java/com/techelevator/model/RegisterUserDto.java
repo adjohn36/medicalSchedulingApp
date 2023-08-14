@@ -1,5 +1,7 @@
 package com.techelevator.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotEmpty;
 /*
     The acronym DTO is being used for "data transfer object". It means that this type of class is specifically
@@ -17,7 +19,8 @@ public class RegisterUserDto {
     private String confirmPassword;
     @NotEmpty(message = "Please select a role for this user.")
     private String role;
-    private boolean isDoctor;
+    @JsonProperty("isDoctor")
+    private boolean doctor;
     private long npiNumber;
 
     public String getUsername() {
@@ -53,11 +56,11 @@ public class RegisterUserDto {
     }
 
     public boolean isDoctor() {
-        return isDoctor;
+        return doctor;
     }
 
     public void setDoctor(boolean doctor) {
-        isDoctor = doctor;
+        this.doctor = doctor;
     }
 
     public long getNpiNumber() {

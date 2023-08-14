@@ -83,15 +83,6 @@ public class JdbcUserDao implements UserDao {
         String ssRole = user.getRole().toUpperCase().startsWith("ROLE_") ? user.getRole().toUpperCase() : "ROLE_" + user.getRole().toUpperCase();
         try {
             int newUserId = jdbcTemplate.queryForObject(insertUserSql, int.class, user.getUsername(), password_hash, ssRole);
-            if(user.isDoctor()) {
-                // TODO: insert user into doctor table how is the NPI being passed in?
-
-
-            } else
-            {
-                // TODO: insert user into patient    table
-
-            }
             newUser = getUserById(newUserId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);

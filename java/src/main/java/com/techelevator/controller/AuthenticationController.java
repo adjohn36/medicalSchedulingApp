@@ -3,6 +3,7 @@ package com.techelevator.controller;
 import javax.validation.Valid;
 
 import com.techelevator.dao.DoctorDao;
+import com.techelevator.dao.PatientDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.*;
 import org.springframework.http.HttpHeaders;
@@ -27,11 +28,16 @@ public class AuthenticationController {
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private UserDao userDao;
+    private PatientDao patientDao;
+    private DoctorDao doctorDao;
 
-    public AuthenticationController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserDao userDao) {
+    public AuthenticationController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder,
+                                    UserDao userDao, PatientDao patientDao, DoctorDao doctorDao) {
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.userDao = userDao;
+        this.patientDao = patientDao;
+        this.doctorDao = doctorDao;
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
@@ -62,6 +68,12 @@ public class AuthenticationController {
     public void register(@Valid @RequestBody RegisterUserDto newUser) {
         try {
             User user = userDao.createUser(newUser);
+            if(newUser.isDoctor()) {
+                doctorDao.addDoctor(user.getId(), newUser.getNpiNumber());
+            } else
+            {
+                patientDao.addPatient(user.getId());
+            }
             if (user == null) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User registration failed.");
             }

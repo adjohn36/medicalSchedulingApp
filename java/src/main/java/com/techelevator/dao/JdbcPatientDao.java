@@ -7,12 +7,14 @@ import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class JdbcPatientDao implements PatientDao {
     private final JdbcTemplate jdbcTemplate;
+
     public JdbcPatientDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -35,6 +37,7 @@ public class JdbcPatientDao implements PatientDao {
         }
         return PatientLists;
     }
+
     @Override
     public List<Patient> getPatientLists() {
         List<Patient> PatientLists = new ArrayList<>();
@@ -52,6 +55,34 @@ public class JdbcPatientDao implements PatientDao {
             throw new DaoException("Data integrity violation", e);
         }
         return PatientLists;
+    }
+
+    public void addPatient(int userId) {
+        String sql = "INSERT INTO patient(user_id,active) VALUES (?,?);";
+            try{
+                jdbcTemplate.update(sql, userId,true);
+            } catch (CannotGetJdbcConnectionException e) {
+                throw new DaoException("Unable to connect to server or database", e);
+            } catch (DataIntegrityViolationException e) {
+                throw new DaoException("Data integrity violation", e);
+            }
+    }
+
+    public void updatePatientProfile(Patient patient) {
+
+        String sql = "UPDATE patient SET user_id =?, patient_first_name=?, patient_last_name =?, patient_street_address=?, " +
+                "patient_city =?, patient_state =?, patient_zip_code =?, patient_phone_number =?, patient_email =?, " +
+                "patient_dob =? where user_id ==? ;";
+
+        try{
+            jdbcTemplate.update(sql, patient.getUserId(), patient.getPatientFirstName(),patient.getPatientLastName(),
+                    patient.getPatientStreetAddress(),patient.getPatientCity(),patient.getPatientState(),patient.getPatientZipCode(),
+                    patient.getPatientPhoneNumber(), patient.getPatientEmail(), patient.getPatientDob(), patient.getUserId());
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
     }
 
     // Maps a row from Database result to Patient object
