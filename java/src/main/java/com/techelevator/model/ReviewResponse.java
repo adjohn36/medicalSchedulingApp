@@ -4,12 +4,12 @@ public class ReviewResponse {
 
     private int responseId;
     private int reviewId;
-    private String responder;
+    private int responder;
     private String responseContent;
 
     public ReviewResponse() { }
 
-    public ReviewResponse(int responseId, int reviewId, String responder, String responseContent){
+    public ReviewResponse(int responseId, int reviewId, int responder, String responseContent){
         this.responseId = responseId;
         this.reviewId = reviewId;
         this.responder = responder;
@@ -32,11 +32,11 @@ public class ReviewResponse {
         this.reviewId = reviewId;
     }
 
-    public String getResponder() {
+    public int getResponder() {
         return responder;
     }
 
-    public void setResponder(String responder) {
+    public void setResponder(int responder) {
         this.responder = responder;
     }
 

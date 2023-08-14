@@ -15,12 +15,12 @@ public class Review {
     private int reviewRating;
     private String reviewTitle;
     private String reviewContent;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
-    private Date reviewDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate reviewDate;
 
     public Review() { }
 
-    public Review(int reviewId, int reviewer, int reviewedOffice, int reviewRating, String reviewTitle, String reviewContent, Date reviewDate){
+    public Review(int reviewId, int reviewer, int reviewedOffice, int reviewRating, String reviewTitle, String reviewContent, LocalDate reviewDate){
         this.reviewId = reviewId;
         this.reviewer = reviewer;
         this.reviewedOffice = reviewedOffice;
@@ -94,11 +94,11 @@ public class Review {
         this.reviewContent = reviewContent;
     }
 
-    public Date getReviewDate() {
+    public LocalDate getReviewDate() {
         return reviewDate;
     }
 
-    public void setReviewDate(Date reviewDate) {
+    public void setReviewDate(LocalDate reviewDate) {
         this.reviewDate = reviewDate;
     }
 }
