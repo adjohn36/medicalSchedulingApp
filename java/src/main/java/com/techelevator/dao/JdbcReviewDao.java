@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Review;
 import com.techelevator.model.ReviewResponse;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,11 +68,11 @@ public class JdbcReviewDao implements ReviewDao{
     @Override
     public Review createReview(Review review, Principal principal) {
         Review newReview = null;
-        String sql = "INSERT INTO review (reviewer, reviewed_office, review_rating, " +
-                "review_title, review_content, review_date) values ('?', '?', '?', '?', '?', '?') RETURNING review_id;";
+        String sql = "INSERT INTO review (reviewer, review_rating, " +
+                "review_content, review_date, reviewed_office, review_title) values (?, ?, ?, ?, ?, ?) RETURNING review_id;";
 
         try {
-            int newReviewId = jdbcTemplate.queryForObject(sql, int.class, review.getReviewer(), review.getReviewedOffice(), review.getReviewRating(), review.getReviewTitle(), review.getReviewContent(), review.getReviewDate());
+            int newReviewId = jdbcTemplate.queryForObject(sql, Integer.class, review.getReviewer(), review.getReviewedOffice(), review.getReviewRating(), review.getReviewTitle(), review.getReviewContent(), review.getReviewDate());
             newReview = getReviewById(newReviewId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);

@@ -1,5 +1,8 @@
 package com.techelevator.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Review {
@@ -12,6 +15,7 @@ public class Review {
     private int reviewRating;
     private String reviewTitle;
     private String reviewContent;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
     private Date reviewDate;
 
     public Review() { }
