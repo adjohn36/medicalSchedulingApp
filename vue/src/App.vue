@@ -18,7 +18,7 @@
   #app {     
     height: auto;
     width: 100vw;
-    background-color: rgb(177, 212, 248);   
+    background-color: rgb(46, 51, 107);   
     background-size: contain;
   }
 #mainLogo{
