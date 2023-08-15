@@ -91,11 +91,11 @@ public class JdbcDoctorDao implements DoctorDao {
 
     public void updateDoctorProfile(Doctor doctor,int userId) {
 
-        String sql = "UPDATE doctor SET user_id=?,doctor_first_name=?, doctor_last_name=?, doctor_address=?, " +
-                "doctor_email=? where user_id=? ;";
+        String sql = "UPDATE doctor SET user_id=?,doctor_first_name=?, doctor_last_name=?, " +
+                "doctor_email=? where user_id=?;";
         try {
             jdbcTemplate.update(sql, userId, doctor.getDoctorFirstName(), doctor.getDoctorLastName(),
-                     doctor.getAddress() ,doctor.getDoctorEmail(), userId);
+                     doctor.getDoctorEmail(), userId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
@@ -103,10 +103,28 @@ public class JdbcDoctorDao implements DoctorDao {
         }
     }
 
-    public void updateDoctorOffice(int doctorId, int officeId) {
-        String sql = "UPDATE doctor_office SET office_id=? WHERE doctor_id=?;";
+    public void updateDoctorOffice(int officeId,int userId) {
+
+        String sql = "UPDATE doctor_office SET office_id=? WHERE doctor_id=" +
+                "(SELECT doctor_id from doctor WHERE user_id=?);";
+        String sql1 = "select doctor_id from doctor_office where doctor_id =" +
+                "(SELECT doctor_id from doctor WHERE user_id=?);";
+        String sql2 = "INSERT INTO doctor_office (office_id,doctor_id) " +
+                "values( ?,(SELECT doctor_id from doctor WHERE user_id=?));";
+
         try {
-            jdbcTemplate.update(sql, officeId, doctorId);
+            //check if the doctor_id is present in the doctor_office table
+            SqlRowSet result = jdbcTemplate.queryForRowSet(sql1, userId);
+            if(result.next()){
+                if(result.getInt("doctor_id") != 0)
+                    //Update the office id if doctor_id is present in doctor_office table
+                jdbcTemplate.update(sql, officeId, userId);
+            }
+            else{
+                //insert a record if doctor_id ia not available in the table
+                jdbcTemplate.update(sql2, officeId, userId);
+            }
+
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {

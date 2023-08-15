@@ -7,7 +7,7 @@
         <input
           id="firstName"
           type="text"
-          v-model="doctorProfile.doctorFirstName"
+          v-model="doctor.doctorProfile.doctorFirstName"
         />
       </div>
       <div class="form-element">
@@ -15,36 +15,25 @@
         <input
           id="lastName"
           type="text"
-          v-model="doctorProfile.doctorLastName"
+          v-model="doctor.doctorProfile.doctorLastName"
         />
       </div>
       <div class="form-element">
-        <label for="address">Address:</label>
-        <input id="address" type="text" v-model="doctorProfile.doctorAddress" />
-      </div>
-      <!-- <div class="form-element">
-        <label for="phoneNumber">Phone Number:</label>
-        <input id="phoneNumber" type="text" />
-      </div> -->
-      <div class="form-element">
         <label for="email">Email Address:</label>
-        <input id="email" type="email" v-model="doctorProfile.doctorEmail" />
+        <input
+          id="email"
+          type="email"
+          v-model="doctor.doctorProfile.doctorEmail"
+        />
       </div>
-
-      <!-- <input
-        type="checkbox"
-        v-bind:checked="review.favorited"
-        v-on:change="onFavoritedChange(review)"
-      /> -->
-
-      <!-- <div class="form-element">
-        <label for="identificationNumber">NPI Number:</label>
-        <input id="identificationNumber" type="text" />
-      </div> -->
       <div class="form-element">
         <label for="facility-input">Facility:</label>
         <select id="facility-input" v-model="facility">
-          <option v-for="office in officeList" v-bind:key="office.id">
+          <option
+            v-for="office in officeList"
+            v-bind:key="office.id"
+            v-bind:value="office.id"
+          >
             {{ office.officeName }}
           </option>
         </select>
@@ -68,21 +57,18 @@ export default {
       facility: "",
       officeList: [
         {
-          id: 1,
-          officeName: "A",
-        },
-        {
-          id: 2,
-          officeName: "B",
+          id: 0,
+          officeName: "",
         },
       ],
-      doctorProfile: {
-        officeId: "",
+      doctor: {
         isDoctor: false,
-        doctorFirstName: "",
-        doctorLastName: "",
-        doctorEmail: "",
-        doctorAddress: "",
+        doctorProfile: {
+          doctorFirstName: "",
+          doctorLastName: "",
+          doctorEmail: "",
+        },
+        officeId: "",
       },
     };
   },
@@ -105,10 +91,11 @@ export default {
     },
 
     saveDoctorProfile() {
-      alert(this.$store.state.isDoctor);
-      //this.doctorProfile.isDoctor = this.$store.state.isDoctor;
+      this.doctor.isDoctor = this.$store.state.isDoctor;
+      this.doctor.officeId = this.facility;
+
       authService
-        .updateDoctorProfile(this.doctorProfile)
+        .updateDoctorProfile(this.doctor)
         .then((response) => {
           if (response.status === 200) {
             (this.errors = false), (this.message = "Successfully Updated.");
@@ -121,11 +108,22 @@ export default {
             this.message = "Bad Request: Validation Errors";
           }
         });
+
+      this.clear();
     },
 
-    created() {
-      this.getOfficeList();
+    clear() {
+      (this.doctor.isDoctor = false),
+        (this.doctor.doctorProfile.doctorLastName = "");
+      this.doctor.doctorProfile.doctorFirstName = "";
+      this.doctor.doctorProfile.doctorEmail = "";
+      this.doctor.officeId = "";
+      this.facility = "";
     },
+  },
+
+  created() {
+    this.getOfficeList();
   },
 };
 </script>
