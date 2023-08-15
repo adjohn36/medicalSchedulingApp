@@ -23,11 +23,14 @@ export default {
   },
   updateDoctorProfile(profile){
     return axios.post('/save-profile', profile)
+  },
+  getAllReviews(){
+    return axios.get('/reviews/all')
+  },
+  
+  getReviewById(reviewId){
+    return axios.get(`/reviews/${reviewId}`)
   }
-  // ,
-  // getReviewById(reviewId){
-  //   return axios.get(`/patient-portal/${reviewId}`)
-  // }
   
 
 }

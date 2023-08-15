@@ -52,7 +52,7 @@ public class ReviewController {
         return reviewDao.createReview(review, principal);
     }
     @ResponseStatus(HttpStatus.ACCEPTED)
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public Review updateReview(@Valid @RequestBody Review review) {
         return reviewDao.updateReview(review);
     }

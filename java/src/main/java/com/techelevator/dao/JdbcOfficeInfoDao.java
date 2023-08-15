@@ -75,17 +75,9 @@ public class JdbcOfficeInfoDao implements OfficeInfoDao {
                 "office_state = ?, office_zip_code = ?, office_phone = ?, office_open_time = ?, " +
                 "office_close_time = ?, office_open_days = ? WHERE office_id = ?";
         try {
-            int rowsUpdated = jdbcTemplate.update(updateSql,
-                    office.getOfficeName(),
-                    office.getStreetAddress(),
-                    office.getCity(),
-                    office.getState(),
-                    office.getZipCode(),
-                    office.getPhone(),
-                    office.getOpenTime(),
-                    office.getCloseTime(),
-                    office.getOpenDays(),
-                    office.getId());
+            int rowsUpdated = jdbcTemplate.update(updateSql, office.getOfficeName(), office.getStreetAddress(), office.getCity(),
+                    office.getState(), office.getZipCode(), office.getPhone(), office.getOpenTime(), office.getCloseTime(),
+                    office.getOpenDays(), office.getId());
 
             if (rowsUpdated > 0) {
                 updatedOfficeInfo = getOfficeById(office.getId());
