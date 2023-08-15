@@ -23,6 +23,7 @@ public class OfficeInfoController {
         this.officeInfoDao = officeInfoDao;
     }
 
+    // Working
     @GetMapping("/all")
     public List<OfficeInfo> viewOfficeInfo() {
         List officeInfo = officeInfoDao.getOfficeLists();
@@ -34,6 +35,7 @@ public class OfficeInfoController {
         return officeInfo;
     }
 
+    // Working
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public OfficeInfo getOfficeInfoById(@PathVariable int id) {
@@ -46,7 +48,7 @@ public class OfficeInfoController {
         return officeInfo;
     }
 
-    // Error: 500 Internal Server Error - does not create office
+    // Working
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
     public OfficeInfo createOffice(@Valid @RequestBody OfficeInfo office) {
@@ -54,8 +56,9 @@ public class OfficeInfoController {
     }
 
     // Not working
+    @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping("/updateOfficeInfo")
-    public ResponseEntity<OfficeInfo> updateOffice(@PathVariable int id, @RequestBody OfficeInfo officeInfo) {
+    public ResponseEntity<OfficeInfo> updateOffice(@ Valid @PathVariable int id, @RequestBody OfficeInfo officeInfo) {
         officeInfo.setId(id);
         OfficeInfo updatedOffice = officeInfoDao.updateOffice(officeInfo);
         if (updatedOffice != null) {

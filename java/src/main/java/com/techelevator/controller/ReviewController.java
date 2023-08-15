@@ -59,7 +59,7 @@ public class ReviewController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/response")
-    public ReviewResponse reviewResponse(@Valid @RequestBody ReviewResponse reviewResponse, Principal principal) {
+    public ReviewResponse reviewResponse(@Valid @RequestBody ReviewResponse reviewResponse, @PathVariable int reviewId) {
         return reviewDao.reviewResponse(reviewResponse);
     }
 

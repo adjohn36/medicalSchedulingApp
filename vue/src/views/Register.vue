@@ -19,7 +19,7 @@
           <input type="password" placeholder="Confirm Password" v-model="user.confirmPassword" required>
         </div>
         <div class="row">
-          <input type="checkbox" id="isDoctor" v-model="doctor" v-on:change="updateIsDoctor">
+          <input type="checkbox" id="isDoctor" v-model="user.isDoctor" v-on:change="updateIsDoctor">
           <label for="isDoctor">Are you a doctor?</label>
         </div>
         <div class="row" v-show="user.isDoctor">

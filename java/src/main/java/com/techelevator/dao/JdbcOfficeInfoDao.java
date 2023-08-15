@@ -54,16 +54,9 @@ public class JdbcOfficeInfoDao implements OfficeInfoDao {
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING office_id;";
 
         try {
-            int newOfficeId = jdbcTemplate.queryForObject(sql, int.class,
-                    office.getOfficeName(),
-                    office.getStreetAddress(),
-                    office.getCity(),
-                    office.getState(),
-                    office.getZipCode(),
-                    office.getPhone(),
-                    office.getOpenTime(),
-                    office.getCloseTime(),
-                    office.getOpenDays());
+            int newOfficeId = jdbcTemplate.queryForObject(sql, int.class, office.getOfficeName(), office.getStreetAddress(),
+                    office.getCity(), office.getState(), office.getZipCode(), office.getPhone(), office.getOpenTime(),
+                    office.getCloseTime(), office.getOpenDays());
 
             newOfficeInfo = getOfficeById(newOfficeId);
 
@@ -115,8 +108,8 @@ public class JdbcOfficeInfoDao implements OfficeInfoDao {
         officeInfo.setState(rs.getString("office_state"));
         officeInfo.setZipCode(rs.getInt("office_zip_code"));
         officeInfo.setPhone(rs.getString("office_phone"));
-        officeInfo.setOpenTime(rs.getString("office_open_time"));
-        officeInfo.setCloseTime(rs.getString("office_close_time"));
+        officeInfo.setOpenTime(rs.getTime("office_open_time"));
+        officeInfo.setCloseTime(rs.getTime("office_close_time"));
         officeInfo.setOpenDays(rs.getString("office_open_days"));
 
         return officeInfo;

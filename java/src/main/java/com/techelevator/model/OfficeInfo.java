@@ -1,5 +1,7 @@
 package com.techelevator.model;
 
+import java.sql.Time;
+
 public class OfficeInfo {
 
     private int id;
@@ -9,14 +11,14 @@ public class OfficeInfo {
     private String state;
     private int zipCode;
     private String phone;
-    private String openTime;
-    private String closeTime;
+    private Time openTime;
+    private Time closeTime;
     private String openDays;
 
     public OfficeInfo() { }
 
     public OfficeInfo(int id,String officeName, String streetAddress, String city, String state, int zipCode,
-                             String phone, String openTime, String closeTime, String openDays) {
+                             String phone, Time openTime, Time closeTime, String openDays) {
         this.id = id;
         this.officeName = officeName;
         this.streetAddress = streetAddress;
@@ -87,19 +89,19 @@ public class OfficeInfo {
         this.phone = phone;
     }
 
-    public String getOpenTime() {
+    public Time getOpenTime() {
         return openTime;
     }
 
-    public void setOpenTime(String openTime) {
+    public void setOpenTime(Time openTime) {
         this.openTime = openTime;
     }
 
-    public String getCloseTime() {
+    public Time getCloseTime() {
         return closeTime;
     }
 
-    public void setCloseTime(String closeTime) {
+    public void setCloseTime(Time closeTime) {
         this.closeTime = closeTime;
     }
 
