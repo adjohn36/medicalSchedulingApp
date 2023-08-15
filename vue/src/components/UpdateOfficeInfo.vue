@@ -7,47 +7,49 @@
       </div> -->
 
     <div class="form-input-group">
-           <label for="facilityName">Facility Name</label>
+           <label for="facilityName">Facility Name:</label>
            <input type="text" id="facilityName" v-model="doctorFacilityInfo.facilityName"/>
        </div>
 
 
     <div class="form-input-group">
-        <label for="officeStreet">Street</label>
+        <label for="officeStreet">Street:</label>
         <input type="text" id="officeStreet" v-model="doctorFacilityInfo.officeStreet"/>
       </div>
 
       <div class="form-input-group">
-        <label for="officeCity">City</label>
+        <label for="officeCity">City:</label>
         <input type="text" id="officeCity" v-model="doctorFacilityInfo.officeCity"/>
       </div>
 
       <div class="form-input-group">
-        <label for="officeState">State</label>
+        <label for="officeState">State:</label>
         <input type="text" id="officeState" v-model="doctorFacilityInfo.officeState"/>
       </div>
 
-    
-
        <div class="form-input-group">
-        <label for="officeStateZipCode">Zip</label>
-        <input type="text" id="officeStateZipCode" v-model="doctorFacilityInfo.officeStateZipCode" />
+        <label for="officeStateZipCode">Zip:</label>
+        <input type="text" id="officeStateZipCode" v-model="doctorFacilityInfo.officeStateZipCode" placeholder ="ex: 19702" />
       </div>
 
        <div class="form-input-group">
-           <label for="phoneNumber">Phone Number</label>
-           <input type="text" id="phoneNumber" v-model="doctorFacilityInfo.phoneNumber"/>
+           <label for="phoneNumber">Phone Number:</label>
+           <input type="text" id="phoneNumber" v-model="doctorFacilityInfo.phoneNumber" placeholder ="ex: (302) 999 - 9999"/>
        </div>
 
       <div class="form-input-group">
-           <label for="officeOpenTime">Start Time</label>
-           <input type="text" id="officeOpenTime" v-model="doctorFacilityInfo.officeOpenTime"/>
+           <label for="officeOpenTime">Start Time:</label>
+           <input type="time" id="officeOpenTime" v-model="doctorFacilityInfo.officeOpenTime" />
        </div>
 
        <div class="form-input-group">
-           <label for="officeCloseTime">Close Time</label>
-           <input type="text" id="officeCloseTime" v-model="doctorFacilityInfo.officeCloseTime"/>
+           <label for="officeCloseTime">Close Time:</label>
+           <input type="time" id="officeCloseTime" v-model="doctorFacilityInfo.officeCloseTime"/>
        </div>
+      <div class="form-input-group">
+           <label for="openDays">Days Open:</label>
+           <input type="text" id="openDays" v-model="doctorFacilityInfo.officeOpenDays" placeholder ="Monday - Friday"/>
+      </div>
     
       
        
@@ -73,8 +75,8 @@ export default {
           officeStateZipCode: '',
           phoneNumber:'',
           officeOpenTime:'',
-          officeCloseTime:''
-          
+          officeCloseTime:'',
+          openDays:''
       }
     }
   }
