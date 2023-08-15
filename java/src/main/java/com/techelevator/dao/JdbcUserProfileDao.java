@@ -36,4 +36,6 @@ public class JdbcUserProfileDao implements UserProfileDao {
 
         return currentUserProfile;
     }
+
+
 }

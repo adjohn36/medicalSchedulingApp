@@ -7,19 +7,21 @@ public class Doctor {
     private String doctorFirstName;
     private String doctorLastName;
     private String doctorEmail;
+    private String doctorAddress;
     private boolean active;
 
     public Doctor() {
     }
 
     public Doctor(int doctorId, String doctorNpi, int userId, String doctorFirstName,
-                  String doctorLastName, String doctorEmail, boolean active) {
+                  String doctorLastName, String doctorEmail, String address, boolean active) {
         this.doctorId = doctorId;
         this.doctorNpi = doctorNpi;
         this.userId = userId;
         this.doctorFirstName = doctorFirstName;
         this.doctorLastName = doctorLastName;
         this.doctorEmail = doctorEmail;
+        this.doctorAddress = address;
         this.active = active;
     }
 
@@ -69,6 +71,14 @@ public class Doctor {
 
     public void setDoctorEmail(String doctorEmail) {
         this.doctorEmail = doctorEmail;
+    }
+
+    public String getAddress() {
+        return doctorAddress;
+    }
+
+    public void setAddress(String address) {
+        this.doctorAddress = address;
     }
 
     public boolean isActive() {

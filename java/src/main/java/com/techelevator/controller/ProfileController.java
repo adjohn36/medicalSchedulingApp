@@ -51,16 +51,18 @@ public class ProfileController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(path = "/update-profile", method = RequestMethod.POST)
-    public void updateUserProfile(@Valid ProfileDto profileDto, Principal principal) {
+    @RequestMapping(path = "/save-profile", method = RequestMethod.POST)
+    public void updateUserProfile(@Valid @RequestBody ProfileDto profileDto, Principal principal) {
         try {
+            User currentUser = userDao.getUserByUsername(principal.getName());
             if (profileDto.isDoctor()) {
-                doctorDao.updateDoctorProfile(profileDto.getDoctorProfile());
+                doctorDao.updateDoctorProfile(profileDto.getDoctorProfile(),currentUser.getId());
+                doctorDao.updateDoctorOffice(profileDto.getOfficeId() , currentUser.getId());
             } else {
                 patientDao.updatePatientProfile(profileDto.getPatientProfile());
             }
         } catch (DaoException e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "User Not Found.");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Profile Not Saved.");
         }
 
     }

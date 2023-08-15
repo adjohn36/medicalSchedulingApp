@@ -17,5 +17,6 @@ public interface DoctorDao {
 
     void addDoctor(int userId, long npiNumber);
 
-    void updateDoctorProfile(Doctor doctor);
+    void updateDoctorProfile(Doctor doctor,int userId);
+    void updateDoctorOffice(int doctorId, int officeId);
 }

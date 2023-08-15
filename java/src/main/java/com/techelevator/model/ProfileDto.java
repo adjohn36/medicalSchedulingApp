@@ -7,17 +7,20 @@ public class ProfileDto {
     private boolean doctor;
     @JsonProperty("isVerifiedDoctor")
     private boolean verifiedDoctor;
-
     private Doctor doctorProfile;
     private Patient patientProfile;
-
+    private int officeId;
 
     public ProfileDto() {
     }
 
-    public ProfileDto(boolean isDoctor, boolean isVerifiedDoctor) {
-        this.doctor = isDoctor;
-        this.verifiedDoctor = isVerifiedDoctor;
+    public ProfileDto(boolean doctor, boolean verifiedDoctor, Doctor doctorProfile, Patient patientProfile,
+                      int officeId) {
+        this.doctor = doctor;
+        this.verifiedDoctor = verifiedDoctor;
+        this.doctorProfile = doctorProfile;
+        this.patientProfile = patientProfile;
+        this.officeId = officeId;
     }
 
     public boolean isDoctor() {
@@ -50,5 +53,13 @@ public class ProfileDto {
 
     public void setPatientProfile(Patient patientProfile) {
         this.patientProfile = patientProfile;
+    }
+
+    public int getOfficeId() {
+        return officeId;
+    }
+
+    public void setOfficeId(int officeId) {
+        this.officeId = officeId;
     }
 }
