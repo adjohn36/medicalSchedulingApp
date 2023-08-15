@@ -18,6 +18,10 @@ export default {
   getOfficeDetail(officeId){
     return axios.get(`/office-info/${officeId}`)
   }
+  // ,
+  // getReviewById(reviewId){
+  //   return axios.get(`/patient-portal/${reviewId}`)
+  // }
   
 
 }
