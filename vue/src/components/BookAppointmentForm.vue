@@ -20,25 +20,23 @@
       </div>
 
       <div class="form-group">
-        <label for="time">Choose an Available Time:</label>
-        <select id="time" v-model="selectedTime" :disabled="!selectedDate">
-          <option v-for="time in availableTimes" :key="time" :value="time">
-            {{ time }}
-          </option>
-        </select>
-      </div>
-
-      <div class="form-group">
+        <label for="time">Choose a Time:</label>
+            <select id="time" v-model="selectedTime" :disabled="!selectedDate">
+            <option v-for="time in availableTimes" :key="time" :value="time">
+        {{ time }}
+      </option>
+    </select>
+    <div v-if="selectedTime">
         <label for="reason">Reason for Visit:</label>
         <textarea id="reason" v-model="reasonForVisit" rows="4" required></textarea>
+    </div>
       </div>
 
-      <div class="button">
-        <button type="submit" class="btn btn-primary">Book Appointment</button>
-      </div>
+      <button type="submit" class="btn btn-primary">Book Appointment</button>
     </form>
   </div>
 </template>
+
 <script>
 export default {
   data() {
@@ -52,12 +50,11 @@ export default {
       selectedDate: null,
       availableTimes: [
       ],
-      reasonForVisit: ''
     };
   },
   methods: {
     submitAppointment() {
-      // handles form submission and booking logic
+      // Handle form submission and booking logic
     },
   },
   watch: {
@@ -67,7 +64,8 @@ export default {
       this.availableTimes = [];
     },
     selectedDate() {
-      // get available times for the selectedDoctor and selectedDate
+      // grt available times for the selectedDoctor and selectedDate
+      // and update the availableTimes array
     },
   },
 };
@@ -92,8 +90,7 @@ export default {
 }
 
 .appointment-form select,
-.appointment-form input,
-.appointment-form textarea {
+.appointment-form input {
   width: 100%;
   padding: 10px;
   margin-top: 5px;
@@ -121,5 +118,20 @@ export default {
 .sblogo img {
   width: 300px;
   height: auto;
+}
+.appointment-form label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.appointment-form select,
+.appointment-form input,
+.appointment-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 </style>

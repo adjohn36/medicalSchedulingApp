@@ -8,18 +8,20 @@
               <img src="../img/NavBarLogo.png" alt="Logo">
             </a>
           </div>
+          <div class="welcome-title">
+            <h1>Welcome to Your Patient Portal</h1>
+          </div>
           <ul class="nav-links">
-            <!-- <li><a href="#">Home</a></li> -->
-            <li><a href="../view-doctor.vue">Find a doctor</a></li>
-            <li><a href="#">Sample</a></li>
-            <li><a href="#">Sample</a></li>
-            <li><a href="#">Sample</a></li>
+          <li><router-link to="/patient-portal">Home</router-link></li>
+          <li><router-link to="/book-appointment">Book An Appointment</router-link></li>
+          <li><router-link to="/profile">My Patient Profile</router-link></li>
+          <li><router-link to="/reviews">Reviews</router-link></li>
           </ul>
         </div>
       </nav>
    </div>
     <div class="content">
-      <h1>Doctor Information</h1>
+      <h1>Available Doctors</h1>
       <div v-for="facility in doctorFacilityInfo" :key="facility.id" class="profile-card">
         <div class="profile-image">
           <img src="../img/doctorImage.png" alt="Doctor Image" class="doctor-image">
@@ -27,7 +29,7 @@
         <div class="profile-details">
           <h2>{{ facility.doctorFirstName }} {{ facility.doctorLastName }}</h2>
           <p>{{ facility.streetAddress }}</p>
-          <p>{{ facility.city }}, {{ facility.state }}, {{ facility.zipCode }}</p>
+          <p>{{ facility.city }}, {{ facility.state }}   {{ facility.zipCode }}</p>
           <router-link :to="{ name: 'office-info', params: { id: facility.officeId } }">
             <button class="view-profile-button">View Office Details</button>
           </router-link>
@@ -75,7 +77,7 @@ export default {
 .header {
   background-color: #A1DE81;
   width: 100%;
-  padding: 20px 0;
+  padding: 0px 0;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 }
@@ -145,9 +147,9 @@ h1 {
   padding: 10px;
 }
 
-.nav-content {
+/* .nav-content { */
   /* border: 1px solid #e3e3e3; */
-}
+/* } */
 .profile-card {
   display: flex;
   justify-content: center;
@@ -189,6 +191,9 @@ h1 {
   cursor: pointer;
   font-size: 18px;
   margin-top: 10px;
+}
+.welcome-title {
+  color: #0D1FE0;
 }
 
 </style>
