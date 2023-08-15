@@ -15,7 +15,7 @@
           <li><router-link to="/schedule-availability">Update My Availability</router-link></li>
           <li><router-link to="/update-office-info">Update Office Info</router-link></li>
           <li><router-link to="/doctor-profile">My Doctor Profile</router-link></li>
-          <li><router-link to="/profile">My Reviews</router-link></li>
+          <li><router-link to="/reviews">My Reviews</router-link></li>
         </ul>
       </div>
     </nav>
