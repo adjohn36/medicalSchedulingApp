@@ -24,7 +24,8 @@ public class JdbcOfficeInfoDao implements OfficeInfoDao {
     @Override
     public List<OfficeInfo> getOfficeLists() {
         List<OfficeInfo> officeLists = new ArrayList<>();
-        String sql = "SELECT * FROM office";
+        String sql = "SELECT office_id, office_name, office_street_address, office_city, office_state, " +
+                "office_zip_code, office_phone, office_open_time, office_close_time, office_open_days FROM office;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
             OfficeInfo officeInfo = mapRowToOfficeInfo(results);

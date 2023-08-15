@@ -24,14 +24,15 @@ public class OfficeInfoController {
     }
 
     // Working
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/all")
-    public List<OfficeInfo> viewOfficeInfo() {
+    public List<OfficeInfo> getOffices() {
         List officeInfo = officeInfoDao.getOfficeLists();
-        if (officeInfo != null) {
-
-        } else {
-            System.out.println("No Offices Found");
-        }
+//        if (officeInfo != null) {
+//
+//        } else {
+//            System.out.println("No Offices Found");
+//        }
         return officeInfo;
     }
 

@@ -21,7 +21,7 @@ public class JdbcDoctorDao implements DoctorDao {
     }
 
     @Override
-    public List<Doctor> getDoctors(){
+    public List<Doctor> getDoctors() {
         List<Doctor> listOfDoctors = new ArrayList<>();
         String sql = "SELECT * FROM doctor";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
@@ -33,7 +33,7 @@ public class JdbcDoctorDao implements DoctorDao {
     }
 
     @Override
-    public List<DoctorOfficeList> getDoctorsAndOfficeInfo(){
+    public List<DoctorOfficeList> getDoctorsAndOfficeInfo() {
         List<DoctorOfficeList> doctorOfficeLists = new ArrayList<>();
         String sql = "SELECT doctor_first_name, doctor_last_name, doctor_office.office_id, office_street_address, office_city, office_state, office_zip_code " +
                 "FROM doctor " + "JOIN doctor_office ON doctor.doctor_id = doctor_office.doctor_id " +
@@ -64,7 +64,7 @@ public class JdbcDoctorDao implements DoctorDao {
     }
 
     @Override
-    public Doctor getDoctorByDoctorId(int doctorId){
+    public Doctor getDoctorByDoctorId(int doctorId) {
         Doctor doctor = null;
         String sql = "SELECT * FROM doctor WHERE doctor_id = ?;";
         try {
@@ -80,8 +80,8 @@ public class JdbcDoctorDao implements DoctorDao {
 
     public void addDoctor(int userId, long npiNumber) {
         String sql = "INSERT INTO doctor(doctor_npi,user_id,active) VALUES (?,?,?);";
-        try{
-            jdbcTemplate.update(sql,npiNumber, userId,false);
+        try {
+            jdbcTemplate.update(sql, npiNumber, userId, false);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
@@ -89,19 +89,31 @@ public class JdbcDoctorDao implements DoctorDao {
         }
     }
 
-    public void updateDoctorProfile(Doctor doctor) {
+    public void updateDoctorProfile(Doctor doctor,int userId) {
 
-        String sql = "UPDATE doctor SET doctor_npi =?, user_id=?,doctor_first_name =?, doctor_last_name =?, " +
-                "doctor_email =? where user_id ==? ;";
-        try{
-            jdbcTemplate.update(sql, doctor.getDoctorNpi(), doctor.getDoctorId(), doctor.getDoctorFirstName(),
-                    doctor.getDoctorLastName(), doctor.getDoctorEmail(), doctor.getUserId());
+        String sql = "UPDATE doctor SET user_id=?,doctor_first_name=?, doctor_last_name=?, doctor_address=?, " +
+                "doctor_email=? where user_id=? ;";
+        try {
+            jdbcTemplate.update(sql, userId, doctor.getDoctorFirstName(), doctor.getDoctorLastName(),
+                     doctor.getAddress() ,doctor.getDoctorEmail(), userId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
             throw new DaoException("Data integrity violation", e);
         }
     }
+
+    public void updateDoctorOffice(int doctorId, int officeId) {
+        String sql = "UPDATE doctor_office SET office_id=? WHERE doctor_id=?;";
+        try {
+            jdbcTemplate.update(sql, officeId, doctorId);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+    }
+
     private Doctor mapRowToDoctor(SqlRowSet rs) {
         Doctor doctor = new Doctor();
         doctor.setDoctorId(rs.getInt("doctor_id"));

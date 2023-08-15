@@ -17,6 +17,12 @@ export default {
   },
   getOfficeDetail(officeId){
     return axios.get(`/office-info/${officeId}`)
+  },
+  getOfficeList(){
+    return axios.get('/office-info/all')
+  },
+  updateDoctorProfile(profile){
+    return axios.post('/save-profile', profile)
   }
   
 
