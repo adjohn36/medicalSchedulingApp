@@ -1,10 +1,14 @@
 <template>
   <div>
       <form id="profile-form">
-           <h1>Create Profile</h1>
+           <h1>Create Doctor Profile</h1>
           <div class="form-element">
-            <label for="fullName">Full Name:</label>
-            <input id="fullName" type="text"  />
+            <label for="firstName">First Name:</label>
+            <input id="firstName" type="text"  />
+          </div>
+          <div class="form-element">
+            <label for="lastName">Last Name:</label>
+            <input id="lastName" type="text"  />
           </div>
           <div class="form-element">
             <label for="address">Address:</label>
@@ -12,14 +16,12 @@
           </div>
           <div class="form-element">
             <label for="phoneNumber">Phone Number:</label>
-            <input id="phoneNumber" type="number"  />
+            <input id="phoneNumber" type="text"  />
           </div>
           <div class="form-element">
             <label for="email">Email Address:</label>
             <input id="email" type="email"  />
           </div>
-        <label for="isDoctor">A Doctor?</label>      
-        <input id="isDoctor" type="checkbox" />
       
       
        <!-- <input
@@ -31,10 +33,10 @@
 
           <div class="form-element">
             <label for="identificationNumber">NPI Number:</label>
-            <input id="identificationNumber" type="number"  />
+            <input id="identificationNumber" type="text"  />
           </div>
           <div class="form-element">
-            <label for="facility">Facilities:</label>
+            <label for="facility">Facility:</label>
             <input id="facility" type="search"  />
           </div>
       </form>

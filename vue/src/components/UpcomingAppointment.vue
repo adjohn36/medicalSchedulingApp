@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <nav :class="{'sticky': isSticky}">
+    <div class="header">
+      <nav>
       <div class="nav-content">
         <div class="logo">
           <a href="#">
@@ -9,20 +10,22 @@
         </div>
         <ul class="nav-links">
           <li><router-link to="/schedule-availability">Schedule Availability</router-link></li>
-          <li><router-link to="/update-office-info">Update Office Info</router-link></li>
-          <li><router-link to="/manage-profile">Manage Profile</router-link></li>
+          <li><router-link to="/update-office-info">Update Profile</router-link></li>
+          <li><router-link to="/profile">Create Profile</router-link></li>
         </ul>
       </div>
     </nav>
+    </div>
     <div class="content">
       <h2>Upcoming Appointments</h2>
       <ul class="appointment-list">
         <li v-for="appointment in upcomingAppointments" :key="appointment.id" class="appointment-item">
           <div class="appointment-details">
             <div class="patient-name">{{ appointment.patientName }}</div>
+            <div class="appointment-date">{{ formatDate(appointment.date)}} </div>
             <div class="appointment-time">{{ appointment.time }}</div>
           </div>
-          <button class="cancel-button" @click="cancelAppointment(appointment.id)">Cancel</button>
+          <!-- <button class="cancel-button" @click="cancelAppointment(appointment.id)">Cancel</button> -->
         </li>
       </ul>
     </div>
@@ -30,24 +33,25 @@
 </template>
 
 <script>
+// import AuthService from '../services/AuthService';
+
 export default {
   name: 'UpcomingAppointments',
   data() {
     return {
-      isSticky: false,
-      upcomingAppointments: [
-        { id: 1, patientName: "John Doe", time: "10:00 AM" },
-        { id: 2, patientName: "Jane Smith", time: "11:00 AM" },
-        // ... sample data will be removed
-      ],
+      upcomingAppointments: [],
     };
   },
   methods: {
-    cancelAppointment(appointmentId) {
-      // Simulate appointment cancellation logic
-      // Make API request
-      console.log("Canceling appointment ID:", appointmentId);
+    formatDate(date) {
+      const options = { year: 'numeric', month: 'long', day: 'numeric'};
+      return new Date(date).toLocaleDateString(undefined, options);
     },
+    // cancelAppointment(appointmentId) {
+    //   // Simulate appointment cancellation logic
+    //   // Make API request
+    //   console.log("Canceling appointment ID:", appointmentId);
+    // },
   created() {
     window.addEventListener("scroll", this.handleScroll);
   },
@@ -70,9 +74,9 @@ export default {
 .header {
   background-color: #A1DE81;
   width: 100%;
-  padding: 20px 0;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
+  border: 1px solid white
 }
 
 .content {
@@ -83,15 +87,18 @@ export default {
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   margin-top: 20px;
+  border: 1px solid white
+
 }
 
-.nav-links a {
+.nav-links {
   text-decoration: none;
   color: #0E2431;
   font-size: 18px;
   font-weight: 500;
   padding: 10px 4px;
   transition: all 0.3s ease;
+  border: 1px solid white
 }
 
 .nav-links a:hover {
