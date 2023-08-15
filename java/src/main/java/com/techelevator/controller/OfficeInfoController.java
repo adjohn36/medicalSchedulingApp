@@ -56,9 +56,9 @@ public class OfficeInfoController {
         return officeInfoDao.createOffice(office);
     }
 
-    // Not working
+    // Working
     @ResponseStatus(HttpStatus.ACCEPTED)
-    @PutMapping("/updateOfficeInfo")
+    @PutMapping("/update/{id}")
     public ResponseEntity<OfficeInfo> updateOffice(@ Valid @PathVariable int id, @RequestBody OfficeInfo officeInfo) {
         officeInfo.setId(id);
         OfficeInfo updatedOffice = officeInfoDao.updateOffice(officeInfo);

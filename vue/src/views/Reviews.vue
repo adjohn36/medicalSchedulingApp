@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Reviews />
+    <Reviews v-bind:reviewId="parseInt($route.params.id)"/>
   </div>
 </template>
 
