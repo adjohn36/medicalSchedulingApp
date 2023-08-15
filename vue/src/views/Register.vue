@@ -18,14 +18,19 @@
           <i class="fas fa-lock"></i>
           <input type="password" placeholder="Confirm Password" v-model="user.confirmPassword" required>
         </div>
-        <div class="row">
+          <div class="row">
           <input type="checkbox" id="isDoctor" v-model="user.isDoctor" v-on:change="updateIsDoctor">
           <label for="isDoctor">Are you a doctor?</label>
         </div>
-        <div class="row" v-show="user.isDoctor">
+        
+         <div class="row" v-show="user.isDoctor">
           <i class="fas fa-id-card"></i>
-          <input type="text" placeholder="NPI Number" v-model="user.npiNumber" v-bind:required="user.isDoctor" >
+          <input type="text" placeholder="NPI Number" v-model="user.npiNumber" v-bind:required="user.isDoctor"  >
+          
+          
+          
         </div>
+      
         <div class="row button">
           <button type="submit">Register</button>
         </div>
