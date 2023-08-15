@@ -24,6 +24,10 @@ export default {
   updateDoctorProfile(profile){
     return axios.post('/save-profile', profile)
   }
+  // ,
+  // getReviewById(reviewId){
+  //   return axios.get(`/patient-portal/${reviewId}`)
+  // }
   
 
 }

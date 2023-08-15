@@ -2,16 +2,20 @@
   <div class="container">
     <div class="header">
       <nav>
-      <div class="nav-content">
-        <div class="logo">
-          <a href="#">
-            <img src="../img/NavBarLogo.png" alt="Logo">
-          </a>
-        </div>
-        <ul class="nav-links">
-          <li><router-link to="/schedule-availability">Schedule Availability</router-link></li>
-          <li><router-link to="/update-office-info">Update Profile</router-link></li>
-          <li><router-link to="/profile">Create Profile</router-link></li>
+        <div class="nav-content">
+          <div class="logo">
+            <a href="#">
+              <img src="../img/NavBarLogo.png" alt="Logo">
+            </a>
+          </div>
+          <div class="welcome-title">
+            <h1>Welcome to Your Doctor Portal</h1> <!-- Add your title here -->
+          </div>
+          <ul class="nav-links">
+          <li><router-link to="/schedule-availability">Update My Availability</router-link></li>
+          <li><router-link to="/update-office-info">Update Office Info</router-link></li>
+          <li><router-link to="/doctor-profile">My Doctor Profile</router-link></li>
+          <li><router-link to="/profile">My Reviews</router-link></li>
         </ul>
       </div>
     </nav>
@@ -76,7 +80,7 @@ export default {
   width: 100%;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  border: 1px solid white
+  /* border: 1px solid white */
 }
 
 .content {
@@ -98,7 +102,7 @@ export default {
   font-weight: 500;
   padding: 10px 4px;
   transition: all 0.3s ease;
-  border: 1px solid white
+  /* border: 1px solid white */
 }
 
 .nav-links a:hover {
@@ -145,5 +149,8 @@ export default {
   border: none;
   padding: 5px 10px;
   cursor: pointer;
+}
+.welcome-title {
+  color: #0D1FE0;
 }
 </style>

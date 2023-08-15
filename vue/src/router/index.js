@@ -5,7 +5,7 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
-import Profile from '../views/Profile.vue'
+import Profile from '../views/DoctorProfile.vue'
 import ViewOfficeInfo from '../views/ViewOfficeInfo.vue'
 import UpdateOfficeInfo from '../views/UpdateOfficeInfo.vue'
 import UpcomingAppointment from '../views/ViewUpcomingAppointment.vue'
@@ -13,6 +13,7 @@ import ViewAvailableDoctor from '../views/ViewAvailableDoctors.vue'
 import Processing from '../views/Processing.vue'
 import UpdateDocAvailabity from '../views/UpdateAvailability.vue'
 import BookAppointmentForm from '../views/BookAnAppointment.vue';
+import Reviews from '../views/Reviews.vue'
 
 Vue.use(Router)
 
@@ -78,7 +79,7 @@ const router = new Router({
       }
     },
     {
-      path: "/profile",
+      path: "/doctor-profile",
       name: "profile",
       component: Profile,
       meta: {
@@ -103,7 +104,7 @@ const router = new Router({
       }
     },
     {
-      path: "/view-upcoming-appointment",
+      path: "/doctor-portal",
       name: "upcoming-appointment",
       component: UpcomingAppointment,
       meta: {
@@ -111,7 +112,7 @@ const router = new Router({
       }
     },
     {
-      path: "/view-doctor",
+      path: "/patient-portal",
       name: "view-available-doctors",
       component: ViewAvailableDoctor,
       meta: {
@@ -134,7 +135,14 @@ const router = new Router({
         requiresAuth: true
       }
     },
-    
+    {
+      path: '/reviews',
+      name: 'reviews',
+      component: Reviews,
+      meta: {
+        requiresAuth: true
+      }
+    }
   ]
 })
 
