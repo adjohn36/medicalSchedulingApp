@@ -10,10 +10,10 @@
           </div>
           <ul class="nav-links">
             <!-- <li><a href="#">Home</a></li> -->
-            <li><a href="../availabledoctorslist.vue">Find a doctor</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Login</a></li>
+            <li><a href="../view-doctor.vue">Find a doctor</a></li>
+            <li><a href="#">Sample</a></li>
+            <li><a href="#">Sample</a></li>
+            <li><a href="#">Sample</a></li>
           </ul>
         </div>
       </nav>
@@ -146,7 +146,7 @@ h1 {
 }
 
 .nav-content {
-  border: 1px solid #e3e3e3;
+  /* border: 1px solid #e3e3e3; */
 }
 .profile-card {
   display: flex;
