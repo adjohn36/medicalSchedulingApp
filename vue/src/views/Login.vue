@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="wrapper">
+    <div class="wrapper1">
       <div class="sblogo">
           <img src="../img/NavBarLogo.png" alt="sblogo">
         </div> 
@@ -71,7 +71,7 @@ export default {
   height: 100vh;
 }
 
-.wrapper {
+.wrapper1 {
   background-color: #ffffff;
   border-radius: 5px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);

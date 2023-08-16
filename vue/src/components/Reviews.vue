@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container1">
     <div class="header">
       <nav>
         <div class="nav-content">
@@ -21,42 +21,25 @@
       </nav>
     </div>
     <div class="reviews">
-      <h2>Reviews</h2>
-      
-      <tr v-for="review in reviewList" :key="review.reviewId" v-on:click:>
-        <td>
-          <label id="reviewer">{{ review.reviewer }}</label>
-            <br/>
-      </td>
-      <td>
-        <label id="office-name">{{ review.officeName }}</label>
-      <br/>
-      </td>
-      <td>
-          <label id="username">{{ review.username }} </label>
-          <br/>
-      </td>
-      
-      <td>
-      <label id="rating">{{ review.reviewRating }} </label>
-      <br/>
-      </td>
-      <td>
-      <label id="title">{{ review.reviewTitle }}</label>
-      <br/>
-      </td>
-      <td>
-      <label id="phoneNumber">{{ review.reviewContent }}</label>
-      <br/>
-      </td>
-      <td>
-      <label id="review-date">{{ review.reviewDate }}</label>
-      <br/>
-      </td>
-      </tr>
+      <h2>My Office Reviews</h2>
+      <div v-for="review in reviewList" :key="review.reviewId" class="review-card">
+        <div class="review-info">
+          <div class="reviewer">{{ review.reviewer }}</div>
+          <div class="office-name">{{ review.officeName }}</div>
+          <div class="username">{{ review.username }}</div>
+          <div class="title">{{ review.reviewTitle }}</div>
+          <div class="review-content">{{ review.reviewContent }}</div>
+          <div class="review-date">{{ review.reviewDate }}</div>
+        </div>
+        <div class="rating">
+          <div class="rating">{{ review.reviewRating }}</div>
+          <span class="star" v-for="n in Math.round(review.reviewRating)" :key="n">
+            &#9733;
+          </span>
+        </div>
       </div>
+    </div>
   </div>
-    
 </template>
 
 <script>
@@ -107,12 +90,12 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.container1 {
   display: flex;
   flex-direction: column;
   justify-content: top;
   align-items: center;
-  height: 150vh;
+  height: auto;
 }
 
 .header {
@@ -123,7 +106,7 @@ export default {
   border-radius: 5px;
 }
 
-.content {
+.reviews {
   background-color: #ffffff;
   border: 1px;
   padding: 10px 20px;
@@ -133,4 +116,34 @@ export default {
   border-radius: 5px;
   margin-top: 20px;
 }
+
+.review-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #f8f8f8;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.review-info {
+  padding: 10px;
+}
+
+.reviewer {
+  font-weight: bold;
+}
+.reviews h2 {
+  align-content: center;
+}
+.rating {
+  color: #ff9800; 
+  font-size: 20px;
+}
+
+.star {
+  display: inline-block;
+  margin-right: 3px; 
+}
+
 </style>

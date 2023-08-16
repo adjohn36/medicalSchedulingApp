@@ -9,24 +9,24 @@
             </a>
           </div>
           <div class="welcome-title">
-            <h1>Welcome to Your Doctor Portal</h1> <!-- Add your title here -->
+            <h1>Welcome to Your Doctor Portal</h1>
           </div>
           <ul class="nav-links">
-          <li><router-link to="/schedule-availability">Update My Availability</router-link></li>
-          <li><router-link to="/update-office-info">Update Office Info</router-link></li>
-          <li><router-link to="/doctor-profile">My Doctor Profile</router-link></li>
-          <li><router-link to="/reviews">My Reviews</router-link></li>
-        </ul>
-      </div>
-    </nav>
+            <li><router-link to="/schedule-availability">Update My Availability</router-link></li>
+            <li><router-link to="/update-office-info">Update Office Info</router-link></li>
+            <li><router-link to="/doctor-profile">My Doctor Profile</router-link></li>
+            <li><router-link to="/reviews">My Reviews</router-link></li>
+          </ul>
+        </div>
+      </nav>
     </div>
     <div class="content">
-      <h2>Upcoming Appointments</h2>
+      <h2 class="page-title">Upcoming Appointments</h2>
       <ul class="appointment-list">
         <li v-for="appointment in upcomingAppointments" :key="appointment.id" class="appointment-item">
           <div class="appointment-details">
             <div class="patient-name">{{ appointment.patientName }}</div>
-            <div class="appointment-date">{{ formatDate(appointment.date)}} </div>
+            <div class="appointment-date">{{ formatDate(appointment.date) }}</div>
             <div class="appointment-time">{{ appointment.time }}</div>
           </div>
           <!-- <button class="cancel-button" @click="cancelAppointment(appointment.id)">Cancel</button> -->
