@@ -11,6 +11,7 @@ public interface ReviewDao {
 
     List<Review> getAllReviews();
     Review getReviewById(int id);
+    List<Review> getReviewsByReviewedOffice(int reviewedOffice);
     Review createReview(Review review, Principal principal);
     Review updateReview(Review review);
     ReviewResponse getReviewResponseById (int id);
