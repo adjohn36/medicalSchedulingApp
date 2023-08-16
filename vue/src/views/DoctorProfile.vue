@@ -1,16 +1,16 @@
 <template>
   <div>
-     <user-profile />
+     <manage-doctor-profile />
   </div>
 </template>
 
 <script>
-import UserProfile from '../components/UserProfile.vue'
+import ManageDoctorProfile from '../components/ManageDoctorProfile.vue'
 
 export default {
     name: 'profile',
     components:{
-        UserProfile
+        ManageDoctorProfile
     }
     
 }

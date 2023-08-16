@@ -12,5 +12,5 @@ public interface PatientDao {
 
     void addPatient(int userId);
 
-    void updatePatientProfile(Patient patient);
+    void updatePatientProfile(Patient patient ,int userId);
 }

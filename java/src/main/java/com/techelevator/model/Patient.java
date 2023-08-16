@@ -1,6 +1,9 @@
 package com.techelevator.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.time.LocalDate;
 
 public class Patient {
 
@@ -15,14 +18,15 @@ public class Patient {
     private String patientZipCode;
     private String patientPhoneNumber;
     private String patientEmail;
-    private String patientDob;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate patientDob;
     @JsonProperty("isActive")
     private boolean active;
     public Patient() { }
 
     public Patient(int patientId, int userId, String patientFirstName, String patientLastName, String patientStreetAddress,
                    String patientCity, String patientState, String patientZipCode, String patientPhoneNumber,
-                   String patientEmail, String patientDob, boolean active) {
+                   String patientEmail, LocalDate patientDob, boolean active) {
         this.patientId = patientId;
         this.userId = userId;
         this.patientFirstName = patientFirstName;
@@ -117,11 +121,11 @@ public class Patient {
         this.patientEmail = patientEmail;
     }
 
-    public String getPatientDob() {
+    public LocalDate getPatientDob() {
         return patientDob;
     }
 
-    public void setPatientDob(String patientDob) {
+    public void setPatientDob(LocalDate patientDob) {
         this.patientDob = patientDob;
     }
 
