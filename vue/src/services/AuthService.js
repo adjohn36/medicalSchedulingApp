@@ -24,6 +24,9 @@ export default {
   updateDoctorProfile(profile){
     return axios.post('/save-profile', profile)
   },
+  updatePatientProfile(profile){
+    return axios.post('/save-profile', profile)
+  },
   getAllReviews(){
     return axios.get('/reviews/all')
   },
