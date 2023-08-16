@@ -44,6 +44,17 @@ public class ReviewController {
         }
         return review;
     }
+    @ResponseStatus
+    @GetMapping("/all/{reviewedOffice}")
+    public List<Review> viewReviewsByOffice(@PathVariable int reviewedOffice) {
+        List reviews = reviewDao.getReviewsByReviewedOffice(reviewedOffice);
+        if (reviews != null) {
+
+        }else {
+            System.out.println("No Reviews Found");
+        }
+        return reviews;
+    }
 
     //works - need to add principal so you can only review on your own name
     @ResponseStatus(HttpStatus.CREATED)
