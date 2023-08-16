@@ -24,13 +24,13 @@ public JdbcScheduleDao(JdbcTemplate jdbcTemplate) {
         }
 
     @Override
-    public List<DoctorSchedule> getDoctorSchedule(int doctorId){
+    public List<DoctorSchedule> getDoctorSchedule(int doctorId, String dayOfTheWeek){
         List<DoctorSchedule> doctorScheduleLists = new ArrayList<>();
         String sql = "SELECT day_of_the_week, time_slot, slot_available, doctor_schedule_id " +
                 "FROM doctor_schedule JOIN schedule ON doctor_schedule.schedule_id = schedule.schedule_id " +
-                "WHERE doctor_id=?;";
+                "WHERE doctor_id=? AND day_of_the_week=?;";
         //if by day of week, then add AND day_of_the_week=? and below add dayOfWeek & inScheduleDao"
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql,doctorId);
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql,doctorId, dayOfTheWeek);
         while (results.next()) {
             DoctorSchedule doctorScheduleTimes = mapRowToDoctorScheduleList(results);
             doctorScheduleLists.add(doctorScheduleTimes);
@@ -66,7 +66,7 @@ public JdbcScheduleDao(JdbcTemplate jdbcTemplate) {
         DoctorSchedule doctorSchedule = new DoctorSchedule();
         doctorSchedule.setDoctorScheduleId(rs.getInt("doctor_schedule_id"));
         doctorSchedule.setTimeslot(rs.getTime("time_slot"));
-        doctorSchedule.setDay(rs.getString("day_of_the_week"));
+        doctorSchedule.setDayOfTheWeek(rs.getString("day_of_the_week"));
         doctorSchedule.setSlotAvailable(rs.getBoolean("slot_available"));
         return doctorSchedule;
         //is this really a DTO?

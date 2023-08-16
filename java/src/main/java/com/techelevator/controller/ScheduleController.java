@@ -26,8 +26,8 @@ public class ScheduleController {
     }
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{doctorId}")
-    public List<DoctorSchedule> getDoctorSchedule(@PathVariable int doctorId,@RequestParam(required=false) String dayOfWeek){
-        List doctorSchedule= scheduleDao.getDoctorSchedule(doctorId);
+    public List<DoctorSchedule> getDoctorSchedule(@PathVariable int doctorId,@RequestParam(required=false) String dayOfTheWeek){
+        List doctorSchedule= scheduleDao.getDoctorSchedule(doctorId, dayOfTheWeek);
         //if need day of week then add dayOfWeek above)
         if (doctorSchedule != null) {
 
@@ -40,7 +40,7 @@ public class ScheduleController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping("/{doctorScheduleId}")
 
-    public DoctorSchedule updateSchedule(@ Valid @PathVariable int doctorScheduleId, @RequestBody DoctorSchedule doctorSchedule) {
+    public DoctorSchedule updateSchedule(@Valid @PathVariable int doctorScheduleId, @RequestBody DoctorSchedule doctorSchedule) {
         doctorSchedule.setDoctorScheduleId(doctorSchedule.getDoctorScheduleId());
         DoctorSchedule updatedSchedule = scheduleDao.updateSchedule(doctorScheduleId, doctorSchedule);
         if (updatedSchedule != null) {

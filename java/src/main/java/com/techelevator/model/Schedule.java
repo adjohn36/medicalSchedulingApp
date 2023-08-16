@@ -4,14 +4,14 @@ import java.sql.Time;
 
 public class Schedule {
     private int scheduleId;
-    private String day;
+    private String dayOfTheWeek;
     private Time timeslot;
 
 public Schedule() {}
 
-public Schedule(int scheduleId, String day, Time timeslot){
+public Schedule(int scheduleId, String dayOfTheWeek, Time timeslot){
     this.scheduleId=scheduleId;
-    this.day=day;
+    this.dayOfTheWeek=dayOfTheWeek;
     this.timeslot=timeslot;
 }
 
@@ -23,12 +23,12 @@ public Schedule(int scheduleId, String day, Time timeslot){
         this.scheduleId = scheduleId;
     }
 
-    public String getDay() {
-        return day;
+    public String getDayOfTheWeek() {
+        return dayOfTheWeek;
     }
 
-    public void setDay(String day) {
-        this.day = day;
+    public void setDayOfTheWeek(String dayOfWeek) {
+        this.dayOfTheWeek = dayOfWeek;
     }
 
     public Time getTimeslot() {
