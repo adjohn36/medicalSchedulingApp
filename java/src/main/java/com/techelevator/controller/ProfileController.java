@@ -59,7 +59,7 @@ public class ProfileController {
                 doctorDao.updateDoctorProfile(profileDto.getDoctorProfile(),currentUser.getId());
                 doctorDao.updateDoctorOffice(profileDto.getOfficeId() , currentUser.getId());
             } else {
-                patientDao.updatePatientProfile(profileDto.getPatientProfile());
+                patientDao.updatePatientProfile(profileDto.getPatientProfile(), currentUser.getId());
             }
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Profile Not Saved.");

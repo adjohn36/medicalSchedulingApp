@@ -49,7 +49,7 @@
 import authService from "../services/AuthService";
 
 export default {
-  name: "user-profile",
+  name: "manage-doctor-profile",
   data() {
     return {
       errors: false,

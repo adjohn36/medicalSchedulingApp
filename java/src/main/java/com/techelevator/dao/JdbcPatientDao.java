@@ -68,16 +68,16 @@ public class JdbcPatientDao implements PatientDao {
             }
     }
 
-    public void updatePatientProfile(Patient patient) {
+    public void updatePatientProfile(Patient patient ,int userId) {
 
-        String sql = "UPDATE patient SET user_id =?, patient_first_name=?, patient_last_name =?, patient_street_address=?, " +
+        String sql = "UPDATE patient SET patient_first_name=?, patient_last_name =?, patient_street_address=?, " +
                 "patient_city =?, patient_state =?, patient_zip_code =?, patient_phone_number =?, patient_email =?, " +
-                "patient_dob =? where user_id ==? ;";
+                "patient_dob =? where user_id =? ;";
 
         try{
-            jdbcTemplate.update(sql, patient.getUserId(), patient.getPatientFirstName(),patient.getPatientLastName(),
+            jdbcTemplate.update(sql, patient.getPatientFirstName(),patient.getPatientLastName(),
                     patient.getPatientStreetAddress(),patient.getPatientCity(),patient.getPatientState(),patient.getPatientZipCode(),
-                    patient.getPatientPhoneNumber(), patient.getPatientEmail(), patient.getPatientDob(), patient.getUserId());
+                    patient.getPatientPhoneNumber(), patient.getPatientEmail(), patient.getPatientDob(), userId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
@@ -97,7 +97,7 @@ public class JdbcPatientDao implements PatientDao {
         patient.setPatientZipCode(rs.getString("patient_zip_code"));
         patient.setPatientPhoneNumber(rs.getString("patient_phone_number"));
         patient.setPatientEmail(rs.getString("patient_email"));
-        patient.setPatientDob(rs.getString("patient_dob"));
+        patient.setPatientDob(rs.getDate("patient_dob").toLocalDate());
         return patient;
     }
 }
