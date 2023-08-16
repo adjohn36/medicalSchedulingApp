@@ -9,7 +9,7 @@
             </a>
           </div>
           <div class="welcome-title">
-            <h1>Welcome to Your Doctor Portal</h1> <!-- Add your title here -->
+            <h1>Welcome to Your Doctor Portal</h1>
           </div>
           <ul class="nav-links">
           <li><router-link to="/schedule-availability">Update My Availability</router-link></li>
@@ -21,12 +21,12 @@
     </nav>
     </div>
     <div class="content">
-      <h2>Upcoming Appointments</h2>
+      <h2 class="page-title">Upcoming Appointments</h2>
       <ul class="appointment-list">
         <li v-for="appointment in upcomingAppointments" :key="appointment.id" class="appointment-item">
           <div class="appointment-details">
             <div class="patient-name">{{ appointment.patientName }}</div>
-            <div class="appointment-date">{{ formatDate(appointment.date)}} </div>
+            <div class="appointment-date">{{ formatDate(appointment.date) }}</div>
             <div class="appointment-time">{{ appointment.time }}</div>
           </div>
           <!-- <button class="cancel-button" @click="cancelAppointment(appointment.id)">Cancel</button> -->

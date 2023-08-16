@@ -69,9 +69,6 @@
   .home{
     height: 20vh;
     width: 100%;
-    /* background: url("images/background.png") no-repeat; */
-    background-size: cover;
-    background-position: center;
     background-attachment: fixed;
     font-family: 'Ubuntu', sans-serif;
   }

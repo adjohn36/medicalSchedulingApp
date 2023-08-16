@@ -1,35 +1,47 @@
 <template>
-  <div>
-    <nav :class="{ sticky: isSticky }">
-      <div class="nav-content">
-        <div class="logo">
-          <a href="#">
-            <img src="../img/NavBarLogo.png" alt="Logo" />
-          </a>
+  <div class="container">
+    <div class="header">
+      <nav>
+        <div class="nav-content">
+          <div class="logo">
+            <a href="#">
+              <img src="../img/NavBarLogo.png" alt="Logo">
+            </a>
+          </div>
+          <div class="welcome-title">
+            <h1></h1>
+          </div>
+          <ul class="nav-links">
+            <li><router-link to="/patient-portal">Home</router-link></li>
+            <li><router-link to="/book-appointment">Book An Appointment</router-link></li>
+            <li><router-link to="/profile">My Patient Profile</router-link></li>
+            <!-- <li><router-link to="/reviews">My Reviews</router-link></li> -->
+          </ul>
         </div>
-        <ul class="nav-links">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Find a doctor</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Login</a></li>
-        </ul>
-      </div>
-    </nav>
+      </nav>
+    </div>
     <div class="office-info">
       <h2>Office Details</h2>
+      <div class="facility-names">
       <label id="facility-name">{{ facilityInfo.officeName }}</label>
+      </div>
       <br />
+      <div class="address-info">
       <label id="address">{{ facilityInfo.streetAddress }}</label>
-      <br />
+      </div>
       <label id="city">{{ facilityInfo.city }}, </label>
       <label id="state">{{ facilityInfo.state }} </label>
       <label id="Zipcode">{{ facilityInfo.zipCode }}</label>
       <br />
+      <a href="#">
+        <img src="../img/offices.png" alt="officespic">
+      </a>
       <br />
-      <label id="phoneNumber">{{ facilityInfo.phone }}</label>
+      <label id="phoneNumber">Phone: {{ facilityInfo.phone }}</label>
       <br />
       <br />
+      <span>Hours of Operation:</span>
+      <br>
       <label id="opening-days">{{ facilityInfo.openDays }}</label>
       <br />
       <label id="opening-hours">{{ facilityInfo.openTime }} - </label>
@@ -76,7 +88,42 @@ export default {
 </script>
 
 <style scoped>
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  align-items: center;
+  height: 150vh;
+}
+
+.header {
+  background-color: #a1de81;
+  width: 100%;
+  padding: 0px 0;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
 .office-info {
-  margin-left: 100px;
+  background-color: #ffffff;
+  border: 1px;
+  padding: 10px 20px;
+  width: 100%;
+  max-width: 1500px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.office-info img {
+  max-width: 25%; /* Adjust this value as needed */
+  height: auto;
+}
+
+.facility-names {
+  font-size: 20px;
+  font-weight: bold;
 }
 </style>
