@@ -5,7 +5,8 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
-import Profile from '../views/DoctorProfile.vue'
+import DoctorProfile from '../views/DoctorProfile.vue'
+import PatientProfile from '../views/PatientProfile.vue'
 import ViewOfficeInfo from '../views/ViewOfficeInfo.vue'
 import UpdateOfficeInfo from '../views/UpdateOfficeInfo.vue'
 import UpcomingAppointment from '../views/ViewUpcomingAppointment.vue'
@@ -80,8 +81,16 @@ const router = new Router({
     },
     {
       path: "/doctor-profile",
-      name: "profile",
-      component: Profile,
+      name: "doctor-profile",
+      component: DoctorProfile,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/patient-profile",
+      name: "patient-profile",
+      component: PatientProfile,
       meta: {
         requiresAuth: true
       }
