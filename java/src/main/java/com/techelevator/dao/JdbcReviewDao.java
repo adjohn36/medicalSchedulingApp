@@ -3,6 +3,7 @@ package com.techelevator.dao;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Review;
+import com.techelevator.model.ReviewDto;
 import com.techelevator.model.ReviewResponse;
 import com.techelevator.model.User;
 import org.springframework.boot.autoconfigure.quartz.QuartzProperties;
@@ -66,16 +67,16 @@ public class JdbcReviewDao implements ReviewDao{
     }
 
     @Override
-    public List<Review> getReviewsByReviewedOffice(int reviewedOffice) {
-        List<Review> reviewsByOffice = new ArrayList<>();
+    public List<ReviewDto> getReviewsByReviewedOffice(int officeId) {
+        List<ReviewDto> reviewsByOffice = new ArrayList<>();
         String sql = "SELECT review_id, reviewer, office_name, username, review_rating, review_title, review_content, review_date FROM review " +
                 "JOIN users ON review.reviewer = users.user_id " +
                 "JOIN office ON review.reviewed_office = office.office_id " +
-                "WHERE reviewed_office = ?";
+                "WHERE office.office_id = ?";
         try {
-            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, reviewedOffice);
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, officeId);
             while (results.next()) {
-                Review review = mapRowToReview(results);
+                ReviewDto review = mapRowToReviewDto(results);
                 reviewsByOffice.add(review);
             }
         } catch (CannotGetJdbcConnectionException e) {
@@ -149,8 +150,11 @@ public class JdbcReviewDao implements ReviewDao{
         return newReviewResponse;
     }
 
-    private Review mapRowToReview(SqlRowSet rs) {
-        Review review = new Review();
+    private Review mapRowToReview(SqlRowSet rs){
+        return null;
+    }
+    private ReviewDto mapRowToReviewDto(SqlRowSet rs) {
+        ReviewDto review = new ReviewDto();
         review.setReviewId(rs.getInt("review_id"));
         review.setReviewer(rs.getInt("reviewer"));
         review.setOfficeName(rs.getString("office_name"));

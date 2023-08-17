@@ -2,12 +2,14 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.ReviewDao;
 import com.techelevator.model.Review;
+import com.techelevator.model.ReviewDto;
 import com.techelevator.model.ReviewResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,7 +22,7 @@ public class ReviewController {
         this.reviewDao = reviewDao;
     }
 
-    //works and displays username
+//    works and displays username
     @GetMapping("/all")
     public List<Review> viewReviews() {
         List review = reviewDao.getAllReviews();
@@ -44,15 +46,11 @@ public class ReviewController {
         }
         return review;
     }
-    @ResponseStatus
-    @GetMapping("/all/{reviewedOffice}")
-    public List<Review> viewReviewsByOffice(@PathVariable int reviewedOffice) {
-        List reviews = reviewDao.getReviewsByReviewedOffice(reviewedOffice);
-        if (reviews != null) {
 
-        }else {
-            System.out.println("No Reviews Found");
-        }
+    @GetMapping("/all/{officeId}")
+    public List<ReviewDto> viewReviewsByOffice(@PathVariable int officeId) {
+        List<ReviewDto> reviews= null;
+         reviews = reviewDao.getReviewsByReviewedOffice(officeId);
         return reviews;
     }
 

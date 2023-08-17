@@ -15,7 +15,7 @@
           <li><router-link to="/patient-portal">Home</router-link></li>
           <li><router-link to="/book-appointment">Book An Appointment</router-link></li>
           <li><router-link v-bind:to="{name:'patient-profile'}">My Patient Profile</router-link></li>
-          <li><router-link to="/reviews">Reviews</router-link></li>
+          <!-- <li><router-link to="/reviews">Reviews</router-link></li> -->
           </ul>
         </div>
       </nav>

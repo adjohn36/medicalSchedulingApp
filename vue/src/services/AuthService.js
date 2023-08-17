@@ -27,10 +27,9 @@ export default {
   getAllReviews(){
     return axios.get('/reviews/all')
   },
-  
-  getReviewById(reviewId){
-    return axios.get(`/reviews/${reviewId}`)
+  getReviewsByReviewedOffice(officeId){
+    return axios.get(`/reviews/all/${officeId}`)
+    
   }
-  
 
 }

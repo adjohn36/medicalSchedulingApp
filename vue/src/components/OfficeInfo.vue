@@ -47,14 +47,19 @@
       <label id="opening-hours">{{ facilityInfo.openTime }} - </label>
       <label id="closing-hours">{{ facilityInfo.closeTime }}</label>
     </div>
+    <review-list v-bind:facilityId="facilityId" /> 
   </div>
 </template>
 
 <script>
 import authService from "../services/AuthService";
+import ReviewList from "./ReviewList.vue";
 
 export default {
   name: "office-info",
+  components: {
+    ReviewList
+  },
   props: ["facilityId"],
   data() {
     return {
