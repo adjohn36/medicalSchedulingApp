@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.techelevator.exception.DaoException;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 @RestController
@@ -82,10 +83,10 @@ public class AgendaController {
     }
     @ResponseStatus(HttpStatus.ACCEPTED)
     @RequestMapping(path = "/bookanappointment", method = RequestMethod.POST)
-    public int bookAnAppointment(@RequestBody Appointment anAppointment) {
+    public int bookAnAppointment(@RequestBody Appointment anAppointment, Principal principal) {
         int bookAnAppointmentID = 0;
         try {
-            bookAnAppointmentID = appointmentDao.postBookAnAppointment(anAppointment);
+            bookAnAppointmentID = appointmentDao.postBookAnAppointment(anAppointment, principal);
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
         }

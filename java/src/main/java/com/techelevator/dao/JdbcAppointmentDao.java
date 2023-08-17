@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,14 +95,22 @@ public class JdbcAppointmentDao implements AppointmentDao {
     }
 
     @Override
-    public int postBookAnAppointment(Appointment anAppointment) {
+    public int postBookAnAppointment(Appointment anAppointment, Principal principal) {
         Integer appointmentId;
 
             try {
-
+                //get logged in patent ID
+                String sqlPatientID = "Select patient_id from patient " +
+                        " JOIN Users on Users.User_Id = patient.user_id " +
+                        " WHERE Users.username = ? ";
+                SqlRowSet results = jdbcTemplate.queryForRowSet(sqlPatientID,principal.getName() );
+                int patientId = 0;
+                while (results.next()) {
+                    patientId = results.getInt("patient_id");
+                }
                 String sqlBookAnAppointment = "INSERT INTO appointment (patient_id, doctor_schedule_id, " +
                         "date_selected ) VALUES (?, ?,? ) RETURNING appointment_id";
-                appointmentId = jdbcTemplate.queryForObject(sqlBookAnAppointment, Integer.class, anAppointment.getPatientId(), anAppointment.getDoctorScheduleId(), LocalDate.parse(anAppointment.getDateSelected()));
+                appointmentId = jdbcTemplate.queryForObject(sqlBookAnAppointment, Integer.class, patientId, anAppointment.getDoctorScheduleId(), LocalDate.parse(anAppointment.getDateSelected()));
 
             } catch (CannotGetJdbcConnectionException e) {
                 throw new DaoException("Unable to connect to server or database", e);

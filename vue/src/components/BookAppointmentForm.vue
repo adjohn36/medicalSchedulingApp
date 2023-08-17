@@ -36,6 +36,7 @@
             v-bind:value="schedule.scheduleId"
           >
             {{ schedule.timeSlot }}
+            
           </option>
         </select>
         <div v-if="selectedTime">
@@ -51,103 +52,82 @@
 
       <button type="submit" class="btn btn-primary">Book Appointment</button>
     </form>
+    <!--<BookAppointmentAlertBox :showAlertAppt="showAlertAppt" @close="closeAlertAppt" />-->
+
   </div>
 </template>
 
 <script>
 
 import authService from "../services/AuthService";
-
+import BookAppointmentAlertBox from "../components/BookAppointmentAlertBox.vue";
+//import Swal from 'sweetalert2';
 export default {
-  name: 'book-appointment',
+  name: 'book-appointment', 
+  component: BookAppointmentAlertBox,
   props: ["appointmentList"],
   data() {
     
     return {
+      showAlertAppt: false,
 
       doctorList:[],
       doctorSchedule:[],
       selectedDate:null,
       scheduleId: null
-    //  /*doctors: [
-   //     { id: 1, name: 'Dr. Smith' },
-   //     { id: 2, name: 'Dr. Johnson' },
-    //    // Sample Data (will be removed)
-    // ],
-     // selectedDoctor: null,
-    //  selectedDate: null,
-    //  patientId: null,
-    //  availableTimes: [
-    //  ],*/
-      //doctors: []
-    }
+     }
   },
   methods: {
     getAvailableAppointments() {
       authService.getListBookAppointments()
         .then((response) => {
           if (response.status === 200) {
-            alert('getAvailableAppointments');
+            //alert('getAvailableAppointments');
             this.doctors = response.data;
           }
         });
     },
-submitAppointment() {
-  const appointmentDetails = { patientId: 1, doctorScheduleId: this.scheduleId, dateSelected:this.selectedDate};
-  //alert('patientId -- ' + appointmentDetails.patientId);
-  //alert('scheduleId -- ' + appointmentDetails.doctorScheduleId);
-  //alert('selectedDate -- ' + appointmentDetails.dateSelected);
+  submitAppointment() {
+  const appointmentDetails = { doctorScheduleId: this.scheduleId, dateSelected:this.selectedDate};
   authService.postBookAnAppointment(appointmentDetails).then((response) => {
-        if (response.status == 200) {
-          //alert('success');
-          (this.errors = false), (this.message = "Successfully Updated.");
+        if (response.status == 202) {
+        alert('Your appointment has been successfully confirmed and your doctor has been notified. Your appointment Id is: ' + response.data);    
+        /*Swal.fire({
+          title: 'Smart Booking',
+          text: 'Your appointment has been successfully confirmed and your doctor has been notified.Your appointment Id is: ' + response.data,
+          icon: 'info',
+          confirmButtonText: 'OK',
+        });*/
+          this.$router.push({name:'view-available-doctors'});
         }
       })
         .catch((error) => {
-          //alert(error);
+          alert('Your appointment has not been booked, please try later.');
+          /*Swal.fire({
+              title: 'Smart Booking',
+              text: 'Your appointment has not been booked, please try later.',
+              icon: 'info',
+              confirmButtonText: 'OK',
+            });*/
           const response = error.response;
           this.errors = true;
           if (response.status === 400) {
             this.errorMsg = "Bad Request: Validation Errors";
           }
         });
-}
-    // submitAppointment() {
-    //   // Handle form submission and booking logic
-    //   alert('in side submitAppointment');
-    //   //this.doctors.selectedDate = "2023-8-20";
-    //   //this.doctors.selectedDoctor = 1;
-    //   //this.doctors.patientId =1;
-    //   authService
-    //     .postBookAnAppointment(this.doctors)
-    //     .then((response) => {
-    //       if (response.status === 200) {
-    //         (this.errors = false), (this.message = "Successfully Posted.");
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       const response = error.response;
-    //       this.errors = true;
-    //       if (response.status === 400) {
-    //         this.message = "Bad Request: Validation Errors";
-    //       }
-    //     });
-    // },
-    
-    
+  }
+},
 
-  /*watch: {
-    selectedDoctor() {
-      // reset selectedDate and availableTimes when doctor changes
-      this.selectedDate = null;
-      this.availableTimes = [];
-    },
-    selectedDate() {
-      // grt available times for the selectedDoctor and selectedDate
-      // and update the availableTimes array
-    },
-  }*/
+  showAppointmentConfirmation(){ 
+    this.showAlertAppt = true;
+
   },
+
+  closeAlertAppt(){
+    this.showAlertAppt = false;
+  },
+
+
   created(){
   //alert('created');
   
