@@ -61,6 +61,9 @@ export default {
     ReviewList
   },
   props: ["facilityId"],
+  doctorFacilityInfo: {
+    type: Object
+  },
   data() {
     return {
       facilityInfo: {
