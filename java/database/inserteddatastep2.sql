@@ -55,22 +55,6 @@ VALUES ('1', '8', 'Afreen', 'Kazi', 'drafreenkazi@gmail.com'),
 ('5', '12', 'Myron', 'Law', 'thelawdoctor@gmail.com');
 
 
-INSERT INTO doctor_schedule (doctor_id, schedule_id)
-VALUES ('1', '1'), ('2', '3'), ('5', '9');
-
-INSERT INTO doctor_schedule (doctor_id, schedule_id)
-VALUES ('1', '2'), ('1', '3'), ('1', '4'), ('1', '5'), ('1', '6'), ('1', '7'), ('1', '8'), ('1', '20'), ('1', '21'), ('1', '22'), ('1', '23'),
-('1', '35'), ('2', '1'), ('2', '2'), ('2', '3'), ('2', '4'), ('2', '5'), ('2', '6'), ('2', '7'), ('2', '8'), ('2', '9'), ('2', '50'), ('2', '55');
-
-INSERT INTO doctor_schedule (doctor_id, schedule_id)
-VALUES ('3', '67'), ('4', '80'), ('5', '89')
-
-
-INSERT INTO appointment (patient_id, doctor_schedule_id, date_selected)
-VALUES ('1', '3', '08/14/2023');
-
-INSERT INTO doctor_office (office_id, doctor_id)
-VALUES ('1', '1');
 
 --SELECT * FROM doctor_office;
 
