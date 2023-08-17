@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 export default {
 
   login(user) {
@@ -28,9 +28,17 @@ export default {
     return axios.get('/reviews/all')
   },
   
-  getReviewById(reviewId){
-    return axios.get(`/reviews/${reviewId}`)
+  getListBookAppointments(){
+    return axios.get('/agenda/listbookappointments')
+  },
+  postBookAnAppointment(appointment){
+    return axios.post('/agenda/bookanappointment', appointment)
+  },
+  getDoctorList(){
+  return axios.get('/doctors/all')
   }
-  
-
+  ,
+  getDoctorSchedule(doctorId){
+    return axios.get(`/update-availability/${doctorId}`)
+  }
 }

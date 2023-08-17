@@ -74,10 +74,11 @@ public class JdbcAppointmentDao implements AppointmentDao {
     public List<BookAppointViewDto> getAvailableAppointmentLists() {
         List<BookAppointViewDto> appointmentLists = new ArrayList<>();
         try {
-            String sql = "SELECT doctor_schedule.doctor_schedule_id, doctor_schedule.schedule_id, " +
+            String sql = "SELECT doctor_schedule.doctor_schedule_id, doctor_schedule.schedule_id,schedule.time_slot, " +
                     " doctor.doctor_id, doctor.doctor_first_name, doctor.doctor_last_name " +
                     " FROM doctor_schedule " +
-                    " JOIN doctor ON doctor_schedule.doctor_id = doctor.doctor_id ";
+                    " JOIN doctor ON doctor_schedule.doctor_id = doctor.doctor_id " +
+                    " JOIN schedule on 	doctor_schedule.schedule_id = schedule.schedule_id";
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {
                 BookAppointViewDto appointment = mapRowToBookAppointViewDto(results);
@@ -118,6 +119,7 @@ public class JdbcAppointmentDao implements AppointmentDao {
         appointment.setDoctor_id(rs.getInt("doctor_id"));
         appointment.setDoctorFirstName(rs.getString("doctor_first_name"));
         appointment.setDoctorLastName(rs.getString("doctor_last_name"));
+        appointment.setTimeSlot(rs.getString("time_slot"));
         return appointment;
     }
     // Maps a row from Database result to AppointmentResponseDto Model object
