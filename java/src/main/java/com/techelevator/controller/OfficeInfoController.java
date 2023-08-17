@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.OfficeInfoDao;
+import com.techelevator.model.DoctorOfficeDto;
 import com.techelevator.model.OfficeInfo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 
@@ -39,8 +41,9 @@ public class OfficeInfoController {
     // Working
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
-    public OfficeInfo getOfficeInfoById(@PathVariable int id) {
-        OfficeInfo officeInfo = officeInfoDao.getOfficeById(id);
+    public OfficeInfo getOfficeInfoById(@PathVariable Principal principal) {
+        DoctorOfficeDto doctorOfficeDto = officeInfoDao.getOfficeIdByUserId(principal);
+        OfficeInfo officeInfo = officeInfoDao.getOfficeById(doctorOfficeDto.getOfficeId());
         if (officeInfo != null) {
 
         } else {
@@ -48,6 +51,8 @@ public class OfficeInfoController {
         }
         return officeInfo;
     }
+
+
 
     // Working
     @ResponseStatus(HttpStatus.CREATED)
