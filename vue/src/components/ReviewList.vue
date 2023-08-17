@@ -8,7 +8,7 @@
           </a>
         </div>
         <div class="welcome-title">
-          <h1></h1>
+          <h1>Office Reviews</h1>
         </div>
         <ul class="nav-links">
           <li><router-link to="/doctor-portal">My Agenda</router-link></li>
@@ -35,32 +35,16 @@
       <div class="col-md-8 course-details-content">
         <div class="course-details-card mt--40">
           <div class="course-content">
-            <h5 class="mb--20">Review</h5>
-            <div class="row row--30">
-              <div class="col-lg-4">
-                <div class="rating-box">
-                  <div class="rating-number">5.0</div>
-                  <div class="rating">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                  </div>
-                  <span>(25 Review)</span>
-                </div>
-              </div>
-              <div class="col-lg-8">
-                <div class="review-wrapper">
-                  <!-- Your rating progress bars here -->
-                </div>
-              </div>
-            </div>
+                  
+             
+        
+            
+            
             <div class="comment-wrapper pt--40">
               <div class="section-title">
-                <h5 class="mb--25">Reviews</h5>
+                <h5 class="mb--25">Reviews:</h5>
               </div>
-              <!-- Comment boxes -->
+             
               <div
                 class="edu-comment"
                 v-for="review in reviewList"
@@ -255,8 +239,9 @@ h5,
 }
 .course-details-card {
   border-radius: 8px;
-  border: 1px solid #eeeeee;
+  border: 3px solid #0c0707;
   padding: 30px;
+  background-color: #eeeeee;
 }
 .course-details-card .course-details-two-content p:last-child {
   margin-bottom: 0;
