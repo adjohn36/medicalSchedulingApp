@@ -70,7 +70,7 @@ public class AgendaController {
         return patientList;
     }
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(path = "/listbookappointments/", method = RequestMethod.GET)
+    @RequestMapping(path = "/listbookappointments", method = RequestMethod.GET)
     public List<BookAppointViewDto> listbookappointments() {
         List<BookAppointViewDto> bookAppointmentList = new ArrayList<>();
         try {
@@ -81,7 +81,7 @@ public class AgendaController {
         return bookAppointmentList;
     }
     @ResponseStatus(HttpStatus.ACCEPTED)
-    @RequestMapping(path = "/bookanappointment/", method = RequestMethod.POST)
+    @RequestMapping(path = "/bookanappointment", method = RequestMethod.POST)
     public int bookAnAppointment(@RequestBody Appointment anAppointment) {
         int bookAnAppointmentID = 0;
         try {

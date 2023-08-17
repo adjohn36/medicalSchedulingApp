@@ -7,14 +7,25 @@ public class BookAppointViewDto {
     private String doctorFirstName;
     private String doctorLastName;
 
+    public String getTimeSlot() {
+        return timeSlot;
+    }
+
+    public void setTimeSlot(String timeSlot) {
+        this.timeSlot = timeSlot;
+    }
+
+    private String timeSlot;
+
     public BookAppointViewDto() { }
 
-    public BookAppointViewDto(int doctorScheduleId, int scheduleId, int doctor_id, String doctorFirstName,String doctorLastName){
+    public BookAppointViewDto(int doctorScheduleId, int scheduleId, int doctor_id, String doctorFirstName,String doctorLastName, String timeSlot){
            this.doctorScheduleId =doctorScheduleId;
            this.scheduleId = scheduleId;
            this.doctor_id = doctor_id;
            this.doctorFirstName = doctorFirstName;
            this.doctorLastName = doctorLastName;
+           this.timeSlot = timeSlot;
         }
     public int getDoctorScheduleId() {
         return doctorScheduleId;
