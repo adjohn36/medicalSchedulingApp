@@ -23,11 +23,11 @@
     <div class="content">
       <h2 class="page-title">Upcoming Appointments</h2>
       <ul class="appointment-list">
-        <li v-for="appointment in upcomingAppointments" :key="appointment.id" class="appointment-item">
+        <li v-for="appointment in upcomingAppointments" :key="appointment.appointmentId" class="appointment-item">
           <div class="appointment-details">
-            <div class="patient-name">{{ appointment.patientName }}</div>
-            <div class="appointment-date">{{ formatDate(appointment.date) }}</div>
-            <div class="appointment-time">{{ appointment.time }}</div>
+            <div class="patient-name">{{ appointment.patientFirstName }} {{appointment.patientLastName}}</div>
+            <div class="appointment-date">{{ formatDate(appointment.dateSelected) }}</div>
+            <div class="appointment-time">{{ appointment.timeSlot }}</div>
           </div>
           <!-- <button class="cancel-button" @click="cancelAppointment(appointment.id)">Cancel</button> -->
         </li>
@@ -37,16 +37,81 @@
 </template>
 
 <script>
+import authService from '../services/AuthService';
 // import AuthService from '../services/AuthService';
 
 export default {
   name: 'UpcomingAppointments',
   data() {
     return {
-      upcomingAppointments: [],
+      upcomingAppointments: [
+        {
+          appointmentId:0,
+          patientFirstName:"",
+          patientLastName:"",
+          dateSelected:"",
+          timeSlot:"",
+          doctorId:0
+        }
+      ],
+      dataStore: [
+        {
+          appointmentId:1,
+          patientFirstName:"Perter",
+          patientLastName:"Parker",
+          dateSelected:"08-21-2023",
+          timeSlot:"09:00:00",
+          doctorId:13
+        },
+        {
+          appointmentId:2,
+          patientFirstName:"Greg",
+          patientLastName:"Arias",
+          dateSelected:"09-12-2023",
+          timeSlot:"01:00:00",
+          doctorId:13
+        },
+        {
+          appointmentId:3,
+          patientFirstName:"Amanda",
+          patientLastName:"Hug",
+          dateSelected:"09-29-2023",
+          timeSlot:"04:00:00",
+          doctorId:13
+        },
+        {
+          appointmentId:4,
+          patientFirstName:"Polly",
+          patientLastName:"Swain",
+          dateSelected:"09-29-2023",
+          timeSlot:"04:30:00",
+          doctorId:12
+        },
+        {
+          appointmentId:5,
+          patientFirstName:"Anna",
+          patientLastName:"Molly",
+          dateSelected:"10-2-2023",
+          timeSlot:"02:30:00",
+          doctorId:12
+        }
+      ],
     };
   },
   methods: {
+
+    getappointmentList(){
+     authService.getUpcomingAppointmentList()
+      .then((response) => {
+         if (response.status === 200) {
+           this.upcomingAppointments = response.data;
+         }
+      })
+      
+
+    },
+
+
     formatDate(date) {
       const options = { year: 'numeric', month: 'long', day: 'numeric'};
       return new Date(date).toLocaleDateString(undefined, options);
@@ -63,6 +128,10 @@ export default {
     window.removeEventListener("scroll", this.handleScroll);
   },
   },
+
+  created(){
+    this.getappointmentList()
+  }
 };
 </script>
 

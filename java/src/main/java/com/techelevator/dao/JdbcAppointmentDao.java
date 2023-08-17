@@ -24,17 +24,18 @@ public class JdbcAppointmentDao implements AppointmentDao {
     }
 
     @Override
-    public List<AppointmentResponseDto> getAppointmentListsByDoctorId(int doctorId) {
+    public List<AppointmentResponseDto> getAppointmentListsByDoctorId(int userId) {
         List<AppointmentResponseDto> appointmentLists = new ArrayList<>();
         try {
-            String sql = "SELECT patient.patient_first_name, patient.patient_last_name, appointment.date_selected, schedule.time_slot " +
+            String sql = "SELECT patient.patient_first_name, patient.patient_last_name,appointment.appointment_id," +
+                    " appointment.date_selected, schedule.time_slot ,doctor_schedule.doctor_id" +
                     " FROM patient " +
                     " JOIN appointment ON patient.patient_id = appointment.patient_id " +
                     " JOIN doctor_schedule ON appointment.doctor_schedule_id = doctor_schedule.doctor_schedule_id " +
                     " JOIN schedule ON doctor_schedule.schedule_id = schedule.schedule_id " +
                     " WHERE appointment.date_selected >= CURRENT_DATE " +
-                    " AND doctor_schedule.doctor_id = ?";
-            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, doctorId);
+                    " AND doctor_schedule.doctor_id =(SELECT doctor_id from doctor WHERE user_id =?)";
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
             while (results.next()) {
                 AppointmentResponseDto appointment = mapRowToAppointmentResponseDto(results);
                 appointmentLists.add(appointment);
@@ -104,7 +105,7 @@ public class JdbcAppointmentDao implements AppointmentDao {
                         " JOIN Users on Users.User_Id = patient.user_id " +
                         " WHERE Users.username = ? ";
                 SqlRowSet results = jdbcTemplate.queryForRowSet(sqlPatientID,principal.getName() );
-                int patientId = 0;
+                int patientId =1;
                 while (results.next()) {
                     patientId = results.getInt("patient_id");
                 }
@@ -136,8 +137,10 @@ public class JdbcAppointmentDao implements AppointmentDao {
         AppointmentResponseDto appointment = new AppointmentResponseDto();
         appointment.setPatientFirstName(rs.getString("patient_first_name"));
         appointment.setPatientLastName(rs.getString("patient_last_name"));
+        appointment.setAppointmentId(rs.getInt("appointment_id"));
         appointment.setDateSelected(rs.getString("date_selected"));
         appointment.setTimeSlot(rs.getString("time_slot"));
+        appointment.setDoctorId(rs.getInt("doctor_id"));
         return appointment;
     }
 }

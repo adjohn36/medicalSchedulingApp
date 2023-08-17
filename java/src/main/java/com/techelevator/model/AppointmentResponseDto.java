@@ -1,6 +1,8 @@
 package com.techelevator.model;
 
 public class AppointmentResponseDto {
+    private int appointmentId;
+    private int doctorId;
     private String patientFirstName;
     private String patientLastName;
     private String dateSelected;
@@ -8,13 +10,17 @@ public class AppointmentResponseDto {
 
     public AppointmentResponseDto() { }
 
-    public AppointmentResponseDto(String patientFirstName, String patientLastName, String dateSelected, String timeSlot){
-           this.patientFirstName =patientFirstName;
-           this.patientLastName = patientLastName;
-           this.dateSelected = dateSelected;
-           this.timeSlot = timeSlot;
-        }
-   public String getDateSelected() {
+    public AppointmentResponseDto(int appointmentId, int doctorId, String patientFirstName, String patientLastName,
+                                  String dateSelected, String timeSlot) {
+        this.appointmentId = appointmentId;
+        this.doctorId = doctorId;
+        this.patientFirstName = patientFirstName;
+        this.patientLastName = patientLastName;
+        this.dateSelected = dateSelected;
+        this.timeSlot = timeSlot;
+    }
+
+    public String getDateSelected() {
         return dateSelected;
     }
     public void setDateSelected(String dateSelected) {
@@ -37,6 +43,22 @@ public class AppointmentResponseDto {
     }
     public void setTimeSlot(String timeSlot) {
         this.timeSlot = timeSlot;
+    }
+
+    public int getAppointmentId() {
+        return appointmentId;
+    }
+
+    public void setAppointmentId(int appointmentId) {
+        this.appointmentId = appointmentId;
+    }
+
+    public int getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(int doctorId) {
+        this.doctorId = doctorId;
     }
 }
 

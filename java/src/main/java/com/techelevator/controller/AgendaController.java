@@ -2,10 +2,8 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.AppointmentDao;
 import com.techelevator.dao.PatientDao;
-import com.techelevator.model.AppointmentResponseDto;
-import com.techelevator.model.BookAppointViewDto;
-import com.techelevator.model.Appointment;
-import com.techelevator.model.Patient;
+import com.techelevator.dao.UserDao;
+import com.techelevator.model.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,17 +19,20 @@ import java.util.List;
 public class AgendaController {
     private final AppointmentDao appointmentDao;
     private final PatientDao patientDao;
+    private final UserDao userDao;
 
-    public AgendaController(AppointmentDao appointmentDao, PatientDao patientDao) {
+    public AgendaController(AppointmentDao appointmentDao, PatientDao patientDao, UserDao userDao) {
         this.appointmentDao = appointmentDao;
         this.patientDao = patientDao;
+        this.userDao = userDao;
     }
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(path = "/appointmentlistbydoctorid/{doctorId}", method = RequestMethod.GET)
-    public List<AppointmentResponseDto> listappointments(@PathVariable int doctorId) {
-        List<AppointmentResponseDto> appointmentList = new ArrayList<>();
+    @RequestMapping(path = "/view-appointments", method = RequestMethod.GET)
+    public List<AppointmentResponseDto> getAppointmentList(Principal principal) {
+        List<AppointmentResponseDto> appointmentList ;
+        User currentUser = userDao.getUserByUsername(principal.getName());
         try {
-            appointmentList = appointmentDao.getAppointmentListsByDoctorId(doctorId);
+            appointmentList = appointmentDao.getAppointmentListsByDoctorId(currentUser.getId());
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Appointment List By Doctor Id failed.");
         }
