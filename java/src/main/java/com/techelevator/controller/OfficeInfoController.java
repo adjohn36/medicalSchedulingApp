@@ -54,6 +54,7 @@ public class OfficeInfoController {
     @GetMapping("/{id}")
     public OfficeInfo getOfficeInfoById(@PathVariable int id, Principal principal) {
         if(id==0){
+
             DoctorOfficeDto doctorOfficeDto = officeInfoDao.getOfficeIdByUserId(principal);
             id=doctorOfficeDto.getOfficeId();
         }

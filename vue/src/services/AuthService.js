@@ -73,8 +73,11 @@ export default {
   },
   getUpcomingAppointmentList(){
     return axios.get('/agenda/view-appointments')
-  }
+  },
   // getDoctorSchedule(doctorId) {
   //   return axios.get(`/update-availability/${doctorId}`);
   // }
+  getOfficeInfoById(id)  {
+    return axios.get(`/office-info/${id}`);
+  }
 }
