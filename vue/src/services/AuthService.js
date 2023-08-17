@@ -71,6 +71,9 @@ export default {
   updateUnavailability(doctorScheduleIdList){      
     return axios.post('/update-availability', doctorScheduleIdList)
   },
+  getUpcomingAppointmentList(){
+    return axios.get('/agenda/view-appointments')
+  },
   // getDoctorSchedule(doctorId) {
   //   return axios.get(`/update-availability/${doctorId}`);
   // }

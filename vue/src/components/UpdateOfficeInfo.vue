@@ -44,7 +44,6 @@
           v-model="doctorFacilityInfo.officeName"
         />
       </div>
-
       <div class="form-input-group">
         <label for="streetAddress">Street:</label>
         <input
@@ -53,17 +52,14 @@
           v-model="doctorFacilityInfo.streetAddress"
         />
       </div>
-
       <div class="form-input-group">
         <label for="city">City:</label>
         <input type="text" id="city" v-model="doctorFacilityInfo.city" />
       </div>
-
       <div class="form-input-group">
         <label for="state">State:</label>
         <input type="text" id="state" v-model="doctorFacilityInfo.state" />
       </div>
-
       <div class="form-input-group">
         <label for="zipCode">Zip:</label>
         <input
@@ -73,7 +69,6 @@
           placeholder="ex: 19702"
         />
       </div>
-
       <div class="form-input-group">
         <label for="phone">Phone Number:</label>
         <input
@@ -83,7 +78,6 @@
           placeholder="ex: (302) 999 - 9999"
         />
       </div>
-
       <div class="form-input-group">
         <label for="openTime">Start Time:</label>
         <input
@@ -92,7 +86,6 @@
           v-model="doctorFacilityInfo.openTime"
         />
       </div>
-
       <div class="form-input-group">
         <label for="closeTime">Close Time:</label>
         <input
@@ -110,16 +103,13 @@
           placeholder="Monday - Friday"
         />
       </div>
-
       <button type="submit">Update Information</button>
     </form>
   </div>
 </template>
-
 <script>
 import authService from "../services/AuthService";
 // import OfficeInfo from "../components/OfficeInfo.vue";
-
 export default {
   name: "update-office-information",
   // components: {OfficeInfo},
@@ -142,8 +132,6 @@ export default {
   methods: {
     // getDoctorFacilityInfo, call updateOffice method
   getDoctorFacilityInfo() {
-    
-
       authService.getOfficeDetail(0).then((response) => {
         if (response.status == 200) {
           this.doctorFacilityInfo = response.data;
@@ -165,7 +153,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .container {
   display: flex;
@@ -175,7 +162,7 @@ export default {
   height: auto;
 }
 .header {
-  background-color: #a1de81;
+  background-color: #A1DE81;
   width: 100%;
   padding: 0px 0;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
@@ -188,7 +175,7 @@ label {
   margin-right: 0.5rem;
 }
 .office-form {
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   border: 1px solid #ccc;
   padding: 20px;
   width: 100%;
@@ -197,73 +184,61 @@ label {
   border-radius: 5px;
   margin-top: 20px;
 }
-
 .page-title {
   font-size: 24px;
-  color: #4070f4;
+  color: #4070F4;
   margin-bottom: 20px;
 }
-
 .form-input-group {
   margin-bottom: 12px;
 }
-
 .form-input {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-
 button[type="submit"] {
-  background-color: #007bff;
+  background-color: #007BFF;
   color: #fff;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
 }
-
 button[type="submit"]:hover {
-  background-color: #0056b3;
+  background-color: #0056B3;
 }
-
 .nav-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 15px;
 }
-
 .logo {
   padding: 0;
   margin: 0;
 }
-
 .logo img {
   display: block;
 }
-
 .nav-links {
   list-style: none;
   display: flex;
   align-items: center;
 }
-
 .nav-links li {
   margin: 0 8px;
 }
-
 .nav-links a {
   text-decoration: none;
-  color: #0e2431;
+  color: #0E2431;
   font-size: 18px;
   font-weight: 500;
   padding: 10px 4px;
   transition: all 0.3s ease;
 }
-
 .nav-links a:hover {
-  color: #4070f4;
+  color: #4070F4;
 }
 </style>

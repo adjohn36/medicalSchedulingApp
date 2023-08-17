@@ -19,22 +19,13 @@ public class JdbcScheduleDao implements ScheduleDao {
     public JdbcScheduleDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
-//    public List<String> getWorkingDaysList(){
-//        List<String> workingDayList = null;
-//        String sql = "SELECT DISTINCT day_of_the_week FROM schedule";
-//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
-//        while(results.next()){
-//            workingDayList.add(results.getString("day_of_the_week"));
-//        }
-//        return workingDayList;
-//    }
     @Override
     public List<DoctorSchedule> getDoctorSchedule(int userId, String dayOfTheWeek) {
         List<DoctorSchedule> doctorScheduleLists = new ArrayList<>();
         String sql = "SELECT day_of_the_week, time_slot, slot_available, doctor_schedule_id ,doctor_schedule.schedule_id ,doctor_id " +
                 "FROM doctor_schedule JOIN schedule ON doctor_schedule.schedule_id = schedule.schedule_id " +
-                "WHERE doctor_id=(SELECT doctor_id from doctor WHERE user_id =?) AND day_of_the_week=?;";
+                "WHERE doctor_id=(SELECT doctor_id from doctor WHERE user_id =?) AND day_of_the_week=? " +
+                "ORDER BY time_slot ASC;";
         //if by day of week, then add AND day_of_the_week=? and below add dayOfWeek & inScheduleDao"
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId, dayOfTheWeek);
         while (results.next()) {
