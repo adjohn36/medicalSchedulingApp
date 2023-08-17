@@ -20,7 +20,8 @@
       <br />
       <tr v-for="time in schedule" v-bind:key="time.doctorScheduleId">
         <td v-show="schedule[0].doctorScheduleId>0">
-          <input type="checkbox" v-model="selectedSlotId" v-bind:id="time.doctorScheduleId" v-bind:value="time.doctorScheduleId"/>
+          <input type="checkbox" v-model="selectedSlotId" v-bind:id="time.doctorScheduleId" 
+          v-bind:value="time.doctorScheduleId" v-on:change="changeAvailableSlot"/>
         </td>
         <td>{{ time.timeslot }}</td>
       </tr>
@@ -70,14 +71,18 @@ export default {
           const availability = response.data;
           if (availability.length > 0) {
             for (let id in availability) {
-              if (availability[id].slotAvailable) {
-                this.schedule.push(availability[id]);
+              this.schedule.push(availability[id]);
+              if (availability[id].slotAvailable) {                
                 this.selectedSlotId.push(availability[id].doctorScheduleId);
               }
             }
           }
         }
       });
+    },
+
+    changeAvailableSlot(){
+      
     },
 
     updateAvailability() {

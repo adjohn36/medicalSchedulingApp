@@ -42,23 +42,7 @@ public class ScheduleController {
     @PostMapping()
     public void updateSchedule(@Valid @RequestBody DoctorScheduleDto doctorScheduleDto, Principal principal) {
         User currentUser = userDao.getUserByUsername(principal.getName());
-        //List<Integer> scheduleId = doctorScheduleDto.getDoctorScheduleIdList();
-        //String strScheduleId = scheduleId.stream().map(String::valueOf).collect(Collectors.joining(","));
-
         scheduleDao.updateSchedule(doctorScheduleDto.getDoctorScheduleIdList(),currentUser.getId());
     }
-
-
-//    public DoctorSchedule updateSchedule(@Valid @PathVariable int doctorScheduleId, @RequestBody DoctorSchedule doctorSchedule) {
-//        doctorSchedule.setDoctorScheduleId(doctorSchedule.getDoctorScheduleId());
-//        DoctorSchedule updatedSchedule = scheduleDao.updateSchedule(doctorScheduleId, doctorSchedule);
-//        if (updatedSchedule != null) {
-//
-//        } else {
-//            System.out.println("No schedule found.");
-//        }return updatedSchedule;
-//
-//
-//    }
 
 }

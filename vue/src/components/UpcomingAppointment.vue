@@ -5,28 +5,49 @@
         <div class="nav-content">
           <div class="logo">
             <a href="#">
-              <img src="../img/NavBarLogo.png" alt="Logo">
+              <img src="../img/NavBarLogo.png" alt="Logo" />
             </a>
           </div>
           <div class="welcome-title">
             <h1>Welcome to Your Doctor Portal</h1>
           </div>
           <ul class="nav-links">
-          <li><router-link v-bind:to="{name:'schedule-availability'}">Update My Availability</router-link></li>
-          <li><router-link to="/update-office-info">Update Office Info</router-link></li>
-          <li><router-link v-bind:to="{name:'doctor-profile'}">My Doctor Profile</router-link></li>
-          <li><router-link to="/reviews">My Reviews</router-link></li>
-        </ul>
-      </div>
-    </nav>
+            <li>
+              <router-link v-bind:to="{ name: 'schedule-availability' }"
+                >Update My Availability</router-link
+              >
+            </li>
+            <li>
+              <router-link to="/update-office-info"
+                >Update Office Info</router-link
+              >
+            </li>
+            <li>
+              <router-link v-bind:to="{ name: 'doctor-profile' }"
+                >My Doctor Profile</router-link
+              >
+            </li>
+            <li><router-link to="/reviews">My Reviews</router-link></li>
+          </ul>
+        </div>
+      </nav>
     </div>
     <div class="content">
       <h2 class="page-title">Upcoming Appointments</h2>
       <ul class="appointment-list">
-        <li v-for="appointment in upcomingAppointments" :key="appointment.appointmentId" class="appointment-item">
+        <li
+          v-for="appointment in upcomingAppointments"
+          :key="appointment.appointmentId"
+          class="appointment-item"
+        >
           <div class="appointment-details">
-            <div class="patient-name">{{ appointment.patientFirstName }} {{appointment.patientLastName}}</div>
-            <div class="appointment-date">{{ formatDate(appointment.dateSelected) }}</div>
+            <div class="patient-name">
+              {{ appointment.patientFirstName }}
+              {{ appointment.patientLastName }}
+            </div>
+            <div class="appointment-date">
+              {{ formatDate(appointment.dateSelected) }}
+            </div>
             <div class="appointment-time">{{ appointment.timeSlot }}</div>
           </div>
           <!-- <button class="cancel-button" @click="cancelAppointment(appointment.id)">Cancel</button> -->
@@ -37,83 +58,35 @@
 </template>
 
 <script>
-import authService from '../services/AuthService';
-// import AuthService from '../services/AuthService';
+import authService from "../services/AuthService";
 
 export default {
-  name: 'UpcomingAppointments',
+  name: "UpcomingAppointments",
   data() {
     return {
       upcomingAppointments: [
         {
-          appointmentId:0,
-          patientFirstName:"",
-          patientLastName:"",
-          dateSelected:"",
-          timeSlot:"",
-          doctorId:0
-        }
-      ],
-      dataStore: [
-        {
-          appointmentId:1,
-          patientFirstName:"Perter",
-          patientLastName:"Parker",
-          dateSelected:"08-21-2023",
-          timeSlot:"09:00:00",
-          doctorId:13
+          appointmentId: 0,
+          patientFirstName: "",
+          patientLastName: "",
+          dateSelected: "",
+          timeSlot: "",
+          doctorId: 0,
         },
-        {
-          appointmentId:2,
-          patientFirstName:"Greg",
-          patientLastName:"Arias",
-          dateSelected:"09-12-2023",
-          timeSlot:"01:00:00",
-          doctorId:13
-        },
-        {
-          appointmentId:3,
-          patientFirstName:"Amanda",
-          patientLastName:"Hug",
-          dateSelected:"09-29-2023",
-          timeSlot:"04:00:00",
-          doctorId:13
-        },
-        {
-          appointmentId:4,
-          patientFirstName:"Polly",
-          patientLastName:"Swain",
-          dateSelected:"09-29-2023",
-          timeSlot:"04:30:00",
-          doctorId:12
-        },
-        {
-          appointmentId:5,
-          patientFirstName:"Anna",
-          patientLastName:"Molly",
-          dateSelected:"10-2-2023",
-          timeSlot:"02:30:00",
-          doctorId:12
-        }
       ],
     };
   },
   methods: {
-
-    getappointmentList(){
-     authService.getUpcomingAppointmentList()
-      .then((response) => {
-         if (response.status === 200) {
-           this.upcomingAppointments = response.data;
-         }
-      })
-      
-
+    getappointmentList() {
+      authService.getUpcomingAppointmentList().then((response) => {
+        if (response.status === 200) {
+          this.upcomingAppointments = response.data;
+        }
+      });
     },
 
-
     formatDate(date) {
-      const options = { year: 'numeric', month: 'long', day: 'numeric'};
+      const options = { year: "numeric", month: "long", day: "numeric" };
       return new Date(date).toLocaleDateString(undefined, options);
     },
     // cancelAppointment(appointmentId) {
@@ -121,17 +94,17 @@ export default {
     //   // Make API request
     //   console.log("Canceling appointment ID:", appointmentId);
     // },
-  created() {
-    window.addEventListener("scroll", this.handleScroll);
-  },
-  beforeDestroy() {
-    window.removeEventListener("scroll", this.handleScroll);
-  },
+    created() {
+      window.addEventListener("scroll", this.handleScroll);
+    },
+    beforeDestroy() {
+      window.removeEventListener("scroll", this.handleScroll);
+    },
   },
 
-  created(){
-    this.getappointmentList()
-  }
+  created() {
+    this.getappointmentList();
+  },
 };
 </script>
 
@@ -145,7 +118,7 @@ export default {
 }
 
 .header {
-  background-color: #A1DE81;
+  background-color: #a1de81;
   width: 100%;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
@@ -160,13 +133,12 @@ export default {
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   margin-top: 20px;
-  border: 1px solid white
-
+  border: 1px solid white;
 }
 
 .nav-links {
   text-decoration: none;
-  color: #0E2431;
+  color: #0e2431;
   font-size: 18px;
   font-weight: 500;
   padding: 10px 4px;
@@ -184,7 +156,7 @@ export default {
 
 .upcoming-appointments {
   max-width: 600px;
-  margin:  auto;
+  margin: auto;
   padding: 10px;
   margin-top: 100px;
 }
@@ -220,6 +192,6 @@ export default {
   cursor: pointer;
 }
 .welcome-title {
-  color: #0D1FE0;
+  color: #0d1fe0;
 }
 </style>
