@@ -64,8 +64,10 @@ export default {
   updateOffice(doctorFacilityInfo) {
     return axios.put(`/office-info/update/${doctorFacilityInfo.officeId}`, doctorFacilityInfo);
   },
-
-  getDoctorSchedule(doctorId) {
-    return axios.get(`/update-availability/${doctorId}`);
-  }
+  getDoctorSchedule(day){    
+    return axios.get(`/update-availability/schedule?dayOfTheWeek=${day}`)
+  },
+  // getDoctorSchedule(doctorId) {
+  //   return axios.get(`/update-availability/${doctorId}`);
+  // }
 }

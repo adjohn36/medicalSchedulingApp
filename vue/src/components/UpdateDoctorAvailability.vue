@@ -24,7 +24,7 @@
             type="checkbox"
             v-model="selectedSlotId"
             v-bind:id="time.scheduleId"
-            v-bind:value="time.scheduleId"
+            v-bind:value="time.scheduleId" v-on:change="getUpdatedList"
           />
           <span>{{ selectedSlotId }}</span>
         </td>
@@ -44,7 +44,7 @@ export default {
     return {
       selectedDay: "",
       selectedSlotId: [],
-      selectedTimeSlot: [],
+      unSelectedTimeSlot: [],
       availability: [
         {
           day: "",
@@ -79,18 +79,15 @@ export default {
           doctorId: 0,
           slotAvailable: true,
         },
-      ],
-
-      unavailableSchedule:[
-        {
-
-        }
       ]
     };
   },
   methods: {
     getDoctorSchedule() {
       alert(this.selectedDay);
+
+      this.schedule = [];
+      this.selectedSlotId = [];
       authService.getDoctorSchedule(this.selectedDay).then((response) => {
         if (response.status === 200) {
           this.schedule = response.data;
@@ -102,26 +99,26 @@ export default {
             }
           }
         }
-      });     
-     this.schedule = [];
-      this.selectedSlotId = [];
+      });        
     },  
 
-    // updateAvailability() {
-    //   if (this.selectedSlotId.length != 0) {
-    //     for (let id in this.selectedSlotId) {
-    //       let unavailableTimeSlot = [];
-    //       unavailableTimeSlot = this.schedule.filter(
-    //         (time) => { return time.scheduleId !== this.selectedSlotId[id]}
-    //       );
-    //       //this.selectedTimeSlot.push(userTimeSlot[0].slot);
-    //     }
-    //   }
-    // //   this.availability.push({day:this.selectedDay,slot:this.selectedTimeSlot})
-    // //      this.selectedSlotId = [];
-    // //  this.selectedTimeSlot = [];
-    // // this.selectedDay = '';
-    // },
+    updateAvailability() {
+      if (this.selectedSlotId.length != 0) {
+        for (let id in this.selectedSlotId) {         
+          this.unSelectedTimeSlot = this.schedule.filter(
+            (time) => { return (time.scheduleId === this.selectedSlotId[id])}
+          );
+         // alert(this.selectedSlotId[id]);
+          //this.selectedTimeSlot.push(userTimeSlot[0].slot);
+        }
+      }
+      alert(this.unSelectedTimeSlot[0].scheduleId);
+      this.unSelectedTimeSlot = [];
+              //   this.availability.push({day:this.selectedDay,slot:this.selectedTimeSlot})
+              //      this.selectedSlotId = [];
+              //  this.selectedTimeSlot = [];
+              // this.selectedDay = '';
+    },
   },
 };
 </script>
