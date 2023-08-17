@@ -62,25 +62,25 @@
 
 <script>
 import authService from "../services/AuthService";
-import OfficeInfo from "../components/OfficeInfo.vue";
+// import OfficeInfo from "../components/OfficeInfo.vue";
 
 export default {
   name: 'update-office-information',
-  components: {OfficeInfo},
+  // components: {OfficeInfo},
   data() {
     return {
       
       doctorFacilityInfo: {
-          // officeId: 0,
-          // facilityName:'',
-          // officeStreet: '',
-          // officeCity: '',
-          // officeState: '',
-          // officeStateZipCode: '',
-          // phoneNumber:'',
-          // officeOpenTime:'',
-          // officeCloseTime:'',
-          // openDays:''
+          officeId: 0,
+          facilityName:'',
+          officeStreet: '',
+          officeCity: '',
+          officeState: '',
+          officeStateZipCode: '',
+          phoneNumber:'',
+          officeOpenTime:'',
+          officeCloseTime:'',
+          openDays:''
       }
     }
   },
