@@ -10,6 +10,7 @@
 import AppointmentForm from "@/components/BookAppointmentForm.vue";
 
 export default {
+  name:'view-available-appointments',
   components: {
     AppointmentForm,
   },
