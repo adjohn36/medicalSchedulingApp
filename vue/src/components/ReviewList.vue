@@ -104,6 +104,7 @@ export default {
         //assign office ID here, should change 0 to something else:
         this.officeId = 0;
 
+
         //do not touch:
         authService.getOfficeDetail(this.officeId).then((response) => {
           if (response.status == 200) {
