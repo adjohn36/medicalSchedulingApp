@@ -141,8 +141,10 @@ export default {
   },
   methods: {
     // getDoctorFacilityInfo, call updateOffice method
-    getDoctorFacilityInfo(officeId) {
-      authService.getOfficeDetail(officeId).then((response) => {
+  getDoctorFacilityInfo() {
+    
+
+      authService.getOfficeDetail(0).then((response) => {
         if (response.status == 200) {
           this.doctorFacilityInfo = response.data;
         }
@@ -264,4 +266,4 @@ button[type="submit"]:hover {
 .nav-links a:hover {
   color: #4070f4;
 }
-</style>}
+</style>

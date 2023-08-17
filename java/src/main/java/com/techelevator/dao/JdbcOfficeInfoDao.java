@@ -77,7 +77,6 @@ public class JdbcOfficeInfoDao implements OfficeInfoDao {
 @Override
     public DoctorOfficeDto getOfficeIdByUserId(Principal principal){
         User currentUser=userDao.getUserByUsername(principal.getName());
-//as param currentUser.getId()
         int userId=currentUser.getId();
         String sql="SELECT doctor_office.office_id, doctor.doctor_id " +
                 "FROM doctor_office " +
