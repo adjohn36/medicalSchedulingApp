@@ -5,7 +5,7 @@
      <!-- <div role="alert" v-if="updateOfficeErrors">
         {{ updateOfficeErrorMsg }}
       </div> -->
-
+      <office-info v-bind:doctorFacilityInfo="doctorFacilityInfo"/>
     <div class="form-input-group">
            <label for="facilityName">Facility Name:</label>
            <input type="text" id="facilityName" v-model="doctorFacilityInfo.facilityName"/>
@@ -54,33 +54,55 @@
       
        
 
-      <button type="submit">Update Information</button>
+      <button type="submit" v-on:click="updateOffice()">Update Information</button>
      
     </form>
   </div>
 </template>
 
 <script>
-
+import authService from "../services/AuthService";
+import OfficeInfo from "../components/OfficeInfo.vue";
 
 export default {
   name: 'update-office-information',
+  components: {OfficeInfo},
   data() {
     return {
+      
       doctorFacilityInfo: {
-          facilityName:'',
-          officeStreet: '',
-          officeCity: '',
-          officeState: '',
-          officeStateZipCode: '',
-          phoneNumber:'',
-          officeOpenTime:'',
-          officeCloseTime:'',
-          openDays:''
+          // officeId: 0,
+          // facilityName:'',
+          // officeStreet: '',
+          // officeCity: '',
+          // officeState: '',
+          // officeStateZipCode: '',
+          // phoneNumber:'',
+          // officeOpenTime:'',
+          // officeCloseTime:'',
+          // openDays:''
       }
     }
+  },
+  methods: {
+    // getDoctorFacilityInfo, call updateOffice method
+  getDoctorFacilityInfo() {
+    
+    authService.updateOffice(this.officeId, this.doctorFacilityInfo).then((response) => {
+        if (response.status == 200) {
+          alert("hello")
+          this.doctorFacilityInfo.push();
+        }
+      
+  });
   }
-};
+  },
+
+  created() {
+    this.getDoctorFacilityInfo(this.$route.params.officeId);
+    this.updateOffice();
+  }
+}
   
 </script>
 

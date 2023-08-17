@@ -1,5 +1,6 @@
+
 import axios from 'axios';
-axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+//axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 export default {
 
   login(user) {
@@ -36,8 +37,15 @@ export default {
   },
   getDoctorList(){
   return axios.get('/doctors/all')
+
+  },
+  getReviewById(reviewId){
+    return axios.get(`/reviews/${reviewId}`)
+  },
+  updateOffice(doctorFacilityInfo){
+    return axios.put(`/office-info/update/${doctorFacilityInfo.officeId}`, doctorFacilityInfo)
   }
-  ,
+  , 
   getDoctorSchedule(doctorId){
     return axios.get(`/update-availability/${doctorId}`)
   }

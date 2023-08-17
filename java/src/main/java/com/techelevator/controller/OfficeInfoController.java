@@ -57,7 +57,7 @@ public class OfficeInfoController {
     }
 
     // Working
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    
     @PutMapping("/update/{id}")
     public ResponseEntity<OfficeInfo> updateOffice(@ Valid @PathVariable int id, @RequestBody OfficeInfo officeInfo) {
         officeInfo.setId(id);
