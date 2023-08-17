@@ -27,9 +27,11 @@ export default {
   getAllReviews(){
     return axios.get('/reviews/all')
   },
-  
   getReviewById(reviewId){
     return axios.get(`/reviews/${reviewId}`)
+  },
+  updateOffice(doctorFacilityInfo){
+    return axios.put(`/office-info/update/${doctorFacilityInfo.officeId}`, doctorFacilityInfo)
   }
   
 
