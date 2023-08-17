@@ -56,6 +56,9 @@ import authService from "../services/AuthService";
 export default {
   name: "office-info",
   props: ["facilityId"],
+  doctorFacilityInfo: {
+    type: Object
+  },
   data() {
     return {
       facilityInfo: {
