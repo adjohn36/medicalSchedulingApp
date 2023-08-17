@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 
 public interface ScheduleDao {
-List<DoctorSchedule> getDoctorSchedule(int doctorId, String dayOfTheWeek);
+List<DoctorSchedule> getDoctorSchedule(int userId, String dayOfTheWeek);
 
 
 DoctorSchedule updateSchedule(int doctorScheduleId, DoctorSchedule doctorSchedule);

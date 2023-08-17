@@ -1,9 +1,13 @@
 <template>
   <div id="main">
     <form v-on:submit.prevent="updateAvailability">
-      <h1>Update Availability</h1>
+      <h1>Update Schedule</h1>
       <br />
-      <select id="selected-days" v-model="selectedDay">
+      <select
+        id="selected-days"
+        v-model="selectedDay"
+        v-on:change="getDoctorSchedule"
+      >
         <option value="">Please select</option>
         <option value="Monday">Monday</option>
         <option value="Tuesday">Tuesday</option>
@@ -14,17 +18,17 @@
       <span>{{ selectedDay }}</span>
       <br />
       <br />
-      <tr v-for="time in timeSlot" v-bind:key="time.id">
+      <tr v-for="time in schedule" v-bind:key="time.scheduleId">
         <td>
           <input
             type="checkbox"
             v-model="selectedSlotId"
-            v-bind:id="time.id"
-            v-bind:value="time.id"
+            v-bind:id="time.scheduleId"
+            v-bind:value="time.scheduleId"
           />
           <span>{{ selectedSlotId }}</span>
         </td>
-        <td>{{ time.slot }}</td>
+        <td>{{ time.timeslot }}</td>
       </tr>
       <button type="submit" class="btn save">Save</button>
     </form>
@@ -32,6 +36,7 @@
 </template>
 
 <script>
+import authService from "../services/AuthService";
 export default {
   name: "update-doctor-availability",
 
@@ -40,55 +45,83 @@ export default {
       selectedDay: "",
       selectedSlotId: [],
       selectedTimeSlot: [],
-      availability:[
-          {
-              day:'',
-              slot:[]
-          }
+      availability: [
+        {
+          day: "",
+          slot: [],
+        },
+      ],
+      // timeSlot: [
+      //   {
+      //     id: 10,
+      //     slot: "9:00",
+      //   },
+      //   {
+      //     id: 11,
+      //     slot: "9:30",
+      //   },
+      //   {
+      //     id: 12,
+      //     slot: "10:00",
+      //   },
+      //   {
+      //     id: 13,
+      //     slot: "10:30",
+      //   },
+      // ],
 
-      ],
-      timeSlot: [
+      schedule: [
         {
-          id: 10,
-          slot: "9:00",
-        },
-        {
-          id: 11,
-          slot: "9:30",
-        },
-        {
-          id: 12,
-          slot: "10:00",
-        },
-        {
-          id: 13,
-          slot: "10:30",
+          scheduleId: 0,
+          dayOfTheWeek: "",
+          timeslot: "",
+          doctorScheduleId: 0,
+          doctorId: 0,
+          slotAvailable: true,
         },
       ],
+
+      unavailableSchedule:[
+        {
+
+        }
+      ]
     };
   },
   methods: {
-    updateAvailability() {
-      if (this.selectedSlotId.length != 0) {
-        for (let id in this.selectedSlotId) {
-          let userTimeSlot = [];
-          userTimeSlot = this.timeSlot.filter(
-            (time) => { return time.id === this.selectedSlotId[id]}
-          );
-          this.selectedTimeSlot.push(userTimeSlot[0].slot);              
-        }       
-      }    
-    //   alert(this.selectedDay);
-    //   alert(this.selectedTimeSlot[0]);
-      this.availability.push({day:this.selectedDay,slot:this.selectedTimeSlot})
-         this.selectedSlotId = [];
-     this.selectedTimeSlot = [];
-    this.selectedDay = '';
+    getDoctorSchedule() {
+      alert(this.selectedDay);
+      authService.getDoctorSchedule(this.selectedDay).then((response) => {
+        if (response.status === 200) {
+          this.schedule = response.data;
+          if (this.schedule.length > 0) {
+            for (let id in this.schedule) {
+              if (this.schedule[id].slotAvailable) {
+                this.selectedSlotId.push(this.schedule[id].scheduleId);
+              }             
+            }
+          }
+        }
+      });     
+     this.schedule = [];
+      this.selectedSlotId = [];
+    },  
 
-
-      //this.selectedTimeSlot.forEach((slot) => {console.log(`This number is ${slot}`);} );  
-      //return this.selectedTimeSlot;
-    },
+    // updateAvailability() {
+    //   if (this.selectedSlotId.length != 0) {
+    //     for (let id in this.selectedSlotId) {
+    //       let unavailableTimeSlot = [];
+    //       unavailableTimeSlot = this.schedule.filter(
+    //         (time) => { return time.scheduleId !== this.selectedSlotId[id]}
+    //       );
+    //       //this.selectedTimeSlot.push(userTimeSlot[0].slot);
+    //     }
+    //   }
+    // //   this.availability.push({day:this.selectedDay,slot:this.selectedTimeSlot})
+    // //      this.selectedSlotId = [];
+    // //  this.selectedTimeSlot = [];
+    // // this.selectedDay = '';
+    // },
   },
 };
 </script>

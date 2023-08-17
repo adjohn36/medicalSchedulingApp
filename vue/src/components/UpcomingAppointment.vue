@@ -12,7 +12,7 @@
             <h1>Welcome to Your Doctor Portal</h1>
           </div>
           <ul class="nav-links">
-          <li><router-link to="/schedule-availability">Update My Availability</router-link></li>
+          <li><router-link v-bind:to="{name:'schedule-availability'}">Update My Availability</router-link></li>
           <li><router-link to="/update-office-info">Update Office Info</router-link></li>
           <li><router-link v-bind:to="{name:'doctor-profile'}">My Doctor Profile</router-link></li>
           <li><router-link to="/reviews">My Reviews</router-link></li>

@@ -16,21 +16,30 @@ import java.util.List;
 
 @Component
 
-public class JdbcScheduleDao implements ScheduleDao{
-private final JdbcTemplate jdbcTemplate;
+public class JdbcScheduleDao implements ScheduleDao {
+    private final JdbcTemplate jdbcTemplate;
 
-public JdbcScheduleDao(JdbcTemplate jdbcTemplate) {
+    public JdbcScheduleDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        }
+    }
 
+//    public List<String> getWorkingDaysList(){
+//        List<String> workingDayList = null;
+//        String sql = "SELECT DISTINCT day_of_the_week FROM schedule";
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+//        while(results.next()){
+//            workingDayList.add(results.getString("day_of_the_week"));
+//        }
+//        return workingDayList;
+//    }
     @Override
-    public List<DoctorSchedule> getDoctorSchedule(int doctorId, String dayOfTheWeek){
+    public List<DoctorSchedule> getDoctorSchedule(int userId, String dayOfTheWeek) {
         List<DoctorSchedule> doctorScheduleLists = new ArrayList<>();
-        String sql = "SELECT day_of_the_week, time_slot, slot_available, doctor_schedule_id " +
+        String sql = "SELECT day_of_the_week, time_slot, slot_available, doctor_schedule_id ,doctor_schedule.schedule_id ,doctor_id " +
                 "FROM doctor_schedule JOIN schedule ON doctor_schedule.schedule_id = schedule.schedule_id " +
-                "WHERE doctor_id=? AND day_of_the_week=?;";
+                "WHERE doctor_id=(SELECT doctor_id from doctor WHERE user_id =?) AND day_of_the_week=?;";
         //if by day of week, then add AND day_of_the_week=? and below add dayOfWeek & inScheduleDao"
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql,doctorId, dayOfTheWeek);
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId, dayOfTheWeek);
         while (results.next()) {
             DoctorSchedule doctorScheduleTimes = mapRowToDoctorScheduleList(results);
             doctorScheduleLists.add(doctorScheduleTimes);
@@ -40,9 +49,9 @@ public JdbcScheduleDao(JdbcTemplate jdbcTemplate) {
     }
 
     @Override
-    public DoctorSchedule updateSchedule(int doctorScheduleId,DoctorSchedule doctorSchedule) {
+    public DoctorSchedule updateSchedule(int doctorScheduleId, DoctorSchedule doctorSchedule) {
         DoctorSchedule updatedSchedule = null;
-            String updateSql = "UPDATE doctor_schedule SET slot_available = ? WHERE doctor_schedule_id = ?";
+        String updateSql = "UPDATE doctor_schedule SET slot_available = ? WHERE doctor_schedule_id = ?";
         try {
             int rowsUpdated = jdbcTemplate.update(updateSql,
                     doctorSchedule.getSlotAvailable(),
@@ -68,6 +77,8 @@ public JdbcScheduleDao(JdbcTemplate jdbcTemplate) {
         doctorSchedule.setTimeslot(rs.getTime("time_slot"));
         doctorSchedule.setDayOfTheWeek(rs.getString("day_of_the_week"));
         doctorSchedule.setSlotAvailable(rs.getBoolean("slot_available"));
+        doctorSchedule.setDoctorId(rs.getInt("doctor_id"));
+        doctorSchedule.setScheduleId(rs.getInt("schedule_id"));
         return doctorSchedule;
         //is this really a DTO?
     }
