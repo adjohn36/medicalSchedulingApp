@@ -27,6 +27,9 @@ export default {
   updatePatientProfile(profile){
     return axios.post('/save-profile', profile)
   },
+  getDoctorSchedule(day){    
+    return axios.get(`/update-availability/schedule?dayOfTheWeek=${day}`)
+  },
   getAllReviews(){
     return axios.get('/reviews/all')
   },

@@ -129,8 +129,8 @@ const router = new Router({
       }
     },
     {
-      path: "/update-availability",
-      name: "update-availability",
+      path: "/schedule-availability",
+      name: "schedule-availability",
       component: UpdateDocAvailabity,
       meta: {
         requiresAuth: true
