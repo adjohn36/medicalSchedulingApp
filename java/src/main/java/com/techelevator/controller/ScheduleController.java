@@ -1,18 +1,16 @@
 package com.techelevator.controller;
 import com.techelevator.dao.UserDao;
-import com.techelevator.model.OfficeInfo;
-import com.techelevator.model.User;
+import com.techelevator.model.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.techelevator.model.Schedule;
 import com.techelevator.dao.ScheduleDao;
-import com.techelevator.model.DoctorSchedule;
 
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
@@ -40,19 +38,27 @@ public class ScheduleController {
        return doctorSchedule;
     }
 
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    @PutMapping("/{doctorScheduleId}")
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping()
+    public void updateSchedule(@Valid @RequestBody DoctorScheduleDto doctorScheduleDto, Principal principal) {
+        User currentUser = userDao.getUserByUsername(principal.getName());
+        //List<Integer> scheduleId = doctorScheduleDto.getDoctorScheduleIdList();
+        //String strScheduleId = scheduleId.stream().map(String::valueOf).collect(Collectors.joining(","));
 
-    public DoctorSchedule updateSchedule(@Valid @PathVariable int doctorScheduleId, @RequestBody DoctorSchedule doctorSchedule) {
-        doctorSchedule.setDoctorScheduleId(doctorSchedule.getDoctorScheduleId());
-        DoctorSchedule updatedSchedule = scheduleDao.updateSchedule(doctorScheduleId, doctorSchedule);
-        if (updatedSchedule != null) {
-
-        } else {
-            System.out.println("No schedule found.");
-        }return updatedSchedule;
-
-
+        scheduleDao.updateSchedule(doctorScheduleDto.getDoctorScheduleIdList(),currentUser.getId());
     }
+
+
+//    public DoctorSchedule updateSchedule(@Valid @PathVariable int doctorScheduleId, @RequestBody DoctorSchedule doctorSchedule) {
+//        doctorSchedule.setDoctorScheduleId(doctorSchedule.getDoctorScheduleId());
+//        DoctorSchedule updatedSchedule = scheduleDao.updateSchedule(doctorScheduleId, doctorSchedule);
+//        if (updatedSchedule != null) {
+//
+//        } else {
+//            System.out.println("No schedule found.");
+//        }return updatedSchedule;
+//
+//
+//    }
 
 }

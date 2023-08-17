@@ -67,6 +67,9 @@ export default {
   getDoctorSchedule(day){    
     return axios.get(`/update-availability/schedule?dayOfTheWeek=${day}`)
   },
+  updateUnavailability(doctorScheduleIdList){      
+    return axios.post('/update-availability', doctorScheduleIdList)
+  },
   // getDoctorSchedule(doctorId) {
   //   return axios.get(`/update-availability/${doctorId}`);
   // }

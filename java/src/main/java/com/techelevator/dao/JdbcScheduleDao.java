@@ -2,10 +2,7 @@ package com.techelevator.dao;
 
 
 import com.techelevator.exception.DaoException;
-import com.techelevator.model.DoctorOfficeList;
-import com.techelevator.model.DoctorSchedule;
-import com.techelevator.model.OfficeInfo;
-import com.techelevator.model.Schedule;
+import com.techelevator.model.*;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -49,26 +46,19 @@ public class JdbcScheduleDao implements ScheduleDao {
     }
 
     @Override
-    public DoctorSchedule updateSchedule(int doctorScheduleId, DoctorSchedule doctorSchedule) {
-        DoctorSchedule updatedSchedule = null;
-        String updateSql = "UPDATE doctor_schedule SET slot_available = ? WHERE doctor_schedule_id = ?";
+    public void updateSchedule( List<Integer> unAvailableList, int userId) {
+
+        String updateSql = "UPDATE doctor_schedule SET slot_available = ? WHERE doctor_schedule_id =?";
         try {
-            int rowsUpdated = jdbcTemplate.update(updateSql,
-                    doctorSchedule.getSlotAvailable(),
-                    doctorSchedule.getDoctorScheduleId());
-
-
-            if (rowsUpdated > 0) {
-                //TODO: add method for individual doctor's schedule to interface and jdbc implementation
-                //updatedSchedule = getDoctorScheduleByDrScheduleId();
+            for(int i : unAvailableList){
+                int rowsUpdated = jdbcTemplate.update(updateSql, false,i);
             }
-
         } catch (DataAccessException e) {
             throw new DaoException("Error updating schedule", e);
         }
 
 
-        return updatedSchedule;
+
     }
 
     private DoctorSchedule mapRowToDoctorScheduleList(SqlRowSet rs) {
