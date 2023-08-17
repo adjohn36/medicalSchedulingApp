@@ -141,8 +141,10 @@ export default {
   },
   methods: {
     // getDoctorFacilityInfo, call updateOffice method
-    getDoctorFacilityInfo(officeId) {
-      authService.getOfficeDetail(officeId).then((response) => {
+  getDoctorFacilityInfo() {
+    
+
+      authService.getOfficeDetail(0).then((response) => {
         if (response.status == 200) {
           this.doctorFacilityInfo = response.data;
         }
