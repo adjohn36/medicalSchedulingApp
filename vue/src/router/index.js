@@ -105,7 +105,7 @@ const router = new Router({
     },
     
     {
-      path: "/update-office-info/:officeId",
+      path: "/update-office-info",
       name: "update-office-info",
       component: UpdateOfficeInfo,
       meta: {

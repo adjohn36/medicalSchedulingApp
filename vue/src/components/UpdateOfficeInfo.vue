@@ -86,10 +86,10 @@ export default {
   },
   methods: {
     // getDoctorFacilityInfo, call updateOffice method
-  getDoctorFacilityInfo(officeId) {
+  getDoctorFacilityInfo() {
     
 
-      authService.getOfficeDetail(officeId).then((response) => {
+      authService.getOfficeDetail(0).then((response) => {
         if (response.status == 200) {
           this.doctorFacilityInfo = response.data;
         }
@@ -109,7 +109,7 @@ export default {
 
   },
   created() {
-    this.getDoctorFacilityInfo(this.$route.params.id);
+    this.getDoctorFacilityInfo();
     //this.updateOffice();
   }
 
