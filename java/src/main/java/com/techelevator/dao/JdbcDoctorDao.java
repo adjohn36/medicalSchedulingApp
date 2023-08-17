@@ -137,7 +137,8 @@ public class JdbcDoctorDao implements DoctorDao {
         doctor.setDoctorId(rs.getInt("doctor_id"));
         doctor.setDoctorFirstName(rs.getString("doctor_first_name"));
         doctor.setDoctorLastName(rs.getString("doctor_last_name"));
-        doctor.setDoctorEmail(Objects.requireNonNull(rs.getString("doctor_email")));
+        //doctor.setDoctorEmail(Objects.requireNonNull(rs.getString("doctor_email")));
+        doctor.setDoctorEmail(rs.getString("doctor_email"));
         doctor.setDoctorNpi(rs.getString("doctor_npi"));
         return doctor;
     }

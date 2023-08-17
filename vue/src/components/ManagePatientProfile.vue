@@ -58,7 +58,7 @@
         <label for="date-of-birth">Date Of Birth:</label>
         <input
           id="date-of-birth" name="date"
-          type="date" pattern="\d{4}-\d{2}-\d{2}" required min="1900-01-01" 
+          type="date" pattern="\d{4}-\d{2}-\d{2}" required min="1900-01-01"
           v-model="patient.patientProfile.patientDob"
         />
       </div>
