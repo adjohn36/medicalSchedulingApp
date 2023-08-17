@@ -8,15 +8,9 @@ import java.security.Principal;
 import java.util.List;
 
 import java.util.ArrayList;
-
-
 public interface ScheduleDao {
-List<DoctorSchedule> getDoctorSchedule(int userId, String dayOfTheWeek);
+    List<DoctorSchedule> getDoctorSchedule(int userId, String dayOfTheWeek);
 
+    void updateSchedule(List<Integer> unAvailableList, int userId);
 
-DoctorSchedule updateSchedule(int doctorScheduleId, DoctorSchedule doctorSchedule);
-
-//DoctorSchedule getDoctorScheduleByDrScheduleId(int doctorScheduleId){
-//
-//}
 }

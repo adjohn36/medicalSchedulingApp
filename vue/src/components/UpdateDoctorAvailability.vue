@@ -18,15 +18,9 @@
       <span>{{ selectedDay }}</span>
       <br />
       <br />
-      <tr v-for="time in schedule" v-bind:key="time.scheduleId">
-        <td>
-          <input
-            type="checkbox"
-            v-model="selectedSlotId"
-            v-bind:id="time.scheduleId"
-            v-bind:value="time.scheduleId"
-          />
-          <span>{{ selectedSlotId }}</span>
+      <tr v-for="time in schedule" v-bind:key="time.doctorScheduleId">
+        <td v-show="schedule[0].doctorScheduleId>0">
+          <input type="checkbox" v-model="selectedSlotId" v-bind:id="time.doctorScheduleId" v-bind:value="time.doctorScheduleId"/>
         </td>
         <td>{{ time.timeslot }}</td>
       </tr>
@@ -42,86 +36,69 @@ export default {
 
   data() {
     return {
+      message: "",
       selectedDay: "",
       selectedSlotId: [],
-      selectedTimeSlot: [],
-      availability: [
-        {
-          day: "",
-          slot: [],
-        },
-      ],
-      // timeSlot: [
-      //   {
-      //     id: 10,
-      //     slot: "9:00",
-      //   },
-      //   {
-      //     id: 11,
-      //     slot: "9:30",
-      //   },
-      //   {
-      //     id: 12,
-      //     slot: "10:00",
-      //   },
-      //   {
-      //     id: 13,
-      //     slot: "10:30",
-      //   },
-      // ],
+      unSelectedTimeSlot: [],
+      unselectedIdList: {
+        doctorScheduleIdList: [],
+      },
 
       schedule: [
-        {
+       {
           scheduleId: 0,
           dayOfTheWeek: "",
           timeslot: "",
           doctorScheduleId: 0,
           doctorId: 0,
           slotAvailable: true,
-        },
+       },
       ],
-
-      unavailableSchedule:[
-        {
-
-        }
-      ]
     };
   },
   methods: {
     getDoctorSchedule() {
-      alert(this.selectedDay);
+      //alert(this.selectedDay);
+
+      this.schedule = [];
+      this.selectedSlotId = [];
+      this.unSelectedTimeSlot = [];
+
       authService.getDoctorSchedule(this.selectedDay).then((response) => {
         if (response.status === 200) {
-          this.schedule = response.data;
-          if (this.schedule.length > 0) {
-            for (let id in this.schedule) {
-              if (this.schedule[id].slotAvailable) {
-                this.selectedSlotId.push(this.schedule[id].scheduleId);
-              }             
+          //this.schedule = response.data;
+          const availability = response.data;
+          if (availability.length > 0) {
+            for (let id in availability) {
+              if (availability[id].slotAvailable) {
+                this.schedule.push(availability[id]);
+                this.selectedSlotId.push(availability[id].doctorScheduleId);
+              }
             }
           }
         }
-      });     
-     this.schedule = [];
-      this.selectedSlotId = [];
-    },  
+      });
+    },
 
-    // updateAvailability() {
-    //   if (this.selectedSlotId.length != 0) {
-    //     for (let id in this.selectedSlotId) {
-    //       let unavailableTimeSlot = [];
-    //       unavailableTimeSlot = this.schedule.filter(
-    //         (time) => { return time.scheduleId !== this.selectedSlotId[id]}
-    //       );
-    //       //this.selectedTimeSlot.push(userTimeSlot[0].slot);
-    //     }
-    //   }
-    // //   this.availability.push({day:this.selectedDay,slot:this.selectedTimeSlot})
-    // //      this.selectedSlotId = [];
-    // //  this.selectedTimeSlot = [];
-    // // this.selectedDay = '';
-    // },
+    updateAvailability() {
+      this.unSelectedTimeSlot = this.schedule.filter((time) => {
+        return !this.selectedSlotId.includes(time.doctorScheduleId);
+      });
+     // let unselectedIdList = [];
+      this.unSelectedTimeSlot.forEach((value) =>      
+        this.unselectedIdList.doctorScheduleIdList.push(value.doctorScheduleId)
+      );
+
+      authService.updateUnavailability(this.unselectedIdList).then((response) => {
+        if (response.status === 200) {
+          this.message = "Successfully Updated";
+           this.getDoctorSchedule();
+        }
+        
+      });
+
+     
+    },
   },
 };
 </script>
