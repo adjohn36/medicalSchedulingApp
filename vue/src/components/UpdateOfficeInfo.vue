@@ -1,60 +1,60 @@
 <template>
   <div id="updateOfficeInfo" class="text-center">
-    <form >
+    <form v-on:submit.prevent="updateOffice">
       <h1>Update Office Information</h1>
      <!-- <div role="alert" v-if="updateOfficeErrors">
         {{ updateOfficeErrorMsg }}
       </div> -->
       <office-info v-bind:doctorFacilityInfo="doctorFacilityInfo"/>
     <div class="form-input-group">
-           <label for="facilityName">Facility Name:</label>
-           <input type="text" id="facilityName" v-model="doctorFacilityInfo.facilityName"/>
+           <label for="officeName">Facility Name:</label>
+           <input type="text" id="officeName" v-model="doctorFacilityInfo.officeName"/>
        </div>
 
 
     <div class="form-input-group">
-        <label for="officeStreet">Street:</label>
-        <input type="text" id="officeStreet" v-model="doctorFacilityInfo.officeStreet"/>
+        <label for="streetAddress">Street:</label>
+        <input type="text" id="streetAddress" v-model="doctorFacilityInfo.streetAddress"/>
       </div>
 
       <div class="form-input-group">
-        <label for="officeCity">City:</label>
-        <input type="text" id="officeCity" v-model="doctorFacilityInfo.officeCity"/>
+        <label for="city">City:</label>
+        <input type="text" id="city" v-model="doctorFacilityInfo.city"/>
       </div>
 
       <div class="form-input-group">
-        <label for="officeState">State:</label>
-        <input type="text" id="officeState" v-model="doctorFacilityInfo.officeState"/>
+        <label for="state">State:</label>
+        <input type="text" id="state" v-model="doctorFacilityInfo.state"/>
       </div>
 
        <div class="form-input-group">
-        <label for="officeStateZipCode">Zip:</label>
-        <input type="text" id="officeStateZipCode" v-model="doctorFacilityInfo.officeStateZipCode" placeholder ="ex: 19702" />
+        <label for="zipCode">Zip:</label>
+        <input type="text" id="zipCode" v-model="doctorFacilityInfo.zipCode" placeholder ="ex: 19702" />
       </div>
 
        <div class="form-input-group">
-           <label for="phoneNumber">Phone Number:</label>
-           <input type="text" id="phoneNumber" v-model="doctorFacilityInfo.phoneNumber" placeholder ="ex: (302) 999 - 9999"/>
+           <label for="phone">Phone Number:</label>
+           <input type="text" id="phone" v-model="doctorFacilityInfo.phone" placeholder ="ex: (302) 999 - 9999"/>
        </div>
 
       <div class="form-input-group">
-           <label for="officeOpenTime">Start Time:</label>
-           <input type="time" id="officeOpenTime" v-model="doctorFacilityInfo.officeOpenTime" />
+           <label for="openTime">Start Time:</label>
+           <input type="time" id="openTime" v-model="doctorFacilityInfo.openTime" />
        </div>
 
        <div class="form-input-group">
-           <label for="officeCloseTime">Close Time:</label>
-           <input type="time" id="officeCloseTime" v-model="doctorFacilityInfo.officeCloseTime"/>
+           <label for="closeTime">Close Time:</label>
+           <input type="time" id="closeTime" v-model="doctorFacilityInfo.closeTime"/>
        </div>
       <div class="form-input-group">
            <label for="openDays">Days Open:</label>
-           <input type="text" id="openDays" v-model="doctorFacilityInfo.officeOpenDays" placeholder ="Monday - Friday"/>
+           <input type="text" id="openDays" v-model="doctorFacilityInfo.openDays" placeholder ="Monday - Friday"/>
       </div>
     
       
        
 
-      <button type="submit" v-on:click="updateOffice()">Update Information</button>
+      <button type="submit">Update Information</button>
      
     </form>
   </div>
@@ -62,46 +62,57 @@
 
 <script>
 import authService from "../services/AuthService";
-import OfficeInfo from "../components/OfficeInfo.vue";
+// import OfficeInfo from "../components/OfficeInfo.vue";
 
 export default {
   name: 'update-office-information',
-  components: {OfficeInfo},
+  // components: {OfficeInfo},
   data() {
     return {
       
       doctorFacilityInfo: {
-          // officeId: 0,
-          // facilityName:'',
-          // officeStreet: '',
-          // officeCity: '',
-          // officeState: '',
-          // officeStateZipCode: '',
-          // phoneNumber:'',
-          // officeOpenTime:'',
-          // officeCloseTime:'',
-          // openDays:''
+          id: 0,
+          officeName:'',
+          streetAddress: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    phone: '',
+    openTime: '',
+    closeTime: '',
+    openDays: ''
       }
     }
   },
   methods: {
     // getDoctorFacilityInfo, call updateOffice method
-  getDoctorFacilityInfo() {
+  getDoctorFacilityInfo(officeId) {
     
-    authService.updateOffice(this.officeId, this.doctorFacilityInfo).then((response) => {
-        if (response.status == 200) {
-          alert("hello")
-          this.doctorFacilityInfo.push();
-        }
-      
-  });
-  }
-  },
 
+      authService.getOfficeDetail(officeId).then((response) => {
+        if (response.status == 200) {
+          this.doctorFacilityInfo = response.data;
+        }
+      });
+    
+   },
+  updateOffice() {
+    alert("hello")
+   authService.updateOffice(this.doctorFacilityInfo).then((response) => {
+         if (response.status == 200) {
+           
+           this.doctorFacilityInfo.push();
+         }
+      
+   });
+}
+
+  },
   created() {
-    this.getDoctorFacilityInfo(this.$route.params.officeId);
-    this.updateOffice();
+    this.getDoctorFacilityInfo(this.$route.params.id);
+    //this.updateOffice();
   }
+
 }
   
 </script>
@@ -115,3 +126,4 @@ label {
 }
 
 </style>
+}

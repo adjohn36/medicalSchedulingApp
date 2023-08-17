@@ -1,12 +1,16 @@
 package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
+import com.techelevator.model.DoctorOfficeDto;
 import com.techelevator.model.OfficeInfo;
+import com.techelevator.model.User;
+import com.techelevator.dao.UserDao;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +19,11 @@ import java.util.List;
 public class JdbcOfficeInfoDao implements OfficeInfoDao {
 
     private final JdbcTemplate jdbcTemplate;
+    private UserDao userDao;
 
-    public JdbcOfficeInfoDao(JdbcTemplate jdbcTemplate) {
+    public JdbcOfficeInfoDao(JdbcTemplate jdbcTemplate, UserDao userDao) {
         this.jdbcTemplate = jdbcTemplate;
+        this.userDao = userDao;
     }
 
     //get a list of all office info records
@@ -67,6 +73,25 @@ public class JdbcOfficeInfoDao implements OfficeInfoDao {
         return newOfficeInfo;
     }
 
+
+@Override
+    public DoctorOfficeDto getOfficeIdByUserId(Principal principal){
+        User currentUser=userDao.getUserByUsername(principal.getName());
+//as param currentUser.getId()
+        int userId=currentUser.getId();
+        String sql="SELECT (office_id, doctor_id) " +
+                "FROM doctor_office " +
+                "JOIN doctor ON doctor.doctor_id=doctor_office.doctor_id " +
+                "WHERE doctor.user_id=?;";
+        SqlRowSet results=jdbcTemplate.queryForRowSet(sql, userId);
+        if (results.next()) {
+            return mapRowToOfficeIdDrId(results);
+        } else {
+            return null;
+        }
+
+    }
+
     //update preexisting office info recorded in the database
     @Override
     public OfficeInfo updateOffice(OfficeInfo office) {
@@ -106,6 +131,14 @@ public class JdbcOfficeInfoDao implements OfficeInfoDao {
         officeInfo.setOpenDays(rs.getString("office_open_days"));
 
         return officeInfo;
+    }
+
+    private DoctorOfficeDto mapRowToOfficeIdDrId(SqlRowSet rs){
+        DoctorOfficeDto doctorOfficeInfo = new DoctorOfficeDto();
+        doctorOfficeInfo.setDoctorId(rs.getInt("doctor_id"));
+        doctorOfficeInfo.setOfficeId(rs.getInt("office_id"));
+
+        return doctorOfficeInfo;
     }
 
 
