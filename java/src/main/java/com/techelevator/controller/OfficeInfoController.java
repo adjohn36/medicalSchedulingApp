@@ -38,12 +38,27 @@ public class OfficeInfoController {
         return officeInfo;
     }
 
-    // Working
+
+//    @ResponseStatus(HttpStatus.OK)
+//    @GetMapping("/{id}")
+//    public OfficeInfo getOfficeInfoById(@PathVariable int id) {
+//        OfficeInfo officeInfo= officeInfoDao.getOfficeById(id);
+//        if (officeInfo != null) {
+//        } else {
+//            System.out.println("No Office Found For Selected ID");
+//        }
+//        return officeInfo;
+//    }
+
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
-    public OfficeInfo getOfficeInfoById(@PathVariable Principal principal) {
-        DoctorOfficeDto doctorOfficeDto = officeInfoDao.getOfficeIdByUserId(principal);
-        OfficeInfo officeInfo = officeInfoDao.getOfficeById(doctorOfficeDto.getOfficeId());
+    public OfficeInfo getOfficeInfoById(@PathVariable int id, Principal principal) {
+        if(id==0){
+            DoctorOfficeDto doctorOfficeDto = officeInfoDao.getOfficeIdByUserId(principal);
+            id=doctorOfficeDto.getOfficeId();
+        }
+
+        OfficeInfo officeInfo = officeInfoDao.getOfficeById(id);
         if (officeInfo != null) {
 
         } else {

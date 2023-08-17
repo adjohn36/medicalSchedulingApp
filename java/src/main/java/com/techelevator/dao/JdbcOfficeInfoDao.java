@@ -79,7 +79,7 @@ public class JdbcOfficeInfoDao implements OfficeInfoDao {
         User currentUser=userDao.getUserByUsername(principal.getName());
 //as param currentUser.getId()
         int userId=currentUser.getId();
-        String sql="SELECT (office_id, doctor_id) " +
+        String sql="SELECT doctor_office.office_id, doctor.doctor_id " +
                 "FROM doctor_office " +
                 "JOIN doctor ON doctor.doctor_id=doctor_office.doctor_id " +
                 "WHERE doctor.user_id=?;";
