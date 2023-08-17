@@ -3,15 +3,15 @@ package com.techelevator.model;
 public class Appointment {
 
     private int appointmentId;
-    private int patientId;
+    //private int patientId;
     private int doctorScheduleId;
     private String dateSelected;
 
     public Appointment() { }
 
-    public Appointment( int appointmentId, int patientId, int doctorScheduleId, String dateSelected){
+    public Appointment( int appointmentId, int doctorScheduleId, String dateSelected){
             this.appointmentId = appointmentId;
-            this.patientId = patientId;
+            //this.patientId = patientId;
             this.doctorScheduleId = doctorScheduleId;
             this.dateSelected = dateSelected;
         }
@@ -22,14 +22,6 @@ public class Appointment {
 
     public void setAppointmentId(int appointmentId) {
         this.appointmentId = appointmentId;
-    }
-
-    public int getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
     }
 
     public int getDoctorScheduleId() {
