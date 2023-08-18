@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="header">
-      <nav v-show="isDoctor">
+      <nav>
         <div class="nav-content">
           <div class="logo">
             <a href="#">
@@ -35,8 +35,9 @@
     </div>
     <form v-on:submit.prevent="updateOffice" class="office-form">
       <h1>Update Office Information</h1>
+      <br>
       <office-info v-bind:doctorFacilityInfo="doctorFacilityInfo" />
-      <div class="form-input-group">
+      <div class="form-element">
         <label for="officeName">Facility Name:</label>
         <input
           type="text"
@@ -44,7 +45,7 @@
           v-model="doctorFacilityInfo.officeName"
         />
       </div>
-      <div class="form-input-group">
+      <div class="form-element">
         <label for="streetAddress">Street:</label>
         <input
           type="text"
@@ -52,15 +53,15 @@
           v-model="doctorFacilityInfo.streetAddress"
         />
       </div>
-      <div class="form-input-group">
+      <div class="form-element">
         <label for="city">City:</label>
         <input type="text" id="city" v-model="doctorFacilityInfo.city" />
       </div>
-      <div class="form-input-group">
+      <div class="form-element">
         <label for="state">State:</label>
         <input type="text" id="state" v-model="doctorFacilityInfo.state" />
       </div>
-      <div class="form-input-group">
+      <div class="form-element">
         <label for="zipCode">Zip:</label>
         <input
           type="text"
@@ -69,7 +70,7 @@
           placeholder="ex: 19702"
         />
       </div>
-      <div class="form-input-group">
+      <div class="form-element">
         <label for="phone">Phone Number:</label>
         <input
           type="text"
@@ -78,7 +79,7 @@
           placeholder="ex: (302) 999 - 9999"
         />
       </div>
-      <div class="form-input-group">
+      <div class="form-element">
         <label for="openTime">Start Time:</label>
         <input
           type="time"
@@ -86,7 +87,7 @@
           v-model="doctorFacilityInfo.openTime"
         />
       </div>
-      <div class="form-input-group">
+      <div class="form-element">
         <label for="closeTime">Close Time:</label>
         <input
           type="time"
@@ -94,7 +95,7 @@
           v-model="doctorFacilityInfo.closeTime"
         />
       </div>
-      <div class="form-input-group">
+      <div class="form-element">
         <label for="openDays">Days Open:</label>
         <input
           type="text"
@@ -154,28 +155,26 @@ export default {
 };
 </script>
 <style scoped>
+
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: auto;
+  height: 150vh;
 }
+
 .header {
-  background-color: #A1DE81;
+  background-color: #a1de81;
   width: 100%;
   padding: 0px 0;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
+  border: 1px solid white
 }
-.form-input-group {
-  margin-bottom: 1rem;
-}
-label {
-  margin-right: 0.5rem;
-}
+
 .office-form {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border: 1px solid #ccc;
   padding: 20px;
   width: 100%;
@@ -184,30 +183,37 @@ label {
   border-radius: 5px;
   margin-top: 20px;
 }
-.page-title {
-  font-size: 24px;
-  color: #4070F4;
-  margin-bottom: 20px;
+
+.form-element {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
 }
-.form-input-group {
-  margin-bottom: 12px;
+
+.form-element label {
+  margin-right: 0.5rem;
+  font-weight: 600;
 }
-.form-input {
+
+.form-element input {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
 button[type="submit"] {
-  background-color: #007BFF;
+  background-color: #007bff;
   color: #fff;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 1rem;
 }
+
 button[type="submit"]:hover {
-  background-color: #0056B3;
+  background-color: #0056b3;
 }
 .nav-content {
   display: flex;
@@ -215,30 +221,36 @@ button[type="submit"]:hover {
   justify-content: space-between;
   padding: 15px;
 }
-.logo {
-  padding: 0;
-  margin: 0;
-}
+
 .logo img {
   display: block;
 }
+
+.welcome-title {
+  color: #0d1fe0;
+}
+
 .nav-links {
   list-style: none;
   display: flex;
   align-items: center;
 }
+
 .nav-links li {
   margin: 0 8px;
 }
+
 .nav-links a {
   text-decoration: none;
-  color: #0E2431;
+  color: #0e2431;
   font-size: 18px;
   font-weight: 500;
   padding: 10px 4px;
   transition: all 0.3s ease;
 }
+
 .nav-links a:hover {
-  color: #4070F4;
+  color: #4070f4;
 }
+
 </style>

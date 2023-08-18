@@ -1,77 +1,94 @@
 <template>
   <div class="container">
-    <nav v-show="this.$store.state.isDoctor === true">
-      <div class="nav-content">
-        <div class="logo">
-          <a href="#">
-            <img src="../img/NavBarLogo.png" alt="Logo" />
-          </a>
-        </div>
-        <div class="welcome-title">
-          <h1>Office Reviews</h1>
-        </div>
-        <ul class="nav-links">
-          <li><router-link to="/doctor-portal">My Agenda</router-link></li>
-          <li>
-            <router-link to="/schedule-availability"
-              >Update My Availability</router-link
-            >
-          </li>
-          <li>
-            <router-link to="/update-office-info"
-              >Update Office Info</router-link
-            >
-          </li>
-          <li>
-            <router-link v-bind:to="{ name: 'doctor-profile' }"
-              >My Doctor Profile</router-link
-            >
-          </li>
-          <li><router-link to="/reviews">My Reviews</router-link></li>
-        </ul>
-      </div>
-    </nav>
-    <div class="row">
-      <div class="col-md-8 course-details-content">
-        <div class="course-details-card mt--40">
-          <div class="course-content">
-                  
-             
-        
-            
-            
-            <div class="comment-wrapper pt--40">
-              <div class="section-title">
-                <h5 class="mb--25">Reviews:</h5>
-              </div>
-             
-              <div
-                class="edu-comment"
-                v-for="review in reviewList"
-                :key="review.reviewId"
+    <div class="header">
+      <nav>
+        <div class="nav-content">
+          <div class="logo">
+            <a href="#">
+              <img src="../img/NavBarLogo.png" alt="Logo" />
+            </a>
+          </div>
+          <div class="welcome-title">
+            <h1>Reviews</h1>
+          </div>
+          <ul class="nav-links">
+            <li>
+              <router-link to="/doctor-portal">Home</router-link>
+            </li>
+            <li>
+              <router-link v-bind:to="{ name: 'schedule-availability' }"
+                >Update My Availability</router-link
               >
-                <div class="thumbnail">
-                  <img src="../img/patient.png" alt="Comment Images" class="patient-image"> 
-                </div>
-                <div class="comment-content">
-                  <div class="comment-top">
-                    <h6 class="title">{{ review.reviewer }}</h6>
-                    <div class="rating">
-                      <i
-                        v-for="star in fullStars(review.reviewRating)"
-                        :key="star"
-                        class="fa fa-star"
-                        aria-hidden="true"
-                      ></i>
-                    </div>
-                  </div>
-                  <span class="subtitle">{{ review.reviewTitle }}</span>
-                  <p>{{ review.reviewContent }}</p>
-                </div>
-              </div>
+            </li>
+            <li>
+              <router-link to="/update-office-info"
+                >Update Office Info</router-link
+              >
+            </li>
+            <li>
+              <router-link v-bind:to="{ name: 'doctor-profile' }"
+                >My Doctor Profile</router-link
+              >
+            </li>
+            <li><router-link to="/reviews">My Reviews</router-link></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="comment-wrapper pt--40">
+      <div class="section-title">
+        <h5 class="mb--25">Reviews:</h5>
+      </div>
+      <div
+        class="edu-comment"
+        v-for="review in reviewList"
+        :key="review.reviewId"
+      >
+        <div class="thumbnail">
+          <img
+            src="../img/patient.png"
+            alt="Comment Images"
+            class="patient-image"
+          />
+        </div>
+        <div class="comment-content">
+          <div class="comment-top">
+            <h6 class="title">{{ review.reviewer }}</h6>
+            <div class="rating">
+              {{ generateStarRating(review.reviewRating) }}
             </div>
           </div>
+          <span class="subtitle">{{ review.reviewTitle }}</span>
+          <p>{{ review.reviewContent }}</p>
+                  
+          <button class="submit-button">Respond To Review</button>
         </div>
+      </div>
+
+      <div class="review-form">
+        <h5 class="mb--25">Write a Review:</h5>
+        <form @submit.prevent="submitReview">
+          <div class="form-group">
+            <label>Rating:</label>
+            <star-rating
+              v-model="newReview.reviewRating"
+              :star-size="20"
+              :read-only="false"
+            ></star-rating>
+          </div>
+          <div class="form-group">
+            <label>Title:</label>
+            <input v-model="newReview.reviewTitle" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label>Content:</label>
+            <textarea
+              v-model="newReview.reviewContent"
+              class="form-control"
+            ></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit Review</button>
+        </form>
       </div>
     </div>
   </div>
@@ -80,12 +97,22 @@
 
 <script>
 import authService from "../services/AuthService";
+import StarRating from "vue-star-rating"; // Import the vue-star-rating component
 
 export default {
   name: "Reviews",
+  components: {
+    StarRating,
+  },
   props: ["facilityId"],
   data() {
     return {
+      newReview: {
+        reviewRating: 0,
+        reviewTitle: "",
+        reviewContent: "",
+      },
+
       reviewList: [],
       isDoctor: false,
       officeId: 0,
@@ -103,6 +130,29 @@ export default {
     };
   },
   methods: {
+    generateStarRating(rating) {
+      const fullStars = Math.floor(rating);
+      const halfStar = rating - fullStars >= 0.5;
+
+      let starRating = "";
+      for (let i = 0; i < fullStars; i++) {
+        starRating += "★"; // Unicode star character
+      }
+      if (halfStar) {
+        starRating += "½"; // Unicode half star character
+      }
+      return starRating;
+    },
+
+    submitReview() {
+      console.log("Submitting review:", this.newReview);
+
+      this.newReview = {
+        reviewRating: 0,
+        reviewTitle: "",
+        reviewContent: "",
+      };
+    },
     getReviewList() {
       console.log("Is the user a doctor?", this.$store.state.isDoctor);
       if (this.$store.state.isDoctor === true) {
@@ -141,14 +191,6 @@ export default {
       }
     },
   },
-  computed: {
-    // define the computed property
-    fullStars() {
-      return function (reviewRating) {
-        return new Array(parseInt(reviewRating)).fill();
-      };
-    },
-  },
   created() {
     this.isDoctor = this.$store.state.isDoctor;
     this.getReviewList();
@@ -157,192 +199,68 @@ export default {
 </script>
 
 <style scoped>
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+.container {
+  /* display: flex; */
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 150vh;
+  width: auto;
 }
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-nav,
-section,
-summary {
-  display: block;
-}
-audio,
-canvas,
-video {
-  display: inline-block;
-}
-audio:not([controls]) {
-  display: none;
-  height: 0;
-}
-[hidden] {
-  display: none;
-}
-a {
-  color: #231f40;
-  text-decoration: none;
-  outline: none;
-}
-a:hover,
-a:focus,
-a:active {
-  text-decoration: none;
-  outline: none;
-  color: #525fe1;
-}
-a:focus {
-  outline: none;
-}
-address {
-  margin: 0 0 24px;
-}
-abbr[title] {
-  border-bottom: 1px dotted;
-}
-b,
-strong {
-  font-weight: bold;
-}
-p {
-  font-size: 16px;
-  line-height: 1.63;
-  font-weight: 500;
-  color: #6f6b80;
-  margin: 0 0 30px;
-}
-h5,
-.h5 {
-  font-weight: 700;
-}
-.mt--40 {
-  margin-top: 40px !important;
-}
-.mb--20 {
-  margin-bottom: 20px !important;
-}
-.pt--40 {
-  padding-top: 40px !important;
-}
-.mb--25 {
-  margin-bottom: 25px !important;
-}
-.fa-star {
-  color: #ffa41b;
-}
-.course-details-card {
-  border-radius: 8px;
-  border: 3px solid #0c0707;
-  padding: 30px;
-  background-color: #eeeeee;
-}
-.course-details-card .course-details-two-content p:last-child {
-  margin-bottom: 0;
-}
-.row--30 {
-  margin-left: -30px;
-  margin-right: -30px;
-}
-.row--30 > [class*="col"],
-.row--30 > [class*="col-"] {
-  padding-left: 30px;
-  padding-right: 30px;
-}
-.course-details-content .rating-box {
-  background: #ffffff;
-  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.07);
+.header {
+  background-color: #a1de81;
+  width: 100%;
+  padding: 0px 0;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  text-align: center;
-  min-width: 200px;
-  padding: 29px 10px;
 }
-.course-details-content .rating-box .rating-number {
-  font-weight: 800;
-  font-size: 72px;
-  line-height: 90px;
-  color: #231f40;
+.comment-wrapper {
+  margin-top: 30px;
 }
-.course-details-content .rating-box span {
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 26px;
-}
-.course-details-content .course-tab-content {
-  margin-top: 40px;
-}
-.course-details-content .rating-box {
-  background: #ffffff;
-  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.07);
-  border-radius: 5px;
-  text-align: center;
-  min-width: 200px;
-  padding: 29px 10px;
-}
-.course-details-content .rating-box .rating-number {
-  font-weight: 800;
-  font-size: 72px;
-  line-height: 90px;
-  color: #231f40;
-}
-.course-details-content .rating-box span {
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 26px;
-}
-.review-wrapper .single-progress-bar {
-  position: relative;
-}
-.review-wrapper .rating-text {
-  display: inline-block;
-  position: relative;
-  top: 19px;
-}
-.review-wrapper .progress {
-  max-width: 83%;
-  margin-left: 38px;
-  height: 12px;
-  background: #eeeeee;
-}
-.review-wrapper .progress .progress-bar {
-  background-color: #ffa41b;
-}
-.review-wrapper span.rating-value {
-  position: absolute;
-  right: 0;
-  top: 50%;
-}
+
 .edu-comment {
   display: flex;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+  width: 50vh;
+  margin-left: 70vh;
 }
+
 .edu-comment .thumbnail {
   min-width: 70px;
   width: 70px;
-  max-height: 70px;
+  height: 10px;
+  max-height: 90px;
   border-radius: 100%;
   margin-right: 25px;
+  margin-top: 20px;
 }
+
 .edu-comment .thumbnail img {
   border-radius: 100%;
   width: 100%;
 }
+
+.edu-comment .comment-content {
+  flex: 1;
+}
+
 .edu-comment .comment-content .comment-top {
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
 }
+
 .edu-comment .comment-content .title {
   font-weight: 700;
   font-size: 20px;
   line-height: 32px;
-  margin-bottom: 10px;
   margin-right: 15px;
 }
+
 .edu-comment .comment-content .subtitle {
   font-weight: 700;
   font-size: 16px;
@@ -351,9 +269,77 @@ h5,
   margin-bottom: 10px;
   color: #231f40;
 }
-.edu-comment + .edu-comment {
-  border-top: 1px solid #eeeeee;
-  padding-top: 30px;
+
+.edu-comment .comment-content p {
+  margin-top: 0;
+}
+
+
+.review-form {
   margin-top: 30px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  width: 50vh;
+  margin-left: 70vh;
+}
+
+.review-form form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.review-form .form-group {
+  margin-bottom: 15px;
+}
+
+.review-form label {
+  font-weight: 600;
+}
+
+.review-form input,
+.review-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.review-form button {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.review-form button:hover {
+  background-color: #2980b9;
+}
+.submit-button {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #2980b9;
+}
+
+.edu-comment .comment-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.edu-comment .comment-content .comment-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 </style>
