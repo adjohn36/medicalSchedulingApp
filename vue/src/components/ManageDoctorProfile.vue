@@ -172,6 +172,22 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  height: 150vh;
+  align-content: flex-start;
+  
+}
+.header {
+  background-color: #a1de81;
+  width: 100%;
+  padding: 0px 0;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
 .row {
   display: flex;
   align-items: center;

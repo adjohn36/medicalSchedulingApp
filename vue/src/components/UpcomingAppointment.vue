@@ -11,7 +11,11 @@
           <div class="welcome-title">
             <h1>Welcome to Your Doctor Portal</h1>
           </div>
-          <ul class="nav-links">
+          <ul class="nav-links"><li>
+              <router-link v-bind:to="{ name: 'upcoming-appointment' }"
+                >Home</router-link
+              >
+            </li>
             <li>
               <router-link v-bind:to="{ name: 'schedule-availability' }"
                 >Update My Availability</router-link
