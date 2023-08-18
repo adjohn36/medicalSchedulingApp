@@ -12,15 +12,15 @@
             <h1></h1>
           </div>
           <ul class="nav-links">
-            <li><router-link to="/doctor-portal">My Agenda</router-link></li>
+            <li><router-link to="/doctor-portal">Home</router-link></li>
             <li>
               <router-link to="/schedule-availability"
-                >Update My Availability</router-link
+                >My Availability</router-link
               >
             </li>
             <li>
               <router-link to="/update-office-info"
-                >Update Office Info</router-link
+                >My Office Info</router-link
               >
             </li>
             <li>
@@ -159,7 +159,7 @@ export default {
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   height: 150vh;
 }
