@@ -1,7 +1,42 @@
 <template>
+  <div class="container">
+    <div class="header">
+      <nav>
+        <div class="nav-content">
+          <div class="logo">
+            <a href="#">
+              <img src="../img/NavBarLogo.png" alt="Logo" />
+            </a>
+          </div>
+          <div class="welcome-title">
+            <h1></h1>
+          </div>
+          <ul class="nav-links">
+            <li><router-link to="/doctor-portal">Home</router-link></li>
+            <li>
+              <router-link to="/schedule-availability"
+                >My Availability</router-link
+              >
+            </li>
+            <li>
+              <router-link to="/update-office-info"
+                >My Office Info</router-link
+              >
+            </li>
+            <li>
+              <router-link v-bind:to="{ name: 'doctor-profile' }"
+                >My Doctor Profile</router-link
+              >
+            </li>
+            <li><router-link to="/reviews">My Reviews</router-link></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
   <div id="main">
     <form v-on:submit.prevent="updateAvailability" class="availability-form">
       <h1>Update Schedule</h1>
+      <br>
       <div class="select-container">
         <label for="selected-days">Select Day:</label>
         <select
@@ -43,6 +78,7 @@
       </div>
       <button type="submit" class="btn save">Save</button>
     </form>
+  </div>
   </div>
 </template>
 
@@ -125,16 +161,21 @@ export default {
 </script>
 
 <style>
-#main {
+.container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: start;
   align-items: center;
-  height: 100vh; /* Set the height to 100% of the viewport height */
+  height: 150vh;
 }
 
-.main-container {
+.header {
+  background-color: #a1de81;
   width: 100%;
-  max-width: 800px;
+  padding: 0px 0;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  border: 1px solid white
 }
 
 .availability-form {
@@ -144,6 +185,7 @@ export default {
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   margin-top: 20px;
+  width: 100vh;
 }
 
 .select-container {
@@ -186,6 +228,44 @@ export default {
 .btn.save:hover {
   background-color: #0056b3;
 }
+.nav-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.logo img {
+  display: block;
+}
+
+.welcome-title {
+  color: #0d1fe0;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+.nav-links li {
+  margin: 0 8px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #0e2431;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 10px 4px;
+  transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #4070f4;
+}
+
 </style>
 
 
