@@ -102,7 +102,7 @@ export default {
   flex-direction: column;
   justify-content: top;
   align-items: center;
-  height: 150vh;
+  height: 250vh;
 }
 
 .header {
