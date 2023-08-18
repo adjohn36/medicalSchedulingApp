@@ -143,7 +143,7 @@ export default {
       });
     },
     updateOffice() {
-      alert("hello");
+      // alert("hello");
       authService.updateOffice(this.doctorFacilityInfo).then((response) => {
         if (response.status == 200) {
           this.doctorFacilityInfo.push();
