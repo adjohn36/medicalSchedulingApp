@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="header">
-      <nav>
+      <nav v-show= isDoctor>
         <div class="nav-content">
           <div class="logo">
             <a href="#">
@@ -37,7 +37,7 @@
     </div>
     <div class="comment-wrapper pt--40">
       <div class="section-title">
-        <h5 class="mb--25">Reviews:</h5>
+        <h5 class="mb--25"></h5>
       </div>
       <div
         class="edu-comment"
@@ -53,20 +53,23 @@
         </div>
         <div class="comment-content">
           <div class="comment-top">
-            <h6 class="title">{{ review.reviewer }}</h6>
+            <h6 class="title">@username</h6>
             <div class="rating">
-              {{ generateStarRating(review.reviewRating) }}
+              Star Rating: {{ generateStarRating(review.reviewRating) }}
             </div>
           </div>
+          
           <span class="subtitle">{{ review.reviewTitle }}</span>
-          <p>{{ review.reviewContent }}</p>
-                  
+            <p>{{ review.reviewContent }}</p>
+                  <br>
           <button class="submit-button">Respond To Review</button>
         </div>
       </div>
 
-      <div class="review-form">
+<div v-show="isDoctor === false" >
+  <div class="review-form">
         <h5 class="mb--25">Write a Review:</h5>
+        <br>
         <form @submit.prevent="submitReview">
           <div class="form-group">
             <label>Rating:</label>
@@ -89,6 +92,7 @@
           </div>
           <button type="submit" class="btn btn-primary">Submit Review</button>
         </form>
+  </div>
       </div>
     </div>
   </div>
@@ -198,14 +202,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .container {
-  /* display: flex; */
-  justify-content: center;
+  display: flex;
+  justify-content: start;
   flex-direction: column;
   align-items: center;
   height: 150vh;
-  width: auto;
 }
 .header {
   background-color: #a1de81;
@@ -215,7 +218,14 @@ export default {
   border-radius: 5px;
 }
 .comment-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
   margin-top: 30px;
+  margin-right: 70vh;
+  min-width: 100vh; /* Set a minimum height to fill the screen */
+
 }
 
 .edu-comment {
@@ -224,7 +234,6 @@ export default {
   background-color: #f5f5f5;
   border-radius: 8px;
   margin-bottom: 20px;
-  align-items: flex-start;
   width: 50vh;
   margin-left: 70vh;
 }
@@ -236,7 +245,7 @@ export default {
   max-height: 90px;
   border-radius: 100%;
   margin-right: 25px;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 .edu-comment .thumbnail img {
@@ -261,6 +270,7 @@ export default {
   margin-right: 15px;
 }
 
+
 .edu-comment .comment-content .subtitle {
   font-weight: 700;
   font-size: 16px;
@@ -272,6 +282,7 @@ export default {
 
 .edu-comment .comment-content p {
   margin-top: 0;
+  font-style: italic;
 }
 
 

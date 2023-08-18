@@ -33,15 +33,16 @@
         </div>
       </nav>
     </div>
-    <div class="form-container">
+    <div class="office-form">
       <form id="profile-form" @submit.prevent="saveDoctorProfile">
-        <h1 class="page-title">Create Doctor Profile</h1>
+        <h1 class="page-title">Doctor Profile</h1>
+        <br>
         <div class="form-element">
           <label for="firstName">First Name:</label>
           <input
             id="firstName"
             type="text"
-            class="form-input"
+            class="form-element"
             v-model="doctor.doctorProfile.doctorFirstName"
           />
         </div>
@@ -178,64 +179,59 @@ export default {
   justify-content: start;
   align-items: center;
   height: 150vh;
-  align-content: flex-start;
-  
 }
+
 .header {
   background-color: #a1de81;
   width: 100%;
   padding: 0px 0;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-}
-.row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-.button {
-  text-align: center;
-}
-.form-container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 5px;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid white
 }
 
-.page-title {
-  font-size: 24px;
-  color: #4070f4;
-  margin-bottom: 20px;
+.office-form {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 100%;
+  max-width: 800px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin-top: 20px;
 }
 
 .form-element {
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
 }
 
-.form-input {
+.form-element label {
+  margin-right: 0.5rem;
+  font-weight: 600;
+}
+
+.form-element input {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
-.submit-button {
-  background-color: #4070f4;
-  color: #ffffff;
+button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  margin-top: 1rem;
 }
 
-.submit-button:hover {
-  background-color: #3358c9;
+button[type="submit"]:hover {
+  background-color: #0056b3;
 }
-
 .nav-content {
   display: flex;
   align-items: center;
@@ -274,17 +270,4 @@ export default {
   color: #4070f4;
 }
 
-.form-element {
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-}
-
-.form-element label {
-  margin-right: 10px;
-}
-
-.button {
-  text-align: center;
-}
 </style>
