@@ -62,9 +62,7 @@
           <span class="subtitle">{{ review.reviewTitle }}</span>
             <p>{{ review.reviewContent }}</p>
                   <br>
-                  <div v-show="isDoctor === false" >
           <button class="submit-button">Respond To Review</button>
-                  </div>
         </div>
       </div>
 
