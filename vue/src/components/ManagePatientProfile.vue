@@ -1,7 +1,31 @@
 <template>
-  <div>
-    <form id="patient-profile-form" @submit.prevent="savePatientProfile">
-      <h1>Create Patient Profile</h1>
+  <div class="container">
+     <div class="header">
+      <nav>
+        <div class="nav-content">
+          <div class="logo">
+            <a href="#">
+              <img src="../img/NavBarLogo.png" alt="Logo" />
+            </a>
+          </div>
+          <div class="welcome-title">
+            <h1>Manage Your Profile</h1>
+          </div>
+          <ul class="nav-links">
+            <li><router-link v-bind:to="{name:'view-available-doctors'}">Home</router-link></li>            
+            <li>
+              <router-link v-bind:to="{name:'book-appointment'}"
+                >Book An Appointment</router-link
+              >
+            </li>           
+            <!-- <li><router-link to="/reviews">My Reviews</router-link></li> -->
+          </ul> 
+        </div>
+      </nav>
+    </div>
+    <form id="patient-profile-form" @submit.prevent="savePatientProfile" class ="patient-profile-form">
+      <h1>Patient Profile</h1>
+      <br>
       <div class="form-element">
         <label for="firstName">First Name:</label>
         <input
@@ -142,5 +166,84 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+
+  .patient-profile-form {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 100%;
+  max-width: 800px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin-top: 20px;
+}
+.form-element {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.form-element label {
+  margin-right: 0.5rem;
+  font-weight: 600;
+}
+
+.form-element input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  height: 150vh;
+}
+
+.header {
+  background-color: #a1de81;
+  width: 100%;
+  padding: 0px 0;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  border: 1px solid white
+}
+
+.nav-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.logo img {
+  display: block;
+}
+
+.welcome-title {
+  color: #0d1fe0;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
 </style>
