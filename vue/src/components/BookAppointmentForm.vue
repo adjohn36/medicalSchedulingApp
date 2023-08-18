@@ -1,4 +1,6 @@
 <template>
+
+
   <div class="appointment-form">
     <div class="sblogo">
       <img src="../img/NavBarLogo.png" alt="sblogo" />

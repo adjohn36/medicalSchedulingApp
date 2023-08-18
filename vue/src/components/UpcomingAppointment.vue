@@ -39,6 +39,7 @@
     <div class="content">
       <h2 class="page-title">Upcoming Appointments</h2>
       <ul class="appointment-list">
+        <br>
         <li
           v-for="appointment in upcomingAppointments"
           :key="appointment.appointmentId"
@@ -49,12 +50,13 @@
               {{ appointment.patientFirstName }}
               {{ appointment.patientLastName }}
             </div>
+            <br>
             <div class="appointment-date">
               {{ formatDate(appointment.dateSelected) }}
             </div>
             <div class="appointment-time">{{ appointment.timeSlot }}</div>
           </div>
-          <!-- <button class="cancel-button" @click="cancelAppointment(appointment.id)">Cancel</button> -->
+          <button class="cancel-button" @click="cancelAppointment(appointment.id)">Cancel</button>
         </li>
       </ul>
     </div>
@@ -189,13 +191,21 @@ export default {
 }
 
 .cancel-button {
-  background-color: #ff6b6b;
-  color: white;
+  background-color: #007bff;
+  color: #fff;
   border: none;
-  padding: 5px 10px;
+  padding: 10px 20px;
+  border-radius: 5px;
   cursor: pointer;
+  margin-top: 1rem;
+  margin-right: 5vh;
+}
+
+.cancel-button hover {
+  background-color: #0056b3;
 }
 .welcome-title {
   color: #0d1fe0;
 }
+
 </style>

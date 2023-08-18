@@ -9,18 +9,21 @@
             </a>
           </div>
           <div class="welcome-title">
-            <h1></h1>
+            <h1>Welcome to Your Doctor Portal</h1>
           </div>
-          <ul class="nav-links">
-            <li><router-link to="/doctor-portal">Home</router-link></li>
+          <ul class="nav-links"><li>
+              <router-link v-bind:to="{ name: 'upcoming-appointment' }"
+                >Home</router-link
+              >
+            </li>
             <li>
-              <router-link to="/schedule-availability"
-                >My Availability</router-link
+              <router-link v-bind:to="{ name: 'schedule-availability' }"
+                >Update My Availability</router-link
               >
             </li>
             <li>
               <router-link to="/update-office-info"
-                >My Office Info</router-link
+                >Update Office Info</router-link
               >
             </li>
             <li>
@@ -35,7 +38,7 @@
     </div>
     <form v-on:submit.prevent="updateOffice" class="office-form">
       <h1>Update Office Information</h1>
-      <br>
+      <br />
       <office-info v-bind:doctorFacilityInfo="doctorFacilityInfo" />
       <div class="form-element">
         <label for="officeName">Facility Name:</label>
@@ -132,7 +135,7 @@ export default {
   },
   methods: {
     // getDoctorFacilityInfo, call updateOffice method
-  getDoctorFacilityInfo() {
+    getDoctorFacilityInfo() {
       authService.getOfficeDetail(0).then((response) => {
         if (response.status == 200) {
           this.doctorFacilityInfo = response.data;
@@ -155,11 +158,10 @@ export default {
 };
 </script>
 <style scoped>
-
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: top;
   align-items: center;
   height: 150vh;
 }
@@ -170,7 +172,7 @@ export default {
   padding: 0px 0;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  border: 1px solid white
+  border: 1px solid white;
 }
 
 .office-form {
@@ -252,5 +254,4 @@ button[type="submit"]:hover {
 .nav-links a:hover {
   color: #4070f4;
 }
-
 </style>
