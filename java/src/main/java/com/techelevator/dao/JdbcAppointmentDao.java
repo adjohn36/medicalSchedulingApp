@@ -34,7 +34,8 @@ public class JdbcAppointmentDao implements AppointmentDao {
                     " JOIN doctor_schedule ON appointment.doctor_schedule_id = doctor_schedule.doctor_schedule_id " +
                     " JOIN schedule ON doctor_schedule.schedule_id = schedule.schedule_id " +
                     " WHERE appointment.date_selected >= CURRENT_DATE " +
-                    " AND doctor_schedule.doctor_id =(SELECT doctor_id from doctor WHERE user_id =?)";
+                    " AND doctor_schedule.doctor_id =(SELECT doctor_id from doctor WHERE user_id =?) " +
+                    " ORDER BY appointment.date_selected, schedule.time_slot ASC;";
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
             while (results.next()) {
                 AppointmentResponseDto appointment = mapRowToAppointmentResponseDto(results);
