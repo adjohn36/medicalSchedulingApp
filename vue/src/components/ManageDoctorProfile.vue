@@ -195,7 +195,7 @@ export default {
   margin-bottom: 20px;
 }
 
-.form-input-group {
+.form-element {
   margin-bottom: 20px;
 }
 
